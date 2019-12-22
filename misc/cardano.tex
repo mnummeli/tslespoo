@@ -1,0 +1,58 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[finnish]{babel}
+\usepackage[pdftex,colorlinks]{hyperref}
+\begin{document}
+\title{Kolmannen ja neljännen asteen yhtälöt}
+\author{Mikko Nummelin}
+\maketitle
+\tableofcontents
+\section{Yleistä}
+Useimmat tietävät esimerkiksi kouluopetuksen perusteella, että toisen asteen polynomiyhtälöt on mahdollista ratkaista algebrallisesti neliöjuurilausekkeen avulla ja tämä kaava on ollut muodossa tai toisessa tunnettu jo antiikin Kreikassa. Myöhemmin kiinnostuttiin korkeamman asteen yhtälöiden ratkaisemisesta samantapaisin keinoin ja Scipione del Ferro pystyi osoittamaan 3. asteen yhtälöiden olevan algebrallisesti ratkeavia ja Lodovico Ferrari myös 4. asteen yhtälöidenkin olevan algebrallisesti ratkeavia. Gerolamo Cardano julkaisi sittemmin nämä kaavat, vaikkei keksinyt niitä itse. Viidennen asteen yhtälöitä yritettiin ratkoa algebrallisesti pari vuosisataa tuloksetta, kunnes Niels Henrik Abel todisti, ettei tällaista algebrallista ratkaisua pelkkien yhteen-, vähennys-, kerto- ja jakolaskujen avulla ole olemassa. Sittemmin Evariste Galois täydensi Abelin havaintoja ja kehitti myöhemmin nimeään kantavan Galoisn teorian, joka kertoo yksityiskohtaisesti, mitkä korkeamman asteen yhtälöt ovat algebrallisesti ratkeavia ja mitkä eivät. Tässä artikkelissa keskitytään 3. ja 4. asteen yhtälöiden ratkaisemiseen del Ferron, Ferrarin ja Cardanon kaavoin.
+\section{Polynomiyhtälön supistettu muoto}
+Mikä tahansa polynomiyhtälö, joka on tyyppiä
+$$
+a_n x^n+a_{n-1} x^{n-1}+\ldots+a_1 x+a_0 = 0
+$$
+voidaan supistaa etukertoimella jakamalla muotoon
+\begin{equation}
+  \label{supistettu1}
+x^n+\frac{a_{n-1}}{a_n} x^{n-1}+\ldots+\frac{a_1}{a_n} x+\frac{a_0}{a_n} = 0
+\end{equation}
+Vastaavasti näin supistettuun muotoon voidaan tehdä sijoitus
+$$
+x=z-\frac{a_{n-1}}{a_n n}
+$$
+jolloin saadaan polynomiyhtälö, josta puuttuu toiseksi korkein termi:
+\begin{equation}
+  \label{supistettu2}
+x^n+b_{n-2} x^{n-2}+\ldots+b_0 = 0
+\end{equation}
+Jäljempänä voidaan tarvittaessa olettaa, että yhtälöt ovat muodossa \ref{supistettu1} tai \ref{supistettu2}.
+\section{Toisen asteen yhtälöt}
+Kertauksen vuoksi käydään läpi, miten muodossa \ref{supistettu1} olevan toisen asteen yhtälön
+$$
+x^2+ax+b=0
+$$
+ratkaisukaava voidaan johtaa. Sijoitetaan ensin $x=z-\frac{a}{2}$, jolloin saadaan
+\begin{eqnarray*}
+  \left(z-\frac{a}{2}\right)^2+a\left(z-\frac{a}{2}\right)+b & = & 0 \\
+  z^2-az+\frac{a^2}{4}+az-\frac{a^2}{2}+b & = & 0 \\
+  z^2-\frac{a^2}{4}+b & = & 0 \\
+  z^2 & = & \frac{a^2}{4}-b \\
+  z & = & \pm\sqrt{\frac{a^2}{4}-b} \\
+  x & = & -\frac{a}{2}\pm\sqrt{\frac{a^2}{4}-b} \\
+  & = & \frac{-a\pm\sqrt{a^2-4b}}{2}.
+\end{eqnarray*}
+\section{Kolmannen asteen yhtälöt}
+Tarkastellaan muodossa \ref{supistettu1} olevaa kolmannen asteen yhtälöä
+$$
+x^3+ax^2+bx+c=0
+$$
+joka saadaan muotoon \ref{supistettu2} sijoittamalla $x=z-\frac{a}{3}$. Tällöin saadaan yhtälö
+$$
+z^3+pz+q=0
+$$
+jossa
+\end{document}
