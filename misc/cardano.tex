@@ -29,7 +29,7 @@ jolloin saadaan polynomiyhtälö, josta puuttuu toiseksi korkein termi:
   \label{supistettu2}
 x^n+b_{n-2} x^{n-2}+\ldots+b_0 = 0
 \end{equation}
-Jäljempänä voidaan tarvittaessa olettaa, että yhtälöt ovat muodossa \ref{supistettu1} tai \ref{supistettu2}.
+Jäljempänä voidaan tarvittaessa olettaa, että yhtälöt ovat muodossa \ref{supistettu1} tai \ref{supistettu2}. Koska toiseksi korkein termi on polynomiyhtälön juurten summan vastaluku, muodossa \ref{supistettu2} olevan yhtälön juurten summa on 0.
 \section{Toisen asteen yhtälöt}
 Kertauksen vuoksi käydään läpi, miten muodossa \ref{supistettu1} olevan toisen asteen yhtälön
 $$
@@ -51,8 +51,59 @@ $$
 x^3+ax^2+bx+c=0
 $$
 joka saadaan muotoon \ref{supistettu2} sijoittamalla $x=z-\frac{a}{3}$. Tällöin saadaan yhtälö
-$$
+\begin{equation}
+\label{supkolmannenasteen}
 z^3+pz+q=0
-$$
+\end{equation}
 jossa
+$$
+\left\{
+\begin{array}{ccc}
+  p & = & -\frac{a^2}{3}+b \\
+  q & = & \frac{2a^3}{27}-\frac{ab}{3}+c
+\end{array}
+\right.
+$$
+Yhtälössä \ref{supkolmannenasteen} toiseksi korkeimman termin kerroin on 0, joten juurien $z_1$, $z_2$ ja $z_3$ summa on 0. Jos käytetään hyväksi kolmatta yksikönjuurta:
+$$
+\omega=-\frac{1+\sqrt{3}\hat\imath}{2}
+$$
+voidaan osoittaa, että pätee mm.
+\begin{eqnarray*}
+  \omega^3 & = & 1 \\
+  \omega\overline{\omega} & = & 1 \\
+  \omega+\overline{\omega} & = & -1
+\end{eqnarray*}
+ja yhtälön \ref{supkolmannenasteen} juuret voidaan kirjoittaa muuttujien $u$ ja $v$ symmetrisinä lausekkeina seuraavasti:
+$$
+\left\{
+\begin{array}{ccc}
+  z_1 & = & u+v \\
+  z_2 & = & \omega u+\overline{\omega} v \\
+  z_3 & = & \overline{\omega} u+\omega v
+\end{array}
+\right.
+$$
+Laskemalla
+$$
+(z-z_1)(z-z_2)(z-z_3)=z^3-3uvz-u^3-v^3
+$$
+saadaan yhtälöpari:
+$$
+\left\{
+\begin{array}{ccc}
+  -\frac{p}{3} & = & uv \\
+  q & = & -u^3-v^3
+\end{array}
+\right.
+$$
+Toisaalta, koska
+$$
+(z-u^3)(z-v^3)=z^2-(u^3+v^3)z+u^3 v^3
+$$
+voidaan päätellä, että $u$ ja $v$ ovat toisen asteen \emph{resolventtiyhtälön}
+$$
+z^2+qz-\left(\frac{p}{3}\right)^3=0
+$$
+juuret.
 \end{document}
