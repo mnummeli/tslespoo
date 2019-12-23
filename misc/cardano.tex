@@ -101,9 +101,48 @@ Toisaalta, koska
 $$
 (z-u^3)(z-v^3)=z^2-(u^3+v^3)z+u^3 v^3
 $$
-voidaan päätellä, että $u$ ja $v$ ovat toisen asteen \emph{resolventtiyhtälön}
+voidaan päätellä, että $u^3$ ja $v^3$ ovat toisen asteen \emph{resolventtiyhtälön}
 $$
 z^2+qz-\left(\frac{p}{3}\right)^3=0
+$$
+juuret.
+\section{Neljännen asteen yhtälöt}
+Tarkastellaan supistetussa muodossa olevaa neljännen asteen yhtälöä
+$$
+z^4+pz^2+qz+r=0
+$$
+ja kirjoitetaan juuret kolmen muuttujan symmetrisinä lausekkeina seuraavasti:
+$$
+\left\{
+\begin{array}{ccc}
+  z_1 & = & u+v+w \\
+  z_2 & = & u-v-w \\
+  z_3 & = & -u+v-w \\
+  z_4 & = & -u-v+w
+\end{array}
+\right.
+$$
+Tässä on siis valittu kahdeksasta mahdollisesta $u$:n, $v$:n ja $w$:n summien merkkiyhdistelmistä ne neljä, joissa $-$-merkkien määrä on parillinen. Juurien summa on $0$, joten näiden avulla kehitetty 4. asteen yhtälö on supistetussa muodossa:
+$$
+(z-z_1)(z-z_2)(z-z_3)(z-z_4)=z^4-2(u^2+v^2+w^2)z^2-8uvwz+u^4+v^4+w^4-2(u^2 v^2+u^2 w^2+v^2 w^2)=0
+$$
+eli
+$$
+\left\{
+\begin{array}{ccc}
+  p & = & -2(u^2+v^2+w^2) \\
+  q & = & -8uvw \\
+  r & = & u^4+v^4+w^4-2(u^2 v^2+u^2 w^2+v^2 w^2)
+\end{array}
+\right.
+$$
+Tarkastellaan sitten kolmannen asteen yhtälöä
+$$
+(z-u^2)(z-v^2)(z-w^2)=z^3-(u^2+v^2+w^2)z^2+(u^2 v^2+u^2 w^2+v^2 w^2)z-u^2 v^2 w^2=0
+$$
+jolloin havaitaan, että $u^2$, $v^2$ ja $w^2$ ovat kolmannen asteen resolventtiyhtälön
+$$
+z^3+\frac{p}{2}z^2+...+\left(\frac{q}{8}\right)^2
 $$
 juuret.
 \end{document}
