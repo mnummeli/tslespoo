@@ -75,7 +75,8 @@ voidaan osoittaa, että pätee mm.
   \omega+\overline{\omega} & = & -1
 \end{eqnarray*}
 ja yhtälön \ref{supkolmannenasteen} juuret voidaan kirjoittaa muuttujien $u$ ja $v$ symmetrisinä lausekkeina seuraavasti:
-$$
+\begin{equation}
+  \label{kolmjuuret}
 \left\{
 \begin{array}{ccc}
   z_1 & = & u+v \\
@@ -83,7 +84,7 @@ $$
   z_3 & = & \overline{\omega} u+\omega v
 \end{array}
 \right.
-$$
+\end{equation}
 Laskemalla
 $$
 (z-z_1)(z-z_2)(z-z_3)=z^3-3uvz-u^3-v^3
@@ -102,10 +103,28 @@ $$
 (z-u^3)(z-v^3)=z^2-(u^3+v^3)z+u^3 v^3
 $$
 voidaan päätellä, että $u^3$ ja $v^3$ ovat toisen asteen \emph{resolventtiyhtälön}
-$$
+\begin{equation}
+  \label{kolmresolventti}
 z^2+qz-\left(\frac{p}{3}\right)^3=0
-$$
+\end{equation}
 juuret.
+\subsection{Vaihtoehtoinen tapa}
+Koska ei ole välttämättä ilmeistä, että kaikkien juurten muoto ilmenisi yhtälöryhmästä \ref{kolmjuuret}, voidaan olettaa aluksi vain, että $z=u+v$ ja laskea auki:
+\begin{eqnarray*}
+  (u+v)^3+p(u+v)+q & = & u^3+3u^2 v+3uv^2+v^3+p(u+v)+q \\
+  & = & (u^3+v^3+q) + (3uv+p)(u+v) \\
+  & = & 0
+\end{eqnarray*}
+joka toteutuu kun
+$$
+\left\{
+\begin{array}{ccc}
+  u^3+v^3+q & = & 0 \\
+  3uv+p & = 0
+\end{array}
+\right.
+$$
+Tämä johtaa samaan resolventtiyhtälöön \ref{kolmresolventti} muuttujien $u^3$ ja $v^3$ osalta.
 \section{Neljännen asteen yhtälöt}
 Tarkastellaan supistetussa muodossa olevaa neljännen asteen yhtälöä
 $$
@@ -123,9 +142,10 @@ $$
 \right.
 $$
 Tässä on siis valittu kahdeksasta mahdollisesta $u$:n, $v$:n ja $w$:n summien merkkiyhdistelmistä ne neljä, joissa $-$-merkkien määrä on parillinen. Juurien summa on $0$, joten näiden avulla kehitetty 4. asteen yhtälö on supistetussa muodossa:
-$$
-(z-z_1)(z-z_2)(z-z_3)(z-z_4)=z^4-2(u^2+v^2+w^2)z^2-8uvwz+u^4+v^4+w^4-2(u^2 v^2+u^2 w^2+v^2 w^2)=0
-$$
+\begin{eqnarray*}
+  (z-z_1)(z-z_2)(z-z_3)(z-z_4) & = & \\
+  z^4-2(u^2+v^2+w^2)z^2-8uvwz+u^4+v^4+w^4-2(u^2 v^2+u^2 w^2+v^2 w^2) & = & 0
+\end{eqnarray*}
 eli
 $$
 \left\{
@@ -142,7 +162,7 @@ $$
 $$
 jolloin havaitaan, että $u^2$, $v^2$ ja $w^2$ ovat kolmannen asteen resolventtiyhtälön
 $$
-z^3+\frac{p}{2}z^2+\left(\left(\frac{p}{4}\right)^2-\frac{r}{4}\right)+\left(\frac{q}{8}\right)^2
+z^3+\frac{p}{2}z^2+\left(\left(\frac{p}{4}\right)^2-\frac{r}{4}\right)z+\left(\frac{q}{8}\right)^2=0
 $$
 juuret.
 \end{document}
