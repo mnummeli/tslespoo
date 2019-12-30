@@ -131,7 +131,8 @@ $$
 z^4+pz^2+qz+r=0
 $$
 ja kirjoitetaan juuret kolmen muuttujan symmetrisinä lausekkeina seuraavasti:
-$$
+\begin{equation}
+  \label{neljannenjuuret}
 \left\{
 \begin{array}{ccc}
   z_1 & = & u+v+w \\
@@ -140,11 +141,12 @@ $$
   z_4 & = & -u-v+w
 \end{array}
 \right.
-$$
+\end{equation}
 Tässä on siis valittu kahdeksasta mahdollisesta $u$:n, $v$:n ja $w$:n summien merkkiyhdistelmistä ne neljä, joissa $-$-merkkien määrä on parillinen. Juurien summa on $0$, joten näiden avulla kehitetty 4. asteen yhtälö on supistetussa muodossa:
 \begin{eqnarray*}
   (z-z_1)(z-z_2)(z-z_3)(z-z_4) & = & \\
-  z^4-2(u^2+v^2+w^2)z^2-8uvwz+u^4+v^4+w^4-2(u^2 v^2+u^2 w^2+v^2 w^2) & = & 0
+  z^4-2(u^2+v^2+w^2)z^2-8uvwz+\ldots \\
+  u^4+v^4+w^4-2(u^2 v^2+u^2 w^2+v^2 w^2) & = & 0
 \end{eqnarray*}
 eli
 $$
@@ -157,12 +159,56 @@ $$
 \right.
 $$
 Tarkastellaan sitten kolmannen asteen yhtälöä
-$$
-(z-u^2)(z-v^2)(z-w^2)=z^3-(u^2+v^2+w^2)z^2+(u^2 v^2+u^2 w^2+v^2 w^2)z-u^2 v^2 w^2=0
-$$
-jolloin havaitaan, että $u^2$, $v^2$ ja $w^2$ ovat kolmannen asteen resolventtiyhtälön
-$$
+\begin{eqnarray*}
+  (z-u^2)(z-v^2)(z-w^2) & = & \\
+  z^3-(u^2+v^2+w^2)z^2+(u^2 v^2+u^2 w^2+v^2 w^2)z-u^2 v^2 w^2 & = & 0
+\end{eqnarray*}
+jolloin havaitaan, että $u^2$, $v^2$ ja $w^2$ ovat kolmannen asteen \emph{resolventtiyhtälön}
+\begin{equation}
+  \label{kolmannenasteenresolventti}
 z^3+\frac{p}{2}z^2+\left(\left(\frac{p}{4}\right)^2-\frac{r}{4}\right)z+\left(\frac{q}{8}\right)^2=0
-$$
+\end{equation}
 juuret.
+\subsection{Vaihtoehtoisia tapoja}
+Koska ei välttämättä ole ilmeistä, että kaikki neljännen asteen yhtälön juuret voitaisiin esittää muodossa \ref{neljannenjuuret} (jos asiaa ei etukäteen tiedä), on olemassa vaihtoehtoisia tapoja käsitellä neljännen asteen yhtälöitä. Eräs tapa on tutkia kolmannen asteen yhtälöä, jonka juuret ovat
+$$
+\left\{
+\begin{array}{ccc}
+  t_1 & = & (z_1+z_2)(z_3+z_4) \\
+  t_2 & = & (z_1+z_3)(z_2+z_4) \\
+  t_3 & = & (z_1+z_4)(z_2+z_3)
+\end{array}
+\right.
+$$
+ja jos nyt $\sum z_k=0$, niin yhtälöryhmä saa muodon:
+$$
+\left\{
+\begin{array}{ccc}
+  t_1 & = & -(z_1+z_2)^2 \\
+  t_2 & = & -(z_1+z_3)^2 \\
+  t_3 & = & -(z_2+z_3)^2
+\end{array}
+\right.
+$$
+eli
+$$
+\left\{
+\begin{array}{ccc}
+  z_1+z_2 & = & \sqrt{-t_1} \\
+  z_1+z_3 & = & \sqrt{-t_2} \\
+  z_2+z_3 & = & \sqrt{-t_3}
+\end{array}
+\right.
+$$
+jonka ratkaisu
+$$
+\left\{
+\begin{array}{ccc}
+  z_1 & = & \frac{\sqrt{-t_1}+\sqrt{-t_2}-\sqrt{-t_3}}{2} \\
+  z_2 & = & \frac{\sqrt{-t_1}-\sqrt{-t_2}+\sqrt{-t_3}}{2} \\
+  z_3 & = & \frac{-\sqrt{-t_1}+\sqrt{-t_2}+\sqrt{-t_3}}{2}
+\end{array}
+\right.
+$$
+kun huomioidaan lisäksi, että $z_4=-(\sqrt{-t_1}+\sqrt{-t_2}+\sqrt{-t_3})/2$, on merkkejä ja kertoimia lukuunottamatta olennaisesti symmetrinen kaavojen \ref{neljannenjuuret} kanssa ja johtaa samaan kolmannen asteen resolventtiyhtälöön \ref{kolmannenasteenresolventti}.
 \end{document}
