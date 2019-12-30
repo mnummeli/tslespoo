@@ -105,7 +105,7 @@ $$
 voidaan päätellä, että $u^3$ ja $v^3$ ovat toisen asteen \emph{resolventtiyhtälön}
 \begin{equation}
   \label{kolmresolventti}
-z^2+qz-\left(\frac{p}{3}\right)^3=0
+t^2+qt-\left(\frac{p}{3}\right)^3=0
 \end{equation}
 juuret.
 \subsection{Vaihtoehtoinen tapa}
@@ -166,10 +166,11 @@ Tarkastellaan sitten kolmannen asteen yhtälöä
 jolloin havaitaan, että $u^2$, $v^2$ ja $w^2$ ovat kolmannen asteen \emph{resolventtiyhtälön}
 \begin{equation}
   \label{kolmannenasteenresolventti}
-z^3+\frac{p}{2}z^2+\left(\left(\frac{p}{4}\right)^2-\frac{r}{4}\right)z+\left(\frac{q}{8}\right)^2=0
+t^3+\frac{p}{2}t^2+\left(\left(\frac{p}{4}\right)^2-\frac{r}{4}\right)t+\left(\frac{q}{8}\right)^2=0
 \end{equation}
 juuret.
 \subsection{Vaihtoehtoisia tapoja}
+\subsubsection{Juurten symmetriset polynomit}
 Koska ei välttämättä ole ilmeistä, että kaikki neljännen asteen yhtälön juuret voitaisiin esittää muodossa \ref{neljannenjuuret} (jos asiaa ei etukäteen tiedä), on olemassa vaihtoehtoisia tapoja käsitellä neljännen asteen yhtälöitä. Eräs tapa on tutkia kolmannen asteen yhtälöä, jonka juuret ovat
 $$
 \left\{
@@ -211,4 +212,19 @@ $$
 \right.
 $$
 kun huomioidaan lisäksi, että $z_4=-(\sqrt{-t_1}+\sqrt{-t_2}+\sqrt{-t_3})/2$, on merkkejä ja kertoimia lukuunottamatta olennaisesti symmetrinen kaavojen \ref{neljannenjuuret} kanssa ja johtaa samaan kolmannen asteen resolventtiyhtälöön \ref{kolmannenasteenresolventti}.
+\subsubsection{Neliöiksi täydentäminen}
+Seuraava tapa on todennäköisesti ollut lähellä Ferrarin alkuperäistä menetelmää neljännen asteen yhtälön ratkaisemiseksi ja perustuu siihen, että yhtälön molemmat puolet täydennetään neliöiksi. Koska $P^2-Q^2=(P+Q)(P-Q)$, saadaan yhtälölle $P^2=Q^2$ ratkaisut yhtälöistä $P=\pm Q$. Lisätään termejä ja siirretään puolelta toiselle:
+\begin{eqnarray*}
+  z^4+pz^2+qz+r & = & 0 \\
+  z^4+2\kappa z^2+\kappa^2 & = & (2\kappa-p) z^2-qz+\kappa^2-r \\
+  \left(z^2+\kappa\right)^2 & = & \left(2\kappa-p\right)\left(z^2-\frac{q}{2\kappa -p}z+\frac{\kappa^2-r}{2\kappa -p}\right)
+\end{eqnarray*}
+Oikealla puolella oleva lauseke on neliö, mikäli
+\begin{eqnarray*}
+  \frac{q}{2\kappa -p} & = & 2\sqrt{\frac{\kappa^2-r}{2\kappa -p}} \\
+  \frac{q^2}{(2\kappa -p)^2} & = & \frac{4\kappa^2-4r}{2\kappa -p} \\
+  \frac{q^2}{2\kappa -p} & = & 4\kappa^2-4r \\
+  (4\kappa^2-4r)(2\kappa -p)-q^2 & = 0
+\end{eqnarray*}
+mikä on jälleen 3. asteen resolventtiyhtälö muuttujan $\kappa$ suhteen.
 \end{document}
