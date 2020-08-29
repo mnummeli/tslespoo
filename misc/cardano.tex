@@ -143,11 +143,12 @@ ja kirjoitetaan juuret kolmen muuttujan symmetrisinä lausekkeina seuraavasti:
 \right.
 \end{equation}
 Tässä on siis valittu kahdeksasta mahdollisesta $u$:n, $v$:n ja $w$:n summien merkkiyhdistelmistä ne neljä, joissa $-$-merkkien määrä on parillinen. Juurien summa on $0$, joten näiden avulla kehitetty 4. asteen yhtälö on supistetussa muodossa:
-\begin{eqnarray*}
+\begin{eqnarray}
+  \label{neljannensupistettu}
   (z-z_1)(z-z_2)(z-z_3)(z-z_4) & = & \\
   z^4-2(u^2+v^2+w^2)z^2-8uvwz+\ldots \\
   u^4+v^4+w^4-2(u^2 v^2+u^2 w^2+v^2 w^2) & = & 0
-\end{eqnarray*}
+\end{eqnarray}
 eli
 $$
 \left\{
@@ -227,6 +228,30 @@ Oikealla puolella oleva lauseke on neliö, mikäli
   (4\kappa^2-4r)(2\kappa -p)-q^2 & = 0
 \end{eqnarray*}
 mikä on jälleen 3. asteen resolventtiyhtälö muuttujan $\kappa$ suhteen.
+\subsubsection{Edellisten ratkaisutapojen välinen yhteys}
+Palataan kaavaan \ref{neljannensupistettu} ja määritellään:
+\begin{eqnarray*}
+  E_1 & = & (z-u-v-w)(z-u+v+w) \\
+  E_2 & = & (z+u-v+w)(z+u+v-w)
+\end{eqnarray*}
+Ratkaistaan nyt $P$ ja $Q$ yhtälöparista:
+$$
+  \left\{
+  \begin{array}{ccc}
+    P+Q & = & E_2 \\
+    P-Q & = & E_1
+  \end{array}
+  \right.
+$$
+jolloin saadaan
+$$
+  \left\{
+  \begin{array}{ccc}
+    P & = & z^2+u^2-v^2-w^2 \\
+    Q & = & 2uz+2vw
+  \end{array}
+  \right.
+$$
 \begin{thebibliography}{99}
 \bibitem{Wei1} Weisstein, Eric W. "Cubic Formula." From MathWorld--A Wolfram Web Resource. http://mathworld.wolfram.com/CubicFormula.html
 \bibitem{Wei2} Weisstein, Eric W. "Quartic Equation." From MathWorld--A Wolfram Web Resource. http://mathworld.wolfram.com/QuarticEquation.html
