@@ -20,8 +20,12 @@ Tämä on Työväen Sivistysliiton Espoon ja Kauniaisten opintojärjestön
 kurssimateriaali ohjelmoinnin perusteisiin Javascriptin Node.js-murteella.
 Kurssin tarkoitus on tutustuttaa oppilaat ohjelmoinnin perusrakenteisiin
 kuten alkeellisiin matemaattisiin laskutoimituksiin, syötteeseen ja
-tulosteisiin sekä ehtolauseisiin ja silmukoihin. Kurssilla on joitakin
-harjoitustehtäviä ja esimerkkejä.
+tulosteisiin sekä ehtolauseisiin, silmukoihin, moduuleihin ja tietovuon
+käsitteeseen. Kurssilla on joitakin harjoitustehtäviä ja esimerkkejä.
+
+*Kurssi toimii myös valmentavana materiaalina opiskelijoille, jotka aikovat
+hakea työharjoittelupaikkaa Javascript-projekteissa tietotekniikan alan
+yrityksissä!*
 
 ## Historiaa (mikä on Javascript ja mikä on Node.js?)
 
@@ -904,6 +908,10 @@ Kurssin suoritettuasi olet oppinut Node.js:n ja Javascriptin tärkeitä perustei
 Kuten kaikissa oppimisprosesseissa, tie ammattilaismaiseen osaamiseen on pitkä, mutta tärkeintä on päästä alkuun, saada kiinnostus heräämään ja kokea saavansa aikaan hyödyllisiä aikaansaannoksia itse. Verkko on pullollaan Javascriptin ja Node.js:n jatko-opiskeluun tarvittavia resursseja. Jos olet erityisen kiinnostunut Node.js:stä, seuraavaksi todennäköisesti haluat oppia *moduulit*, *vuot* (Event streams) ja lisää dynaamisesta ohjelmoinnista. Jossakin vaiheessa kiinnostunet myös Javascriptistä *verkkosivujen kehittämisessä*, jolloin on tärkeää oppia HTML, dokumenttipuu (document object model), CSS (tyylitiedostot) ja Javascript-käskyt, joilla näitä muokataan. Browserify on ohjelmisto, joka auttaa muokkaamaan Node.js-projekteja verkkosivuilla suoraan käytettäviksi.
 
 Onnea opiskeluun!
+
+### Lisätietoa
+
+* https://nodeschool.io/fi/#workshopper-list
 
 [tsl-logo]: kuvat/tsl-logo.png
 [mswindows]: kuvat/mswindows.jpg
