@@ -727,6 +727,115 @@ Muokkaa yllä olevaa ohjelmaa niin, että myös negatiiviset luvut otetaan mukaa
 
 Node.js:n käyttäjäkunta on laaja ja laajenee koko ajan ja harvoin tarvitsee keksiä kaikkia tarvitsemiansa asioita alusta asti itse. `npm` on Node.js:n mukana asentunut ohjelma, joka on lyhenne termistä "Node package manager". Sen avulla voidaan perustaa *Node.js-projekti* ja määritellä, *mitä verkosta asennettavia ylimääräisiä paketteja se tarvitsee*. Seuraavassa esimerkissämme luomme projektin, asennamme `express`-verkkosivupalvelimen ja teemme sille hyvin yksinkertaisen verkkosivun, joka kertoo palvelimen nimen, päivämäärän ja kellonajan.
 
+Aloitetaan luomalla projektihakemisto ja sinne `npm`:n konfiguraatiotiedosto `package.json`.
+```bash
+$ mkdir express_esimerkki
+$ cd express_esimerkki
+$ npm init -y
+```
+Editoidaan luodun `package.json`-tiedoston sisältö seuraavanlaiseksi:
+```json
+{
+    "name": "express_esimerkki",
+    "version": "0.0.1",
+    "description": "TSL:n Express-esimerkki",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": ["TSL", "express"],
+    "author": "TSL:n Espoon ja Kauniaisten opintojärjestö",
+    "repository": "http://github.com/mnummeli/tslespoo.git",
+    "license": "ISC"
+}
+```
+Suljetaan editori ja asennetaan `express` ja `date-format`:
+```bash
+$ npm install --save express date-format
+```
+Tämän jälkeen `package.json`:in sisällön tulisi näyttää seuraavalta:
+```json
+{
+    "name": "express_esimerkki",
+    "version": "0.0.1",
+    "description": "TSL:n Express-esimerkki",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": ["TSL", "express"],
+    "author": "TSL:n Espoon ja Kauniaisten opintojärjestö",
+    "repository": "http://github.com/mnummeli/tslespoo.git",
+    "license": "ISC",
+    "dependencies": {
+        "date-format": "^3.0.0",
+        "express": "^4.17.1"
+    }
+}
+```
+Hakemistoon on myös ilmestynyt uusi alihakemisto `node_modules/`. Siellä sijaitsevat verkosta ladatut apupaketit, jotka yleensä saa aina verkosta uudelleenkin ajamalla `npm install`, joten tehdään tiedosto `.gitignore`, jossa kielletään `node_modules/`:in päätyminen versionhallintaan ja siten säästetään versionhallinnassa tilaa. `.gitignore`:n sisällöksi tulee seuraava:
+```
+**/*~
+node_modules/
+```
+Tämän jälkeen kirjoitetaan itse palvelimen ohjelmakoodi:
+
+#### `server.js`
+```javascript
+#!/usr/bin/env node
+
+'use strict';
+
+const app = require('express')();
+const format = require('date-format');
+const os = require('os');
+
+app.use((req, res) => {
+    const ts = new Date();
+    res.json({
+        'Palvelimen nimi': os.hostname(),
+        'Metodi': req.method,
+        'Polku': req.path,
+        'Päivämäärä': format('dd.MM.yyyy', ts),
+        'Kellonaika': format('hh:mm:ss', ts)
+    });
+});
+
+app.listen(3000);
+```
+
+lisätään `package.json`:iin skripti `start`:
+```json
+"scripts": {
+        "start": "node ./server.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+```
+ja tämän jälkeen palvelin on ajettavissa käskyllä:
+```bash
+$ npm start
+```
+Kun sen jälkeen menee verkkoselaimella osoitteeseen http://localhost:3000/tslespoo , pitäisi lopputuloksen näyttää suunnilleen tältä:
+```json
+{"Palvelimen nimi":"<KONEESI VERKKONIMI>","Metodi":"GET","Polku":"/tslespoo","Päivämäärä":"12.10.2020","Kellonaika":"20:01:25"}
+```
+Jos olet kopioinut kurssimateriaalin GitHub:ista koneellesi, valmiit koodit ovat projektin alihakemistossa `/kurssit/node_js_perusteet/express_esimerkki`
+
+#### Lisätietoa
+
+Lisätietoa nyt käytetyistä apupaketeista löytyy seuraavista osoitteista:
+
+* https://expressjs.com/
+* https://www.npmjs.com/package/date-format
+
+### Tehtävä 6.2. (Vaativa tehtävä: GET ja POST)
+
+Tutustu Expressin dokumentaatioon ja muunna palvelin sellaiseksi, että jos annetaan GET-pyyntö (yllä oleva `req.method` on `GET`), annetaan sama lopputulos kuin aiemminkin, mutta jos annetaan POST-pyyntö, palvelin sammutetaan `process.exit(0)`-käskyllä.
+
+### Tehtävä 6.3. (Vaativa tehtävä: useita polkuja)
+
+Muunna palvelinta niin, että polusta `/nimi` annetaan vain palvelimen nimi ja polusta `/metodi` vain verkkopyynnön metodi. Muita toiminnallisuuksia palvelimessa ei tarvitse olla.
+
 ### Omat moduulit
 
 ## Yhteenveto
