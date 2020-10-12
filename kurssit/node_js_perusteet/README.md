@@ -10,7 +10,7 @@
 
 # Ohjelmoinnin perusteet Node.js -Javascriptillä
 
-&copy; 2018, Mikko Nummelin
+&copy; 2018-2020, Mikko Nummelin
 
 ![Työväen sivistysliiton logo][tsl-logo]
 
@@ -664,6 +664,70 @@ $ node risteja.js 4
 ####
 ####
 ```
+
+## 6. OPPITUNTI: Moduulit ja tietovuot (EventStream)
+
+Jos ohjelmistoprojektit ovat laajoja, ei kaikkea ohjelmakoodia kannata kirjoittaa samaan tiedostoon, vaan ohjelma kannattaa jakaa erikseen *moduuleiksi*. Moduuleista on myös muita hyötyjä, kuten mahdollisuus käyttää sisäänrakennettuja kirjastoja (systeemimoduulit), ulkoisia kirjastoja verkosta tai laatia omia moduuleita. Moduuleita voi myös käyttää uudelleen eri ohjelmissa. Oli moduuli millainen tahansa, se otetaan käyttöön sijoittamalla moduulin arvo muuttujaan, esimerkiksi:
+
+```
+const util = require('./util.js');
+```
+
+### Systeemimoduulit
+
+Tähän mennessä olemme käsitelleet syötettä komentoriviltä. Teemme kuitenkin nyt ohjelman, joka lukee syötteitä kysymällä peräjälkeen positiivisia lukuja ja kun käyttäjä syöttää luvun `-1`, käsittely loppuu ja ruudulle tulostetaan siihen mennessä annettujen lukujen summa. Tätä varten otetaan käyttöön Node.js:n sisäänrakennettu `readline`-moduuli seuraavasti:
+
+```
+#!/usr/bin/env node
+
+/* global process */
+
+'use strict';
+
+const readline = require('readline');
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+let sum = 0;
+
+// rl on tietovuo, josta kuuntelemme tapahtumia line ja close
+rl.on('line', line => {
+    // Yritetään muuntaa syöte merkkijonosta desimaaliluvuksi
+    const num = parseInt(line, 10);
+    if (num < 0) {
+        // Jos on syötetty negatiivinen luku, suljemme vuon
+        rl.close();
+    } else if (num >= 0) {
+        // Ei-negatiiviset luvut lisätään summaan, muut kuin numerot hylätään
+        sum += num;
+    }
+}).on('close', () => {
+    // Sulkemisen jälkeen suoritetaan tämä koodilohko
+    console.log(`Syöttämiesi lukujen summa on: ${sum}`);
+});
+```
+
+Huomaa, että edellisessä esimerkissä tuli uutena asiana myös *tietovuo*, joka on tavanomainen käsite Node.js-ohjelmoinnissa. Tietovuota käytetään niin, että se luodaan ja *kuunnellaan* sen eri tapahtumia, tässä tapauksessa *line*-tapahtumaa, joka aktivoituu kun on syötetty rivi ja *close*-tapahtumaa, kun tietovuo on sulkeutumassa. Esimerkissä tietovuolle annetaan myös sopivassa tilanteessa sulkemiskäsky `close()`.
+
+#### Lisätietoa
+
+Lisätietoa löytyy osoitteista:
+
+* https://nodejs.org/dist/latest-v12.x/docs/api/modules.html
+* https://nodejs.org/dist/latest-v12.x/docs/api/readline.html
+* https://nodejs.org/dist/latest-v12.x/docs/api/stream.html
+
+### Tehtävä 6.1. (Myös negatiiviset luvut mukaan summaan)
+
+Muokkaa yllä olevaa ohjelmaa niin, että myös negatiiviset luvut otetaan mukaan summaan ja summa tulostetaan kun on syötetty jotakin muuta kuin numero, esimerkiksi kirjaimia.
+
+### `npm`:n avulla verkosta asennettavat moduulit
+
+Node.js:n käyttäjäkunta on laaja ja laajenee koko ajan ja harvoin tarvitsee keksiä kaikkia tarvitsemiansa asioita alusta asti itse. `npm` on Node.js:n mukana asentunut ohjelma, joka on lyhenne termistä "Node package manager". Sen avulla voidaan perustaa *Node.js-projekti* ja määritellä, *mitä verkosta asennettavia ylimääräisiä paketteja se tarvitsee*. Seuraavassa esimerkissämme luomme projektin, asennamme `express`-verkkosivupalvelimen ja teemme sille hyvin yksinkertaisen verkkosivun, joka kertoo palvelimen nimen, päivämäärän ja kellonajan.
+
+### Omat moduulit
 
 ## Yhteenveto
 
