@@ -838,6 +838,65 @@ Muunna palvelinta niin, että polusta `/nimi` annetaan vain palvelimen nimi ja p
 
 ### Omat moduulit
 
+Omien moduulien luominen on tärkeä taito, koska juuri sillä tavoin on mahdollista jakaa oma ohjelmakoodi useaan tiedostoon ja käyttää samaa koodia uudelleen. Tehdään yksinkertainen moduuli, joka toteuttaa kompleksilukujen kerto- ja jakolaskun. Kompleksiluvut ovat matematiikassa reaalilukujen pareja, joilla on tietyt laskusäännöt. Ne keksittiin kun algebrassa tuli tarve käsitellä negatiivisten lukujen neliöjuuria, jolloin määriteltiin *imaginaariyksikkö* *i*, jolla on ominaisuus: *i* * *i* == -1. Kompleksiluvussa *x* + *iy* on reaali- ja imaginaariosat *x* ja *y* ja näillä voidaan laskea hyödyntäen *i*:n ominaisuutta vaikkapa seuraavasti (1 + *i*)(1 + *i*) = 1 * 1 + 1 * *i* + *i* * 1 + *i* * *i* == 1 + *i* + *i* - 1 = 2 *i*.
+
+Seuraava moduuli toteuttaa kompleksilukujen kerto- ja jakolaskut:
+
+#### kompleksiluvut.js
+```javascript
+#!/usr/bin/env node
+
+'use strict';
+
+function tulo(z1, z2) {
+    return [z1[0] * z2[0] - z1[1] * z2[1],
+        z1[0] * z2[1] + z1[1] * z2[0]];
+}
+
+function osamaara(z1, z2) {
+    const mod2 = z2[0] * z2[0] + z2[1] * z2[1];
+    return [(z1[0] * z2[0] + z1[1] * z2[1]) / mod2,
+        (-z1[0] * z2[1] + z1[1] * z2[0]) / mod2];
+}
+
+module.exports = {tulo, osamaara};
+```
+
+Huomaa, että moduulin ulkopuolella käytettäväksi esiteltävät funktiot sijoitetaan objektina `module.exports`-muuttujaan. Moduulia hyödyntävä "asiakasohjelmisto" taas voi olla vaikkapa seuraavanlainen:
+
+#### kompleksiluvut_client.js
+```javascript
+#!/usr/bin/env node
+
+'use strict';
+
+const {tulo, osamaara} = require('./kompleksiluvut.js');
+
+console.log(tulo([2,0], [3,0]));
+console.log(tulo([2,1], [2,-1]));
+console.log(tulo([3,0], [3,-1]));
+console.log(tulo([2,2], [2,2]));
+
+console.log(osamaara([-1,5],[2,3]));
+console.log(osamaara([0,1],[1,1]));
+```
+
+Jos nämä sijaitsevat samassa hakemistossa, odotettu lopputulos on:
+
+```
+$ ./kompleksiluvut_client.js 
+[ 6, 0 ]
+[ 5, 0 ]
+[ 9, -3 ]
+[ 0, 8 ]
+[ 1, 1 ]
+[ 0.5, 0.5 ]
+```
+
+### Tehtävä 6.4. (Kompleksilukujen yhteen- ja vähennyslasku)
+
+Laajenna moduulia lisäämällä `kompleksiluvut.js`:ään funktiot kompleksilukujen yhteen- ja vähennyslaskulle, lisää nämä esiteltäviin funktioihin ja laadi muutamia esimerkkikäskyjä niiden käytöstä `kompleksiluvut_client.js`-ohjelmaan.
+
 ## Yhteenveto
 
 Kurssin suoritettuasi olet oppinut Node.js:n ja Javascriptin tärkeitä perusteita. Osaat lukea syötteitä ja tulostaa merkkijonoja, samoin kuin suorittaa alkeellisia laskutoimituksia. Mikä tärkeämpää, hallitset ehtolauseet ja silmukat, jotka ovat ohjelmoinnin ehdottomia perustoimintoja. Lisäksi osaat tehdä omia funktioita, jolloin voit käyttää uudelleen tärkeitä osia ohjelmastasi ilman, että samaa ohjelmakoodia tarvitsee toistaa. Olet myös tehnyt pintaraapaisun dynaamisen ohjelmoinnin alkeisiin kun olet antanut funktioita parametreiksi toisille funktioille.
