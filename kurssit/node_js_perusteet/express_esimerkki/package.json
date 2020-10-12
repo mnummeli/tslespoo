@@ -1,0 +1,18 @@
+{
+    "name": "express_esimerkki",
+    "version": "0.0.1",
+    "description": "TSL:n Express-esimerkki",
+    "main": "index.js",
+    "scripts": {
+        "start": "node ./server.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": ["TSL", "express"],
+    "author": "TSL:n Espoon ja Kauniaisten opintojärjestö",
+    "repository": "http://github.com/mnummeli/tslespoo.git",
+    "license": "ISC",
+    "dependencies": {
+        "date-format": "^3.0.0",
+        "express": "^4.17.1"
+    }
+}

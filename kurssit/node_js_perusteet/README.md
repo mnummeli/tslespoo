@@ -10,7 +10,7 @@
 
 # Ohjelmoinnin perusteet Node.js -Javascriptillä
 
-&copy; 2018, Mikko Nummelin
+&copy; 2018-2020, Mikko Nummelin
 
 ![Työväen sivistysliiton logo][tsl-logo]
 
@@ -20,8 +20,12 @@ Tämä on Työväen Sivistysliiton Espoon ja Kauniaisten opintojärjestön
 kurssimateriaali ohjelmoinnin perusteisiin Javascriptin Node.js-murteella.
 Kurssin tarkoitus on tutustuttaa oppilaat ohjelmoinnin perusrakenteisiin
 kuten alkeellisiin matemaattisiin laskutoimituksiin, syötteeseen ja
-tulosteisiin sekä ehtolauseisiin ja silmukoihin. Kurssilla on joitakin
-harjoitustehtäviä ja esimerkkejä.
+tulosteisiin sekä ehtolauseisiin, silmukoihin, moduuleihin ja tietovuon
+käsitteeseen. Kurssilla on joitakin harjoitustehtäviä ja esimerkkejä.
+
+*Kurssi toimii myös valmentavana materiaalina opiskelijoille, jotka aikovat
+hakea työharjoittelupaikkaa Javascript-projekteissa tietotekniikan alan
+yrityksissä!*
 
 ## Historiaa (mikä on Javascript ja mikä on Node.js?)
 
@@ -665,6 +669,238 @@ $ node risteja.js 4
 ####
 ```
 
+## 6. OPPITUNTI: Moduulit ja tietovuot (EventStream)
+
+Jos ohjelmistoprojektit ovat laajoja, ei kaikkea ohjelmakoodia kannata kirjoittaa samaan tiedostoon, vaan ohjelma kannattaa jakaa erikseen *moduuleiksi*. Moduuleista on myös muita hyötyjä, kuten mahdollisuus käyttää sisäänrakennettuja kirjastoja (systeemimoduulit), ulkoisia kirjastoja verkosta tai laatia omia moduuleita. Moduuleita voi myös käyttää uudelleen eri ohjelmissa. Oli moduuli millainen tahansa, se otetaan käyttöön sijoittamalla moduulin arvo muuttujaan, esimerkiksi:
+
+```
+const util = require('./util.js');
+```
+
+### Systeemimoduulit
+
+Tähän mennessä olemme käsitelleet syötettä komentoriviltä. Teemme kuitenkin nyt ohjelman, joka lukee syötteitä kysymällä peräjälkeen positiivisia lukuja ja kun käyttäjä syöttää luvun `-1`, käsittely loppuu ja ruudulle tulostetaan siihen mennessä annettujen lukujen summa. Tätä varten otetaan käyttöön Node.js:n sisäänrakennettu `readline`-moduuli seuraavasti:
+
+```
+#!/usr/bin/env node
+
+/* global process */
+
+'use strict';
+
+const readline = require('readline');
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+let sum = 0;
+
+// rl on tietovuo, josta kuuntelemme tapahtumia line ja close
+rl.on('line', line => {
+    // Yritetään muuntaa syöte merkkijonosta desimaaliluvuksi
+    const num = parseInt(line, 10);
+    if (num < 0) {
+        // Jos on syötetty negatiivinen luku, suljemme vuon
+        rl.close();
+    } else if (num >= 0) {
+        // Ei-negatiiviset luvut lisätään summaan, muut kuin numerot hylätään
+        sum += num;
+    }
+}).on('close', () => {
+    // Sulkemisen jälkeen suoritetaan tämä koodilohko
+    console.log(`Syöttämiesi lukujen summa on: ${sum}`);
+});
+```
+
+Huomaa, että edellisessä esimerkissä tuli uutena asiana myös *tietovuo*, joka on tavanomainen käsite Node.js-ohjelmoinnissa. Tietovuota käytetään niin, että se luodaan ja *kuunnellaan* sen eri tapahtumia, tässä tapauksessa *line*-tapahtumaa, joka aktivoituu kun on syötetty rivi ja *close*-tapahtumaa, kun tietovuo on sulkeutumassa. Esimerkissä tietovuolle annetaan myös sopivassa tilanteessa sulkemiskäsky `close()`.
+
+#### Lisätietoa
+
+Lisätietoa löytyy osoitteista:
+
+* https://nodejs.org/dist/latest-v12.x/docs/api/modules.html
+* https://nodejs.org/dist/latest-v12.x/docs/api/readline.html
+* https://nodejs.org/dist/latest-v12.x/docs/api/stream.html
+
+### Tehtävä 6.1. (Myös negatiiviset luvut mukaan summaan)
+
+Muokkaa yllä olevaa ohjelmaa niin, että myös negatiiviset luvut otetaan mukaan summaan ja summa tulostetaan kun on syötetty jotakin muuta kuin numero, esimerkiksi kirjaimia.
+
+### `npm`:n avulla verkosta asennettavat moduulit
+
+Node.js:n käyttäjäkunta on laaja ja laajenee koko ajan ja harvoin tarvitsee keksiä kaikkia tarvitsemiansa asioita alusta asti itse. `npm` on Node.js:n mukana asentunut ohjelma, joka on lyhenne termistä "Node package manager". Sen avulla voidaan perustaa *Node.js-projekti* ja määritellä, *mitä verkosta asennettavia ylimääräisiä paketteja se tarvitsee*. Seuraavassa esimerkissämme luomme projektin, asennamme `express`-verkkosivupalvelimen ja teemme sille hyvin yksinkertaisen verkkosivun, joka kertoo palvelimen nimen, päivämäärän ja kellonajan.
+
+Aloitetaan luomalla projektihakemisto ja sinne `npm`:n konfiguraatiotiedosto `package.json`.
+```bash
+$ mkdir express_esimerkki
+$ cd express_esimerkki
+$ npm init -y
+```
+Editoidaan luodun `package.json`-tiedoston sisältö seuraavanlaiseksi:
+```json
+{
+    "name": "express_esimerkki",
+    "version": "0.0.1",
+    "description": "TSL:n Express-esimerkki",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": ["TSL", "express"],
+    "author": "TSL:n Espoon ja Kauniaisten opintojärjestö",
+    "repository": "http://github.com/mnummeli/tslespoo.git",
+    "license": "ISC"
+}
+```
+Suljetaan editori ja asennetaan `express` ja `date-format`:
+```bash
+$ npm install --save express date-format
+```
+Tämän jälkeen `package.json`:in sisällön tulisi näyttää seuraavalta:
+```json
+{
+    "name": "express_esimerkki",
+    "version": "0.0.1",
+    "description": "TSL:n Express-esimerkki",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": ["TSL", "express"],
+    "author": "TSL:n Espoon ja Kauniaisten opintojärjestö",
+    "repository": "http://github.com/mnummeli/tslespoo.git",
+    "license": "ISC",
+    "dependencies": {
+        "date-format": "^3.0.0",
+        "express": "^4.17.1"
+    }
+}
+```
+Hakemistoon on myös ilmestynyt uusi alihakemisto `node_modules/`. Siellä sijaitsevat verkosta ladatut apupaketit, jotka yleensä saa aina verkosta uudelleenkin ajamalla `npm install`, joten tehdään tiedosto `.gitignore`, jossa kielletään `node_modules/`:in päätyminen versionhallintaan ja siten säästetään versionhallinnassa tilaa. `.gitignore`:n sisällöksi tulee seuraava:
+```
+**/*~
+node_modules/
+```
+Tämän jälkeen kirjoitetaan itse palvelimen ohjelmakoodi:
+
+#### `server.js`
+```javascript
+#!/usr/bin/env node
+
+'use strict';
+
+const app = require('express')();
+const format = require('date-format');
+const os = require('os');
+
+app.use((req, res) => {
+    const ts = new Date();
+    res.json({
+        'Palvelimen nimi': os.hostname(),
+        'Metodi': req.method,
+        'Polku': req.path,
+        'Päivämäärä': format('dd.MM.yyyy', ts),
+        'Kellonaika': format('hh:mm:ss', ts)
+    });
+});
+
+app.listen(3000);
+```
+
+lisätään `package.json`:iin skripti `start`:
+```json
+"scripts": {
+        "start": "node ./server.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+```
+ja tämän jälkeen palvelin on ajettavissa käskyllä:
+```bash
+$ npm start
+```
+Kun sen jälkeen menee verkkoselaimella osoitteeseen http://localhost:3000/tslespoo , pitäisi lopputuloksen näyttää suunnilleen tältä:
+```json
+{"Palvelimen nimi":"<KONEESI VERKKONIMI>","Metodi":"GET","Polku":"/tslespoo","Päivämäärä":"12.10.2020","Kellonaika":"20:01:25"}
+```
+Jos olet kopioinut kurssimateriaalin GitHub:ista koneellesi, valmiit koodit ovat projektin alihakemistossa `/kurssit/node_js_perusteet/express_esimerkki`
+
+#### Lisätietoa
+
+Lisätietoa nyt käytetyistä apupaketeista löytyy seuraavista osoitteista:
+
+* https://expressjs.com/
+* https://www.npmjs.com/package/date-format
+
+### Tehtävä 6.2. (Vaativa tehtävä: GET ja POST)
+
+Tutustu Expressin dokumentaatioon ja muunna palvelin sellaiseksi, että jos annetaan GET-pyyntö (yllä oleva `req.method` on `GET`), annetaan sama lopputulos kuin aiemminkin, mutta jos annetaan POST-pyyntö, palvelin sammutetaan `process.exit(0)`-käskyllä.
+
+### Tehtävä 6.3. (Vaativa tehtävä: useita polkuja)
+
+Muunna palvelinta niin, että polusta `/nimi` annetaan vain palvelimen nimi ja polusta `/metodi` vain verkkopyynnön metodi. Muita toiminnallisuuksia palvelimessa ei tarvitse olla.
+
+### Omat moduulit
+
+Omien moduulien luominen on tärkeä taito, koska juuri sillä tavoin on mahdollista jakaa oma ohjelmakoodi useaan tiedostoon ja käyttää samaa koodia uudelleen. Tehdään yksinkertainen moduuli, joka toteuttaa kompleksilukujen kerto- ja jakolaskun. Kompleksiluvut ovat matematiikassa reaalilukujen pareja, joilla on tietyt laskusäännöt. Ne keksittiin kun algebrassa tuli tarve käsitellä negatiivisten lukujen neliöjuuria, jolloin määriteltiin *imaginaariyksikkö* *i*, jolla on ominaisuus: *i* * *i* == -1. Kompleksiluvussa *x* + *iy* on reaali- ja imaginaariosat *x* ja *y* ja näillä voidaan laskea hyödyntäen *i*:n ominaisuutta vaikkapa seuraavasti (1 + *i*)(1 + *i*) = 1 * 1 + 1 * *i* + *i* * 1 + *i* * *i* == 1 + *i* + *i* - 1 = 2 *i*.
+
+Seuraava moduuli toteuttaa kompleksilukujen kerto- ja jakolaskut:
+
+#### kompleksiluvut.js
+```javascript
+#!/usr/bin/env node
+
+'use strict';
+
+function tulo(z1, z2) {
+    return [z1[0] * z2[0] - z1[1] * z2[1],
+        z1[0] * z2[1] + z1[1] * z2[0]];
+}
+
+function osamaara(z1, z2) {
+    const mod2 = z2[0] * z2[0] + z2[1] * z2[1];
+    return [(z1[0] * z2[0] + z1[1] * z2[1]) / mod2,
+        (-z1[0] * z2[1] + z1[1] * z2[0]) / mod2];
+}
+
+module.exports = {tulo, osamaara};
+```
+
+Huomaa, että moduulin ulkopuolella käytettäväksi esiteltävät funktiot sijoitetaan objektina `module.exports`-muuttujaan. Moduulia hyödyntävä "asiakasohjelmisto" taas voi olla vaikkapa seuraavanlainen:
+
+#### kompleksiluvut_client.js
+```javascript
+#!/usr/bin/env node
+
+'use strict';
+
+const {tulo, osamaara} = require('./kompleksiluvut.js');
+
+console.log(tulo([2,0], [3,0]));
+console.log(tulo([2,1], [2,-1]));
+console.log(tulo([3,0], [3,-1]));
+console.log(tulo([2,2], [2,2]));
+
+console.log(osamaara([-1,5],[2,3]));
+console.log(osamaara([0,1],[1,1]));
+```
+
+Jos nämä sijaitsevat samassa hakemistossa, odotettu lopputulos on:
+
+```
+$ ./kompleksiluvut_client.js 
+[ 6, 0 ]
+[ 5, 0 ]
+[ 9, -3 ]
+[ 0, 8 ]
+[ 1, 1 ]
+[ 0.5, 0.5 ]
+```
+
+### Tehtävä 6.4. (Kompleksilukujen yhteen- ja vähennyslasku)
+
+Laajenna moduulia lisäämällä `kompleksiluvut.js`:ään funktiot kompleksilukujen yhteen- ja vähennyslaskulle, lisää nämä esiteltäviin funktioihin ja laadi muutamia esimerkkikäskyjä niiden käytöstä `kompleksiluvut_client.js`-ohjelmaan.
+
 ## Yhteenveto
 
 Kurssin suoritettuasi olet oppinut Node.js:n ja Javascriptin tärkeitä perusteita. Osaat lukea syötteitä ja tulostaa merkkijonoja, samoin kuin suorittaa alkeellisia laskutoimituksia. Mikä tärkeämpää, hallitset ehtolauseet ja silmukat, jotka ovat ohjelmoinnin ehdottomia perustoimintoja. Lisäksi osaat tehdä omia funktioita, jolloin voit käyttää uudelleen tärkeitä osia ohjelmastasi ilman, että samaa ohjelmakoodia tarvitsee toistaa. Olet myös tehnyt pintaraapaisun dynaamisen ohjelmoinnin alkeisiin kun olet antanut funktioita parametreiksi toisille funktioille.
@@ -672,6 +908,10 @@ Kurssin suoritettuasi olet oppinut Node.js:n ja Javascriptin tärkeitä perustei
 Kuten kaikissa oppimisprosesseissa, tie ammattilaismaiseen osaamiseen on pitkä, mutta tärkeintä on päästä alkuun, saada kiinnostus heräämään ja kokea saavansa aikaan hyödyllisiä aikaansaannoksia itse. Verkko on pullollaan Javascriptin ja Node.js:n jatko-opiskeluun tarvittavia resursseja. Jos olet erityisen kiinnostunut Node.js:stä, seuraavaksi todennäköisesti haluat oppia *moduulit*, *vuot* (Event streams) ja lisää dynaamisesta ohjelmoinnista. Jossakin vaiheessa kiinnostunet myös Javascriptistä *verkkosivujen kehittämisessä*, jolloin on tärkeää oppia HTML, dokumenttipuu (document object model), CSS (tyylitiedostot) ja Javascript-käskyt, joilla näitä muokataan. Browserify on ohjelmisto, joka auttaa muokkaamaan Node.js-projekteja verkkosivuilla suoraan käytettäviksi.
 
 Onnea opiskeluun!
+
+### Lisätietoa
+
+* https://nodeschool.io/fi/#workshopper-list
 
 [tsl-logo]: kuvat/tsl-logo.png
 [mswindows]: kuvat/mswindows.jpg
