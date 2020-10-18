@@ -203,7 +203,7 @@ varsinaisia ohjelmatiedostoja. Avaa sopiva tekstinkäsittelyohjelma, esimerkiksi
 Windowsissa Notepad tai Notepad++ tai Linuxissa Kate, GEdit, Emacs tms.
 ja tee seuraavanlainen ohjelmatiedosto, jonka nimeksi laitetaan `hei.js`:
 
-```
+```javascript
 #!/usr/bin/env node
 
 'use strict';
@@ -251,7 +251,7 @@ sellaisenaan konsoliin.
 Tehdään ohjelma `tervehdys.js`, joka ottaa parametrikseen nimen ja tulostaa sen
 tervehdyksessä:
 
-```
+```javascript
 #!/usr/bin/env node
 
 'use strict'
@@ -337,7 +337,7 @@ Vihje: toinen parametri saadaan samasta `process.argv`-listasta alkiosta numero
 Usein ohjelmissa täytyy pystyä toimimaan eri tavalla riippuen siitä, mitä
 syötteitä se on saanut. Esimerkiksi seuraava ohjelma:
 
-```
+```javascript
 #!/usr/bin/env node
 
 'use strict'
@@ -406,7 +406,7 @@ tällöin kyseeseen tulevat silmukat. Silmukoita ovat esimerkiksi `while` ja
 `for`-silmukat. Seuraava ohjelma ottaa komentoriviltä parametrin ja tulostaa
 luvut nollasta annettuun lukuun asti:
 
-```
+```javascript
 #!/usr/bin/env node
 
 'use strict'
@@ -429,7 +429,7 @@ Sama ohjelma voitaisiin kirjoittaa lyhyemmin joko laittamalla `while`-käskyyn
 toistoehto tai käyttämällä `for`-silmukkaa. Molemmat vaihtoehdot on esitetty
 alla:
 
-```
+```javascript
 #!/usr/bin/env node
 
 'use strict'
@@ -445,7 +445,7 @@ while(i<=luku) {
 
 Tässä siis `while(ehto)` toistaa lohkoa niin kauan kuin ehto on voimassa.
 
-```
+```javascript
 #!/usr/bin/env node
 
 'use strict'
@@ -473,7 +473,7 @@ teksti `Syötit liian suuren luvun.`
 
 Seuraava ohjelma:
 
-```
+```javascript
 #!/usr/bin/env node
 
 'use strict'
@@ -513,7 +513,7 @@ $ node sisakkainen.js 5
 #####
 ```
 
-## 5. OPPITUNTI: Funktiot
+## 5. OPPITUNTI: Funktiot, taulukot ja objektit
 
 Joskus ohjelma on hyödyllistä pilkkoa useampiin palasiin, jos samaa ohjelman
 osaa joutuu käyttämään uudelleen ja uudelleen tai sitä halutaan erikseen
@@ -521,7 +521,7 @@ testata. On esimerkiksi mahdollista, että haluamme kirjoittaa erikseen funktion
 annetun listan summan laskemiseen ja hyödyntää sitä joko komentoriviltä
 ajettavassa ohjelmassa tai testissä.
 
-```
+```javascript
 #!/usr/bin/env node
 
 'use strict'
@@ -556,7 +556,7 @@ taulukon alkiolle tai suodattaa pois taulukon alkioita. Seuraava ohjelma luo
 taulukon, kaksinkertaistaa sen alkioiden arvon, suodattaa pois kolmella
 jaolliset alkiot ja lopuksi kääntää alkioiden järjestyksen:
 
-```
+```javascript
 #!/usr/bin/env node
 
 'use strict';
@@ -606,10 +606,32 @@ Ohjelmassa esiintyviä ilmaisuja, kuten:
 sanotaan *lambda-lauseiksi*. Esimerkiksi yllä oleva lause tarkoittaa lähes
 samaa kuin *anonyymi funktio*
 
-```
+```javascript
 function(x, y) {
     return y-x;
 }
+```
+
+### Objektit
+
+Kaikki Javascriptin tietotyypit ovat objekteja. Objekteilla on kuitenkin hyödyllisenä perusominaisuutena se, että se on kokoelma arvo-avainpareja, joista avaimet ovat merkkijonoja tai numeroita ja arvot mitä tahansa muita objekteja. Jos esimerkiksi merkkijono muunnetaan pieniksi kirjaimiksi käskyllä:
+
+```
+> "NodeJsPeruskurssi".toLowerCase()
+'nodejsperuskurssi'
+```
+
+tapahtui niin, että "NodeJsPeruskurssi" oli merkkijonotyyppinen objekti, jolla oli eräänä arvonaan `toLowerCase`-niminen funktio. On myös mahdollista luoda omia objekteja, esimerkiksi:
+
+```
+> objekti1.mansikoita=3
+3
+> objekti1.mustikoita=4
+4
+> objekti1.vadelmia=10
+10
+> JSON.stringify(objekti1)
+'{"mansikoita":3,"mustikoita":4,"vadelmia":10}'
 ```
 
 #### Lisätietoa
@@ -618,13 +640,14 @@ Lisätietoa löytyy osoitteista:
 
 * https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Functions
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
+* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
 
 ### Tehtävä 5.1. (Funktion hyväksikäyttö neliön tulostuksessa)
 
 Otetaan pohjaksi ylempää risti- ja neliön kehäesimerkkien riisuttu versio,
 joka tulostaa täytetyn neliön:
 
-```
+```javascript
 #!/usr/bin/env node
 
 'use strict'
@@ -643,7 +666,7 @@ Tee uusi funktio `risteja(lukumaara)`, joka tulostaa samalle riville annetun
 määrän `#`-merkkejä ja rivinvaihdon. Muokkaa sen jälkeen yllä oleva ohjelmasi
 muotoon
 
-```
+```javascript
 #!/usr/bin/env node
 
 'use strict'
@@ -673,7 +696,7 @@ $ node risteja.js 4
 
 Jos ohjelmistoprojektit ovat laajoja, ei kaikkea ohjelmakoodia kannata kirjoittaa samaan tiedostoon, vaan ohjelma kannattaa jakaa erikseen *moduuleiksi*. Moduuleista on myös muita hyötyjä, kuten mahdollisuus käyttää sisäänrakennettuja kirjastoja (systeemimoduulit), ulkoisia kirjastoja verkosta tai laatia omia moduuleita. Moduuleita voi myös käyttää uudelleen eri ohjelmissa. Oli moduuli millainen tahansa, se otetaan käyttöön sijoittamalla moduulin arvo muuttujaan, esimerkiksi:
 
-```
+```javascript
 const util = require('./util.js');
 ```
 
@@ -681,7 +704,7 @@ const util = require('./util.js');
 
 Tähän mennessä olemme käsitelleet syötettä komentoriviltä. Teemme kuitenkin nyt ohjelman, joka lukee syötteitä kysymällä peräjälkeen positiivisia lukuja ja kun käyttäjä syöttää luvun `-1`, käsittely loppuu ja ruudulle tulostetaan siihen mennessä annettujen lukujen summa. Tätä varten otetaan käyttöön Node.js:n sisäänrakennettu `readline`-moduuli seuraavasti:
 
-```
+```javascript
 #!/usr/bin/env node
 
 /* global process */
