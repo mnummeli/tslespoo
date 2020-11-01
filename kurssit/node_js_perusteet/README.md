@@ -58,7 +58,7 @@ erityishuomioita.
 
 ## 1. OPPITUNTI: Git:in ja Node.js:n asennus ja asennusten varmistaminen
 
-### Tehtävä 1.1. (Gitin asentaminen ja kurssimateriaalin lataaminen verkosta omalle koneelle)
+#### Tehtävä 1.1. (Gitin asentaminen ja kurssimateriaalin lataaminen verkosta omalle koneelle)
 
 ### Microsoft Windows-järjestelmät
 ![Microsoft Windowsin logo][mswindows]
@@ -95,7 +95,7 @@ Lataa kurssimateriaali omalle tietokoneellesi käskyllä:
 $ git clone https://github.com/mnummeli/node_js_perusteet.git
 ```
 
-### Tehtävä 1.2. (Node.js:n asentaminen)
+#### Tehtävä 1.2. (Node.js:n asentaminen)
 
 Valitse alta oikea asennusohje tietokoneesi käyttöjärjestelmän mukaan ja
 suorita asennus. Molempien järjestelmien Node.js-paketit löytyvät osoitteesta
@@ -368,7 +368,22 @@ Lisätietoa löytyy osoitteesta:
 
 * https://developer.mozilla.org/bm/docs/Web/JavaScript/Guide/Control_flow_and_error_handling
 
-### Tehtävä 3.1. (Karkausvuosi)
+#### Tehtävä 3.1. (Parilliset ja parittomat luvut)
+
+Tee ohjelma, joka kertoo, onko annettu luku parillinen vai pariton. Luku on
+parillinen, jos se on jaollinen 2:lla, eli ehto `n%2===0` pätee.
+Ohjelman tulee toimia seuraavasti:
+
+```
+$ node parillinen.js 5
+Luku 5 on pariton.
+$ node parillinen.js 8
+Luku 8 on parillinen.
+$ node parillinen.js 12
+Luku 12 on parillinen.
+```
+
+#### Tehtävä 3.2. (Karkausvuosi)
 
 Tee ohjelma, joka kertoo, onko annettu vuosi karkausvuosi. Vuosi on yleensä
 karkausvuosi, jos se on jaollinen neljällä. Kuitenkaan sadalla jaolliset
@@ -386,7 +401,7 @@ $ node karkausvuosi.js 2000
 Vuosi 2000 on karkausvuosi.
 ```
 
-Vihje: Neljällä jaollisuus voidaan testata `%`-operaattorilla:
+Vihje: Neljällä ja muillakin luvuilla jaollisuus voidaan testata `%`-operaattorilla:
 
 ```
 $ node
@@ -396,8 +411,10 @@ $ node
 3
 > 4%4
 0
+> 103%100
+3
 ```
-eli luku `x` on neljällä jaollinen silloin kun `x%4 == 0`.
+eli esimerkiksi luku `x` on neljällä jaollinen silloin kun `x%4===0`.
 
 ## 4. OPPITUNTI: Silmukat
 
@@ -461,7 +478,7 @@ Ja tässä lyhyimmässä muodossa käytetään `for`-silmukkaa.
 `for(alustus;ehto;päivitys)` on tehty korvaamaan tavanomaisimpia tapoja,
 miten `while`-silmukkaa käytetään yleensä.
 
-### Tehtävä 4.1. (`#`-merkkejä)
+#### Tehtävä 4.1. (`#`-merkkejä)
 
 Käsky `process.stdout.write` tulostaa annetun tekstin kuten `console.log`, mutta
 ilman rivinvaihtoa. Tee ohjelma, joka ottaa vastaan syötteenä numeron ja
@@ -469,7 +486,7 @@ tulostaa annetun määrän `#`-merkkejä peräkkäin. Jos syötetty luku on yli
 kaksikymmentä, tulee tulostaa *virhekonsoliin* käskyllä `console.error`
 teksti `Syötit liian suuren luvun.`
 
-### Tehtävä 4.2. (Sisäkkäiset `for`-silmukat ja ehdot)
+#### Tehtävä 4.2. (Sisäkkäiset `for`-silmukat ja ehdot)
 
 Seuraava ohjelma:
 
@@ -642,7 +659,7 @@ Lisätietoa löytyy osoitteista:
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-### Tehtävä 5.1. (Funktion hyväksikäyttö neliön tulostuksessa)
+#### Tehtävä 5.1. (Funktion hyväksikäyttö neliön tulostuksessa)
 
 Otetaan pohjaksi ylempää risti- ja neliön kehäesimerkkien riisuttu versio,
 joka tulostaa täytetyn neliön:
@@ -746,7 +763,7 @@ Lisätietoa löytyy osoitteista:
 * https://nodejs.org/dist/latest-v12.x/docs/api/readline.html
 * https://nodejs.org/dist/latest-v12.x/docs/api/stream.html
 
-### Tehtävä 6.1. (Myös negatiiviset luvut mukaan summaan)
+#### Tehtävä 6.1. (Myös negatiiviset luvut mukaan summaan)
 
 Muokkaa yllä olevaa ohjelmaa niin, että myös negatiiviset luvut otetaan mukaan summaan ja summa tulostetaan kun on syötetty jotakin muuta kuin numero, esimerkiksi kirjaimia.
 
@@ -855,11 +872,11 @@ Lisätietoa nyt käytetyistä apupaketeista löytyy seuraavista osoitteista:
 * https://expressjs.com/
 * https://www.npmjs.com/package/date-format
 
-### Tehtävä 6.2. (Vaativa tehtävä: GET ja POST)
+#### Tehtävä 6.2.
 
 Tutustu Expressin dokumentaatioon ja muunna palvelin sellaiseksi, että jos annetaan GET-pyyntö (yllä oleva `req.method` on `GET`), annetaan sama lopputulos kuin aiemminkin, mutta jos annetaan POST-pyyntö, palvelin sammutetaan `process.exit(0)`-käskyllä.
 
-### Tehtävä 6.3. (Vaativa tehtävä: useita polkuja)
+#### Tehtävä 6.3.
 
 Muunna palvelinta niin, että polusta `/nimi` annetaan vain palvelimen nimi ja polusta `/metodi` vain verkkopyynnön metodi. Muita toiminnallisuuksia palvelimessa ei tarvitse olla.
 
@@ -920,7 +937,7 @@ $ ./kompleksiluvut_client.js
 [ 0.5, 0.5 ]
 ```
 
-### Tehtävä 6.4. (Kompleksilukujen yhteen- ja vähennyslasku)
+#### Tehtävä 6.4. (Kompleksilukujen yhteen- ja vähennyslasku)
 
 Laajenna moduulia lisäämällä `kompleksiluvut.js`:ään funktiot kompleksilukujen yhteen- ja vähennyslaskulle, lisää nämä esiteltäviin funktioihin ja laadi muutamia esimerkkikäskyjä niiden käytöstä `kompleksiluvut_client.js`-ohjelmaan.
 
