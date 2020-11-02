@@ -1,8 +1,11 @@
 version: '3'
 
 services:
-    express-redis:
+    express:
         build: .
+        environment:
+            - REDIS_HOST=redis
+            - REDIS_PORT=6379
         depends_on:
             - redis
         ports:
@@ -11,8 +14,10 @@ services:
         volumes:
             - .:/app
     redis:
+        image: redis
         restart: always
-        volumes: "redis-data:/data"
+        volumes:
+            - "redis-data:/data"
 
 volumes:
     redis-data:

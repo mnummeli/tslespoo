@@ -36,7 +36,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use((req, res) => {
     logger.info(`Received ${req.method} request to path ${req.path} on server ${os.hostname()} .`);
     const ts = new Date();
-    redisClient.incr('visits', visits => {
+    redisClient.incr('visits', (er, visits) => {
+        if (er) {
+            logger.warn(`Redis returned error: ${er.message}`);
+        }
+        logger.info(`Redis returned: ${visits} visits.`);
         res.render('index', {
             title: "Palvelimen tiedot",
             hostname: os.hostname(),
