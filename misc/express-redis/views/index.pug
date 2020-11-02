@@ -1,0 +1,31 @@
+html
+  head
+    title #{title}
+    meta(charset="UTF-8")
+    link(rel="stylesheet", href="index.css")
+  body
+    h1 #{title}
+    hr
+    table
+      tbody
+        tr
+          th Kenttä
+          th Arvo
+        tr
+          td Palvelimen nimi:
+          td #{hostname}
+        tr
+          td Metodi:
+          td #{method}
+        tr
+          td Polku:
+          td #{path}
+        tr
+          td Päivämäärä:
+          td #{current_date}
+        tr
+          td Kellonaika:
+          td #{current_time}
+        tr
+          td Käyntejä (Redis-tietokannasta):
+          td #{visits}

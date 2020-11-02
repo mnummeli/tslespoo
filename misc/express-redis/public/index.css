@@ -1,0 +1,22 @@
+body {
+    width: 800px;
+    margin: auto;
+}
+
+table, th, td {
+    border: 1px solid;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: .5em;
+}
+
+th {
+    color: white;
+    background-color: steelblue;
+}
+
+tr:nth-child(even) {
+    background-color: lightblue;
+}

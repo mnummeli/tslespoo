@@ -1,0 +1,16 @@
+{
+    "name": "express-redis",
+    "version": "0.0.1",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+        "start": "node server.js | bunyan"
+    },
+    "dependencies": {
+        "bunyan": "^1.8.14",
+        "date-format": "^3.0.0",
+        "express": "^4.17.1",
+        "pug": "^3.0.0",
+        "redis": "^3.0.2"
+    }
+}
