@@ -5,6 +5,8 @@
 **/*.log
 **/*.pdf
 **/*.toc
+**/yarn.lock
+**/package-lock.json
 **/node_modules/
 wordpress/
 /nbproject/
