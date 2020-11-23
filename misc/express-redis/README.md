@@ -41,5 +41,5 @@ $ curl -XPOST http://localhost:3000/crash
 ## Palvelun sammuttaminen
 
 ```
-$ docker-compose up
+$ docker-compose down
 ```
