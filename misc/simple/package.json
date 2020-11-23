@@ -1,0 +1,14 @@
+{
+    "name": "simple",
+    "version": "0.0.1",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+        "build": "yarn",
+        "start": "node server.js | bunyan"
+    },
+    "dependencies": {
+        "bunyan": "^1.8.14",
+        "express": "^4.17.1"
+    }
+}
