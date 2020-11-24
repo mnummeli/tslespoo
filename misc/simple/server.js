@@ -2,7 +2,7 @@
 
 'use strict';
 
-/* global process */
+/* global system, process */
 
 const express = require('express');
 const app = express();
@@ -14,6 +14,10 @@ const PORT = process.env.EXPRESS_PORT || 3000;
 
 function trivial(req, res) {
     logger.info(`${req.method} ${req.path}`);
+    if (req.method === 'DELETE') {
+        logger.info('Exiting ...');
+        system.exit(-1);
+    }
     res.header('Content-Type', 'text/html');
     res.end(`<h1>Hei palvelimelta: ${os.hostname}</h1>`);
 }

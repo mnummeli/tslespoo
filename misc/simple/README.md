@@ -13,6 +13,12 @@ Palvelin myös käynnistyy heti, jos se sammuu välillä virhetilanteeseen.
 
 `docker-compose logs -f`
 
+## Tilapäinen palvelun sammuttaminen
+
+Tämän jälkeen palvelun tulisi käynnistyä uudelleen:
+
+`curl -XDELETE localhost:3000`
+
 ## Sammuttaminen
 
 `docker-compose down`
