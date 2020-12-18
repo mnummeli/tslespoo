@@ -12,8 +12,6 @@
 
 &copy; 2018-2020, Mikko Nummelin
 
-![Työväen sivistysliiton logo][tsl-logo]
-
 ## Yleistä
 
 Tämä on Työväen Sivistysliiton Espoon ja Kauniaisten opintojärjestön
@@ -953,6 +951,5 @@ Onnea opiskeluun!
 
 * https://nodeschool.io/fi/#workshopper-list
 
-[tsl-logo]: kuvat/tsl-logo.png
 [mswindows]: kuvat/mswindows.jpg
 [linux]: kuvat/linux.jpeg
