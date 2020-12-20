@@ -1,5 +1,4 @@
 **/*~
-**/*.html
 **/*.aux
 **/*.log
 **/*.out
@@ -9,5 +8,6 @@
 **/yarn.lock
 **/package-lock.json
 **/node_modules/
+**/README.html
 wordpress/
 /nbproject/

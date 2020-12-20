@@ -70,39 +70,311 @@ löytyy yleistä tietoa Dockerista ja konttiteknologioista:
 
 ## 1. OPPITUNTI: Dockerin asentaminen
 
+Tarkasta alta käyttöjärjestelmäsi mukainen Docker-asennusohje. Kiinnitä
+erityisesti huomiota siihen, että lisäät oman käyttäjäsi
+`docker`-käyttäjäryhmään.
+
 ### Windows-käyttöjärjestelmät
+
+Ohjeet Docker for Windowsin asentamiseksi Microsoft Windows-järjestelmiin
+ovat täällä. Koska Windows ei pysty ajamaan Docker-alustaa suoraan,
+asennusohjelma perustaa Linux-virtuaalikoneen Hyper-V-emulaattorin ajettavaksi,
+jossa itse Docker-prosessit ajetaan.
 
 https://docs.docker.com/docker-for-windows/install/
 
 ### Linux-käyttöjärjestelmät
 
+Ohjeet Dockerin asentamiseksi GNU/Linux-järjestelmiin ovat täällä.
+Linuxin käyttöjärjestelmäydin pystyy ajamaan Docker-alustaa ja sen prosesseja
+suoraan ilman virtuaalikonetta.
+
 https://docs.docker.com/engine/install/
 
 Huomaa, että monissa Linux-järjestelmissä Docker-Compose on asennettava
-erikseen!
+erikseen! Esimerkiksi Ubuntu Linux-järjestelmässä sekä Dockerin että
+Docker-Composen asennus tapahtuu kirjoittamalla:
+
+```
+$ sudo apt-get install docker.io docker-compose
+```
+
+Käyttäjän lisääminen Docker-ryhmään tapahtuu käskyllä:
+
+```
+$ sudo usermod -aG docker <KÄYTTÄJÄTUNNUKSESI>
+```
+
+Tämän jälkeen tulee kirjautua ulos ja uudelleen sisään.
 
 ### Mac OS-käyttöjärjestelmät
 
+Ohjeet Docker for Windowsin asentamiseksi Apple Macintosh-järjestelmiin
+ovat täällä. Koska Mac ei pysty ajamaan Docker-alustaa suoraan,
+asennusohjelma perustaa Linux-virtuaalikoneen emulaattorin ajettavaksi,
+jossa itse Docker-prosessit ajetaan.
+
 https://docs.docker.com/docker-for-mac/install/
+
+### TEHTÄVÄ 1.1. Docker-asennuksen tarkastaminen
+
+Tarkasta Docker-asennuksesi kirjoittamalla:
+
+```
+$ docker ps
+```
+
+Jos asennus on onnistunut hyvin, lopputuloksen tulisi näyttää suunnilleen tältä:
+
+```
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+```
+
+Mikäli et kuulunut Docker-ryhmään tai Docker-järjestelmä ei ollut käynnissä,
+tulee virheilmoituksia.
 
 ## 2. OPPITUNTI: Levykuvan (`image`) lataaminen ja yksinkertaisen palvelun (`container`) käynnistys
 
-Alkeisesimerkki:
+Dockerin varsinainen hyöty saadaan irti hyödyntämällä erilaisia palveluita
+toteuttavia *levykuvia*, joiden englanninkielinen nimi on *image*. Erilaisia
+valmiita virallisia levykuvia löytyy osoitteesta:
+
+https://hub.docker.com/
+
+Alkeisesimerkkinä, jonka monet yleensä ensimmäisenä Dockeria opetellessaan
+ajavat, käytetään "Hello World"-esimerkkiä:
+
+https://hub.docker.com/_/hello-world
+
+Se ajetaan käskyllä:
+
 ```
 $ docker run hello-world
 ```
 
+Mikäli kaikki meni oikein, sen pitäisi ladata verkosta levykuvaa ja sen jälkeen
+tulostaa jotakin seuraavan tapaista:
+
+```
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+```
+
+Kuten Docker suosittaa, seuraavaksi voi kokeilla käynnistää Ubuntu Linuxin
+levykuvan käskyllä (muokatkaamme sitä kuitenkin hieman lisäämällä `--rm`),
+jolloin jotakin seuraavanlaista tapahtuu:
+
+```
+$ docker run -it --rm ubuntu bash
+root@53ebc3eef616:/#
+```
+
+Meillä on siis ylläpitäjän (root) konsoli perus-Ubuntu-asennuksessa. Jos
+yritämme esimerkiksi luoda tiedostoa `testi.md` tekstieditorilla `nano`,
+havaitsemme, ettei ohjelmaa ole käytettävissä:
+
+```
+root@53ebc3eef616:/# nano testi.md
+bash: nano: command not found
+```
+
+Voimme tietenkin asentaa `nano`:n Ubuntun pakettityökaluilla, jonka jälkeen
+tekstitiedoston luonti ja editointi onnistuu:
+
+```
+root@53ebc3eef616:/# apt-get update && apt-get install nano
+... sekalaisia asennusilmoituksia
+root@53ebc3eef616:/# nano testi.md
+... editori aukeaa, kirjoitetaan tiedostoon TSL
+root@53ebc3eef616:/# cat testi.md 
+TSL
+```
+
+Seuraavaksi poistutaan Ubuntun komentokehotteesta, jolloin palvelu samalla
+sammuu:
+
+```
+root@53ebc3eef616:/# exit         
+exit
+```
+
+Jos nyt käynnistetään Ubuntu uudelleen samasta levykuvasta, havaitaan taas,
+että:
+- `nano` ei ole enää käytössä
+- `testi.md` on hävinnyt
+
+```
+$ docker run -it --rm ubuntu bash
+root@41ae463c5681:/# nano
+bash: nano: command not found
+root@41ae463c5681:/# ls 
+bin  boot  dev  etc  home  lib  lib32  lib64  libx32  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+```
+
+Tämä on tarkoitettu toiminnallisuus. Lähtökohtaisesti palvelu käynnistyy aina
+siitä tilanteesta, mitä levykuva sisältää ja palvelun sisällä myöhemmin tehdyt
+muutokset eivät pysy. Tämä luo ennustettavuutta siihen, millaisessa tilassa
+halutaan palvelun olevan kun se käynnistetään. Käydään läpi tiivistelmä siitä,
+mitä komento `docker run -it --rm ubuntu bash` oikein teki:
+- `docker`: ajetaan docker-ohjelma
+- `run`: halutaan käynnistää joku palvelu
+- `-it`: halutaan avata interaktiivinen terminaali
+- `--rm`: halutaan siivota pois tarpeettomat resurssit muistista kun palvelu sammuu
+- `ubuntu`: halutaan käyttää levykuvaa `ubuntu` omalta kiintolevyltä, jos saatavilla, muuten Docker Hub:ista
+- `bash`: halutaan ajaa terminaalissa komentokehote `bash`
+
+### Palvelun ajaminen irrotettuna (detached)
+
+Yleensä käytännön tapauksissa, jos halutaan esimerkiksi useiden palveluiden
+pyörivän Docker-järjestelmässä asiakkaiden tietokoneilla, ei haluta avata jokaiseen
+palveluun tarpeetonta komentokehotetta. Tällöin on järkevää ajaa palvelu
+*irrotettuna* ja vain tarvittaessa avata sinne komentokehote tai muu apuohjelma.
+Seuraavassa esimerkissä Ubuntu-palvelu luodaan irrotettuna, sen jälkeen
+palvelun sisään avataan komentokehote, asennetaan `nano`, luodaan tiedosto,
+tullaan tilapäisesti pois komentokehotteesta, palataan takaisin palvelun
+sisään, jolloin *huomataan nano:n ja testitiedoston olevan edelleen tallella*,
+mutta sen jälkeen kun palvelu on sammutettu ja uudelleenkäynnistetty, *`nano`
+ja testitiedosto ovat hävinneet*:
+
+```
+$ docker run -d -it --name tsl-ubuntu ubuntu
+be0162191935c24d68c2320c4a2559e9c12062285983db0252ac98a9bc47f991
+$ docker exec -it tsl-ubuntu bash
+root@be0162191935:/# ps
+    PID TTY          TIME CMD
+     15 pts/1    00:00:00 bash
+     23 pts/1    00:00:00 ps
+root@be0162191935:/# apt-get update && apt-get install nano
+root@be0162191935:/# mkdir tslespoo
+root@be0162191935:/# cd tslespoo
+root@be0162191935:/tslespoo# nano testi.md
+root@be0162191935:/tslespoo# ls
+testi.md
+root@be0162191935:/tslespoo# cat testi.md
+TSL
+root@be0162191935:/tslespoo# exit
+exit
+
+$ docker exec -it tsl-ubuntu bash
+root@be0162191935:/# cd tslespoo
+root@be0162191935:/tslespoo# cat testi.md 
+TSL
+root@be0162191935:/tslespoo# exit
+exit
+
+$ docker container rm -f tsl-ubuntu
+tsl-ubuntu
+$ docker run -d -it --name tsl-ubuntu ubuntu
+c6e15094b2f635d96a968c81ea8ee71a301d6cc048a66663b1e1212c52901b7d
+✔$ docker exec -it tsl-ubuntu bash
+root@c6e15094b2f6:/# cd tslespoo
+bash: cd: tslespoo: No such file or directory
+root@c6e15094b2f6:/# nano
+bash: nano: command not found
+root@c6e15094b2f6:/# exit
+exit
+
+$ docker container rm -f tsl-ubuntu
+tsl-ubuntu
+```
+
+Melkoinen testisessio, mutta siinä opimme, että mikäli palvelu on taustalla
+käynnissä irrotettuna ja siihen palataan, asennetut ohjelmat ja tiedostot
+säilyvät, mutta kun palvelun lopulta sammuttaa `docker container rm -f`-käskyllä,
+tällaiset muutokset häviävät ja seuraavan kerran kun palvelun käynnistää,
+palataan taas siihen lähtötilanteeseen, mikä on levykuvassa määritelty.
+
+Seuraavalla oppitunnilla opitaan, miten voidaan luoda pysyvämpiä ohjelmistoasennuksia
+tekemällä omia levykuvia ja kuinka tietyt rajoitetut tiedostot voidaan säästää
+käynnistyskertojen välilläkin laittamalla ne virtuaalilevyasemalle (volume).
+
+### Porttien välittäminen isäntäkoneen portteihin
+
+On tietenkin myös lukuisia muita hyödyllisiä levykuvia kuin tavallinen Ubuntu.
+Eräät käytetyimmistä ovat verkkosivupalveluita ja niiden johdannaisia.
+Seuraavalla käskyllä käynnistetään irrotettuna Apache HTTPD-palvelin sekä
+välitetään sen portti 80 isäntäkoneen porttiin 8080.
+
 ```
 $ docker run -d --name httpd -p 8080:80 httpd
 ```
-Selain osoitteeseen
+Jos nyt selaimen ohjaa osoitteeseen
 
 http://localhost:8080
+
+nähdään alkeellinen verkkosivu. Kun palvelun sammuttaa:
 
 ```
 $ docker container rm -f httpd
 ```
-Palvelu on sammutettu.
+
+verkkosivu ei enää vastaa. Mikäli taaskin olisi tehty palvelimelle omia sivuja,
+ne olisivat hävinneet sammuttamisen yhteydessä.
+
+### TEHTÄVÄ 2.1. hello-world, docker/whalesay ja bash
+
+Kokeile levykuvaa docker/whalesay seuraavasti:
+
+```
+$ docker run docker/whalesay cowsay TSL
+```
+
+Mitä se tulostaa? Miksi:
+
+```
+$ docker run -it --rm docker/whalesay bash
+```
+
+tuottaa komentorivikehotteen, mutta
+
+```
+$ docker run -it --rm hello-world bash
+```
+
+aiheuttaa virheilmoituksen? Vihje: mieti, mitä levykuvat sisältävät.
+
+### TEHTÄVÄ 2.2. httpd ja omat sivut
+
+Käynnistä `httpd` komennolla:
+
+```
+$ docker run -d --name httpd -p 8080:80 httpd
+```
+
+kuten yllä. Luo sen jälkeen kyseisen palvelun sisään interaktiivinen
+`bash`-komentokehote, mene hakemistoon `/usr/local/apache2/htdocs`, asenna
+`nano` ja luo oma verkkosivu itse valitsemallasi sisällöllä, älä kuitenkaan
+millään vaikealla tai korvaamattomalla, tiedostoon `testi.html`.
+Totea selaimella, että osoitteessa:
+
+http://localhost:8080/testi.html
+
+näkyy luomasi verkkosivu. Sammuta sen jälkeen `httpd` käskyllä:
+
+```
+$ docker container rm -f httpd
+```
+
+Onko verkkosivusi menetetty?
 
 ## 3. OPPITUNTI: Omien levykuvien laatiminen sekä virtuaalilevyasemat (`volume`)
 
