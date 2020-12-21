@@ -376,7 +376,80 @@ $ docker container rm -f httpd
 
 Onko verkkosivusi menetetty?
 
+### Lisätietoa
+
+Useissa Docker-asennuksissa on komentorivin aputoiminto --help, jolla saa
+lisätietoa yksittäisistä Docker-komennoista. Esimerkiksi
+
+```
+$ docker --help
+```
+
+listaa Dockerin komennot hyvin lyhyine selityksineen, tarkemman tiedon ollessa
+saatavilla kirjoittamalla komentoa pidemmälle ja sitten --help. Tällä
+oppitunnilla käsitellyistä asioista tarkempaa tietoa löytyy esimerkiksi
+komennoilla:
+
+```
+$ docker run --help
+$ docker ps --help
+$ docker container --help
+$ docker image --help
+```
+
+On suositeltavaa tutustua tällä tavoin kurssilla esiin tuleviin
+Docker-komentoihin tai miksei muihinkin.
+
 ## 3. OPPITUNTI: Omien levykuvien laatiminen sekä virtuaalilevyasemat (`volume`)
+
+Edellisellä oppitunnilla todettiin, että kun palvelun käynnistää levykuvasta
+käskyllä `docker run`, tekee muutoksia palvelun sisällä ja sammuttaa palvelun
+käskyllä `docker container rm`, tehdyt muutokset menetetään. Kuitenkin monesti
+on niin, että halutaan tilanne, jossa palvelua käynnistettäessä esimerkiksi
+tietyt asennetut ohjelmat olisivat käytettävissä. Tällöin paras ratkaisu
+on tehdä *oma levykuva* johtamalla se olemassa olevasta levykuvasta. Tämän
+voi tehdä monella tapaa, mutta suositeltavin tapa on kirjoittaa `Dockerfile`.
+Se kertoo, mistä alkuperäisestä levykuvasta lähdetään liikkeelle ja mitä
+komentoja sen sisällä annetaan uuden levykuvan luomiseksi. Nämä komennot
+luovat uuteen levykuvaan uusia *kerroksia* (layers).
+
+Jos esimerkiksi haluamme Ubuntu-levykuvan, jossa on lähtökohtaisesti käytössä
+ylimääräiset komennot `nano` ja `less`, sitä varten voidaan luoda tiedosto:
+
+#### Dockerfile
+```dockerfile
+FROM ubuntu
+RUN \
+    apt-get update && \
+    apt-get install less nano
+```
+
+luoda uusi levykuva käskyllä:
+
+```
+$ docker build -t tsl-ubuntu .
+```
+
+ja kokeilla sitä käskyillä:
+
+```
+$ docker run -it --rm tsl-ubuntu
+root@07072c62fc30:/# mkdir tslespoo
+root@07072c62fc30:/# nano testi.txt
+root@07072c62fc30:/# exit
+exit
+```
+
+Nyt meillä on omatekoinen `ubuntu`:sta johdettu levykuva `tsl-ubuntu`, jossa
+on valmiina käskyt `nano` ja `less`. Oman levykuvan teko oli yksinkertaista,
+otettiin `ubuntu` lähtökohdaksi `FROM`-käskyllä ja `RUN`-käskyllä ajettiin
+uutta levykuvaa varten standardit Ubuntu Linuxin asennuskomennot pakettien
+`less` ja `nano` asentamiseksi. Esimerkin voi ajaa hakemistossa `tsl-ubuntu`.
+
+### TEHTÄVÄ 3.1. less
+
+Ota selvää, mitä tekee käsky `less` ja käytä sitä `tsl-ubuntu`-palvelussa kun
+palvelu on päällä.
 
 ## 4. OPPITUNTI: Useiden palveluiden yhdistäminen `docker-compose`:lla
 
