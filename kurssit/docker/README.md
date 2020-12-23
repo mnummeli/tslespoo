@@ -451,6 +451,71 @@ uutta levykuvaa varten standardit Ubuntu Linuxin asennuskomennot pakettien
 Ota selvää, mitä tekee käsky `less` ja käytä sitä `tsl-ubuntu`-palvelussa kun
 palvelu on päällä.
 
+### Virtuaalilevyasemat (volume)
+
+Jo aiemmin oli puhetta siitä, että joissakin tapauksissa halutaan kuitenkin
+säilyttää tietyissä hakemistoissa olevat tiedostot, vaikka palvelu välillä
+sammutettaisiin (ja mahdollisesti päivitetään vaikkapa uudemmalla levykuvan
+versiolla). Tähän ongelmaan paras ratkaisu ovat ns. virtuaalilevyasemat
+(engl. volume). Käynnistetään yllä mainittu palvelumme `tsl-ubuntu` siten,
+että sen hakemisto `tslespoo` on kiinnitetty samannimiseen virtuaalilevyasemaan:
+
+```
+$ docker volume create tslespoo
+tslespoo
+$ docker run -it --rm -v "tslespoo:/tslespoo" tsl-ubuntu
+root@c3067f501d0e:/# cd tslespoo
+root@c3067f501d0e:/tslespoo# nano testi.txt
+root@c3067f501d0e:/tslespoo# cat testi.txt
+TSL:n kurssilla opit koodaamaan!
+root@c3067f501d0e:/tslespoo# exit
+exit
+✔
+$ docker run -it --rm -v "tslespoo:/tslespoo" tsl-ubuntu
+root@314e0cfffa1b:/# cd tslespoo
+root@314e0cfffa1b:/tslespoo# cat testi.txt 
+TSL:n kurssilla opit koodaamaan!
+root@314e0cfffa1b:/tslespoo# exit
+exit
+```
+
+Yllä olevasta esimerkistä näkyy, kuinka nyt tiedosto säilyikin
+uudelleenkäynnistyksen yli, koska se oli virtuaalilevyasemalla eikä vain
+palvelun muistinvaraisessa osassa. Tyypillisimmät asiat, joita laitetaan
+virtuaalilevyasemille ovat esim. verkkosivut, tietokantojen sisältötiedostot
+ja lokiin talteen otettavat sovellusilmoitukset. Jälkimmäiset siksi, että
+niitä usein tarvitaan ohjelmistojen virhetilanteiden selvittelyssä.
+
+Virtuaalilevyasemat on mahdollista myös tuhota, esimerkiksi tässä tapauksessa
+komennolla `docker volume rm tslespoo`. Tällöin yllämainittu testitiedostomme
+tietenkin häviää samalla kuin muukin mahdollinen virtuaalilevyaseman sisältö.
+Oikeasti tärkeistä tiedostoista tulee aina olla varmuuskopiot myös muualla.
+Esimerkki, miten voidaan tilapäisesti käynnistää palvelu vain siksi ajaksi,
+että sen sisältämä virtuaalilevyasema varmuuskopioidaan:
+
+```
+$ docker run -it --rm -v "tslespoo:/tslespoo" -d --name tsl-ubuntu tsl-ubuntu && docker cp tsl-ubuntu:/tslespoo tslespoo && docker container rm -f tsl-ubuntu
+e9f1ff41adb7ee530c03b6b8cfe3ee9dea248be39f0070c438b715c2973ed05c
+tsl-ubuntu
+```
+
+### TEHTÄVÄ 3.2.
+
+Miksi äskeisessä varmuuskopiointikomennossa ajoimme palvelun *irrotettuna*
+lisäämällä vivun `-d`?
+
+### TEHTÄVÄ 3.3.
+
+Selvitä itsellesi käskyllä `docker cp --help`, mitä tarkemmin tekee
+`docker cp`-käsky. Luo sen jälkeen komentoketju, jolla kopioit isäntäkoneeltasi
+seuraavan sisältöisen tekstitiedoston `huomautus.txt`:
+
+```
+Joka ei koodata osaa, ei sen syömänkään pidä!
+```
+
+virtuaalilevyasemalle `tslespoo`.
+
 ## 4. OPPITUNTI: Useiden palveluiden yhdistäminen `docker-compose`:lla
 
 ## Yhteenveto
