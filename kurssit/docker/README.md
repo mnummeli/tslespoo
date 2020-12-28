@@ -518,6 +518,128 @@ virtuaalilevyasemalle `tslespoo`.
 
 ## 4. OPPITUNTI: Useiden palveluiden yhdistäminen `docker-compose`:lla
 
+Kuten edellisellä oppitunnilla huomasimme, mikäli palveluita ja niiden
+määrityksiä on kovin paljon, tulee `docker`-komennoista helposti pitkiä ja
+hankalia ja niitä on ajettava useita peräjälkeen. Tätä varten on luotu
+`docker`:in päälle apuvälineitä, jotka toivottavasti yksinkertaistavat tätä.
+Tällä oppitunnilla esitellään `docker-compose`. Sen ideana on, että
+kirjoitetaan ensin *määrittelytiedosto* `docker-compose.yml`, joka kertoo
+mitä palveluita käynnistetään, miten ne liittyvät toisiinsa ja mitä
+muita objekteja kuten virtuaalilevyasemia tai verkkoyhteyksiä ne käyttävät.
+Opetellaan näitä esimerkkien avulla.
+
+### Yksi palvelu node.js-kehitystyötä varten
+
+Ne, jotka ovat tekneet node.js Javascriptillä projektien taustapalveluita
+(backend), tietävät, että normaalisti jos palvelua muuttaa, joutuu käynnistämään
+verkkopalvelimen uudelleen, mikäli haluaa muutosten näkyvän. Docker-compose
+tarjoaa kuitenkin mahdollisuuden palveluun, joka uudelleenkäynnistyy kun tehdään
+muutoksia. Jos olet kloonannut tämän Git-repositoryn, seuraavat tiedostot
+ovat saatavissa alihakemistosta `/node-dev`.
+
+#### `.dockerignore`
+
+Emme halua kopioida verkosta haettuja `node.js`-kirjastoja, siksi tämä tiedosto:
+
+```dockerignore
+node_modules/
+```
+
+#### `package.json`
+
+Tässä määritellään, mitkä `node.js`-kirjastot asennetaan ja muutamia muita
+paketin ominaisuuksia
+
+```json
+{
+    "name": "node-dev",
+    "version": "0.0.1",
+    "description": "Yksinkertainen node.js-kehitysalusta perustuen Express-palvelimeen",
+    "main": "index.js",
+    "scripts": {
+        "start": "node server.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "TSL",
+        "node.js",
+        "docker-compose"
+    ],
+    "author": "TSL:n Espoon ja Kauniaisten opintojärjestö",
+    "repository": "http://github.com/mnummeli/tslespoo.git",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.17.1"
+    }
+}
+```
+
+#### `server.js`
+
+Tämä on itse Express-verkkopalvelinta käyttävä lähdekoodi:
+
+```javascript
+#!/usr/bin/env node
+
+/* global process */
+
+'use strict';
+
+const express = require('express');
+const app = express();
+const os = require('os');
+const PORT = process.env.NODE_PORT || 3000;
+
+app.get('/hei', (req, res) => {
+    res.set({'Content-Type': 'text/plain; charset=utf-8'});
+    res.end(`Hei ${req.query.nimi}!`);
+});
+
+app.get('/palvelimen-nimi', (req, res) => {
+    res.set({'Content-Type': 'text/plain; charset=utf-8'});
+    res.end(`Hei palvelimelta ${os.hostname()}!`);
+});
+
+app.use((req, res) => {
+    res.set({'Content-Type': 'text/html; charset=utf-8'});
+    res.status(404);
+    res.end(`<h2 style="color: red; background-color: yellow;">Palvelua ei ` +
+            `löytynyt polussa ${req.path}.</h2>`);
+});
+
+app.listen(PORT, () => {
+    console.log(`Sovellus vastaa portissa ${PORT}.`);
+});
+```
+
+Kun nämä tiedostot on esitelty, kannattaa testata sovellusta ensin ilman
+Dockeria. Hakemistossa, jossa nämä sijaitsevat, kirjoita:
+
+```
+$ npm install
+... asennusilmoituksia
+$ npm start
+
+> node-dev@0.0.1 start /home/mnummeli/Asiakirjat/javascript/tslespoo/kurssit/docker/node-dev
+> node server.js
+
+Sovellus vastaa portissa 3000.
+```
+
+ja mene sen jälkeen seuraaviin verkko-osoitteisiin:
+
+* http://localhost:3000/hei?nimi=TSL
+* http://localhost:3000/palvelimen-nimi
+* http://localhost:3000/jotainmuuta
+
+Katso, että vastaukset ovat järkeviä. Ensinmainittu on tervehdys, toisen pitäisi
+kertoa palvelimesi nimi ja kolmas on virhesivu poluille, joista ei löydy
+muuta verkkopalvelua. Paina `Ctrl+C` sammuttaaksesi verkkopalvelimen. Sen
+jälkeen edellisten verkkosivujen ei tietenkään kuulu enää vastata.
+
+#### Dockerfile
+
+
 ## Yhteenveto
 
 ### Lisätietoa
