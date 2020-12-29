@@ -785,6 +785,76 @@ node-dev_1  |
 node-dev_1  | Sovellus vastaa portissa 3000.
 ```
 
+### Useampi palvelu `docker-compose`:lla
+
+Tämä on vieläkin merkittävämpi `docker-compose`:n vahvuus kuin edelliset
+esimerkit ja tyypillisin käyttötapaus myös. `docker-compose`:lla on mahdollista
+laatia useamman palvelun kokonaisuus, jossa palvelut kommunikoivat toistensa
+kanssa sisäverkossa ja käynnistyvät siinä järjestyksessä, mistä ovat
+riippuvaisia. Jotta esimerkkiin ei laitettaisi liikaa omia muita teknologioita,
+esitellään klassinen ratkaisu, jossa on Wordpress-julkaisualusta ja sen
+tietokantana MySQL. Voidaan kirjoittaa seuraavanlainen `docker-compose.yml`:
+
+```docker-compose
+version: '3'
+
+services:
+
+  wordpress:
+    image: wordpress
+    restart: always
+    depends_on:
+      - db
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    ports:
+      - 8080:80
+    volumes:
+      - wordpress:/var/www/html
+
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+      MYSQL_DATABASE: wordpress
+    ports:
+      - 13306:3306
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  wordpress:
+  db:
+```
+
+Tässä määritellään 2 palvelua, wordpress ja sitä tukeva MySQL-tietokanta.
+Lisäksi määritellään 2 virtuaalilevyasemaa, `wordpress` ja `db`, jotka
+sisältävät sivuston ja sen tietokannan, tässä järjestyksessä. Emme halua
+näiden tietojen hukkuvan palvelun uudelleenkäynnistyksen yhteydessä! Kun
+tämä palvelu käynnistetään:
+
+```
+$ docker-compose up -d
+$ docker-compose logs -f
+...
+```
+sillä menee jonkin aikaa alustaa tietokanta ja käynnistyä ensimmäisellä
+kerralla, mutta sen jälkeen aina kun palvelu on päällä, voidaan mennä
+osoitteeseen
+
+* http://localhost:8080/wp-admin
+
+ja kirjoittaa uutta sisältöä sivustolle niin hyvin kuin WordPress-taidot
+vain kantavat. Jos olet kloonannut tämän kurssin git-repositoryn, esimerkki
+on hakemistossa `/tsl-wordpress`.
+
 ## Yhteenveto
 
 ### Lisätietoa
