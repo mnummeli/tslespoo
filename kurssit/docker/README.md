@@ -533,8 +533,8 @@ Opetellaan näitä esimerkkien avulla.
 Ne, jotka ovat tekneet node.js Javascriptillä projektien taustapalveluita
 (backend), tietävät, että normaalisti jos palvelua muuttaa, joutuu käynnistämään
 verkkopalvelimen uudelleen, mikäli haluaa muutosten näkyvän. Docker-compose
-tarjoaa kuitenkin mahdollisuuden palveluun, joka uudelleenkäynnistyy kun tehdään
-muutoksia. Jos olet kloonannut tämän Git-repositoryn, seuraavat tiedostot
+tarjoaa kuitenkin mahdollisuuden palveluun, joka uudelleenkäynnistyy kun
+palvelu sammuu. Jos olet kloonannut tämän Git-repositoryn, seuraavat tiedostot
 ovat saatavissa alihakemistosta `/node-dev`.
 
 #### `.dockerignore`
@@ -639,6 +639,151 @@ jälkeen edellisten verkkosivujen ei tietenkään kuulu enää vastata.
 
 #### Dockerfile
 
+Laitetaan sovellus seuraavaksi pyörimään Dockerilla "tavalliseen tapaan":
+
+```dockerfile
+FROM node
+WORKDIR /app
+COPY package.json .
+RUN npm install
+COPY . .
+ENTRYPOINT ["npm"]
+CMD ["start"]
+```
+
+Nyt levykuva voidaan laatia (build) käskyllä:
+
+```
+$ docker image build -t node-dev:0.0.1 .
+```
+
+ja ajaa käskyllä:
+
+```
+$ docker run -d -p "3000:3000" --name node-dev node-dev:0.0.1
+```
+
+Voit tarkastaa käskyllä:
+
+```
+$ docker logs node-dev
+
+> node-dev@0.0.1 start
+> node server.js
+
+Sovellus vastaa portissa 3000.
+```
+
+että sovellus on käynnissä ja sen jälkeen kokeilla jälleen samoja
+verkko-osoitteita kuten yllä:
+
+* http://localhost:3000/hei?nimi=TSL
+* http://localhost:3000/palvelimen-nimi
+* http://localhost:3000/jotainmuuta
+
+### Tehtävä 4.1.
+
+Miksi verkko-osoitteesta http://localhost:3000/palvelimen-nimi tulee nyt eri
+palvelimen nimi kuin aiemmin?
+
+---
+
+Palvelu sammutetaan tuttuun tapaan käskyllä
+
+```
+$ docker container rm -f node-dev
+```
+
+Siirrytään vihdoin itse `docker-compose`en. Kirjoitetaan seuraavanlainen
+tiedosto:
+
+#### `docker-compose.yml`
+
+```docker-compose
+version: "3"
+
+services:
+    node-dev:
+        build: .
+        environment:
+            - NODE_PORT=3000
+        ports:
+            - "3000:3000"
+        restart: always
+        networks:
+            - internal
+        volumes:
+            - ".:/app"
+        
+networks:
+    internal:
+```
+
+ja käynnistetään järjestelmä käskyllä:
+
+```
+$ docker-compose up -d --build
+```
+
+Lokia voi seurata käskyllä:
+
+```
+$ docker-compose logs -f
+```
+(keskeyttäminen painamalla Ctrl+C). Tässä vaiheessa voi taas tarkastaa, että
+yllä mainitut verkko-osoitteet ovat toiminnassa. Docker-compose sammutetaan
+käskyllä
+
+```
+$ docker-compose down
+```
+
+Tästä on jo nyt kaksi etua. Ensinnäkin palveluiden käynnistäminen ja
+sammuttaminen tapahtuvat melko yksinkertaisin käskyin ja lisäksi, jos
+`docker-compose.yml`-tiedoston sisältöä muuttaa, voidaan muutokset saattaa
+heti voimaan käskyllä
+
+```
+$ docker-compose up -d --remove-orphans
+```
+sammuttamatta palvelua välillä. Laaditaan palveluun uusi verkko-osoite `/x`,
+johon lähetetty lomake aikaansaa virhetilanteen.
+Tällöin palvelu käynnistyy uudelleen.
+
+```javascript
+app.post('/x', (req, res) => {
+    process.exit(1);
+});
+```
+
+```
+$ curl -XPOST http://localhost:3000/x
+curl: (52) Empty reply from server
+```
+
+ja lokissa:
+
+```
+$ docker-compose logs -f
+Attaching to node-dev_node-dev_1
+node-dev_1  | 
+node-dev_1  | > node-dev@0.0.1 start
+node-dev_1  | > node server.js
+node-dev_1  | 
+node-dev_1  | Sovellus vastaa portissa 3000.
+node-dev_1  | npm ERR! code 1
+node-dev_1  | npm ERR! path /app
+node-dev_1  | npm ERR! command failed
+node-dev_1  | npm ERR! command sh -c node server.js
+node-dev_1  | 
+node-dev_1  | npm ERR! A complete log of this run can be found in:
+node-dev_1  | npm ERR!     /root/.npm/_logs/2020-12-29T19_55_21_836Z-debug.log
+node-dev_1  | 
+node-dev_1  | > node-dev@0.0.1 start
+node-dev_1  | > node server.js
+node-dev_1  | 
+node-dev_1  | Sovellus vastaa portissa 3000.
+```
 
 ## Yhteenveto
 

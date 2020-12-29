@@ -19,6 +19,10 @@ app.get('/palvelimen-nimi', (req, res) => {
     res.end(`Hei palvelimelta ${os.hostname()}!`);
 });
 
+app.post('/x', (req, res) => {
+    process.exit(1);
+});
+
 app.use((req, res) => {
     res.set({'Content-Type': 'text/html; charset=utf-8'});
     res.status(404);
