@@ -1,0 +1,21 @@
+{
+    "name": "node-dev",
+    "version": "0.0.1",
+    "description": "Yksinkertainen node.js-kehitysalusta perustuen Express-palvelimeen",
+    "main": "index.js",
+    "scripts": {
+        "start": "node server.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "TSL",
+        "node.js",
+        "docker-compose"
+    ],
+    "author": "TSL:n Espoon ja Kauniaisten opintojärjestö",
+    "repository": "http://github.com/mnummeli/tslespoo.git",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.17.1"
+    }
+}

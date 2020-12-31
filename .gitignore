@@ -1,12 +1,13 @@
 **/*~
-**/*.html
 **/*.aux
 **/*.log
 **/*.out
 **/*.log
 **/*.pdf
 **/*.toc
+**/yarn.lock
 **/package-lock.json
 **/node_modules/
+**/README.html
 wordpress/
 /nbproject/

@@ -19,6 +19,9 @@ Redis-tietokantaan tallennetaan verkkosivulla käyntien lukumäärä.
 $ docker-compose up -d --build
 ```
 
+Valitsimen `--build` voi jättää pois, mikäli palveluun `express` ei ole tehty
+muutoksia eikä sitä tarvitse kääntää uudelleen.
+
 ## Lokien seuraaminen
 
 ```
@@ -33,4 +36,10 @@ $ docker-compose logs -f
 
 ```
 $ curl -XPOST http://localhost:3000/crash
+```
+
+## Palvelun sammuttaminen
+
+```
+$ docker-compose down
 ```
