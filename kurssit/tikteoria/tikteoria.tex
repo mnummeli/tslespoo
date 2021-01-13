@@ -1,0 +1,154 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[finnish]{babel}
+\usepackage[pdftex,colorlinks]{hyperref}
+\usepackage{lmodern}
+\usepackage{mathabx}
+\newtheorem{lause}{Lause}
+\newtheorem{tehtava}{Tehtävä}
+\begin{document}
+\title{Tietojenkäsittelyopin teoriaa}
+\author{Mikko Nummelin}
+\maketitle
+\tableofcontents
+
+% Johdanto
+\section{Johdanto}
+Tämän kurssin tarkoitus on tarjota yleissivistävä perusta tietojenkäsittelyopin
+teorialle käymällä läpi ns. lukuteoreettiset funktiot ja $\lambda$ (lambda)-laskenta.
+Nämä tekniikat keksittiin aikanaan 1920-1940-luvuilla sen aikaisten huomattavien
+diskreetin matematiikan uranuurtajien, kuten Alan Turingin, Kurt Gödelin,
+Emil Postin ja Alonso Churchin toimesta. Tuolloin huomattiin myös, että useat
+eri laskennalliset tekniikat ja algoritmit kattavat käytännössä kaiken, mitä
+yleensä on tietokoneen laskettavissa, niissä on pohjimmillaan samantapainen
+ohjelmoitava rakenne ja että on olemassa paljon tietoteknisiä
+ongelmia, jotka ovat \emph{laskennallisesti ratkeamattomia}. Lukuteoreettiset
+funktiot ja $\lambda$-laskenta ovat kaksi esimerkkiä Turing-täydellisistä
+algoritmiformuloinneista, mutta näitä on lukuisia muitakin, kuten
+Turing-Post-koneet, kieliopit ja muut merkkijonojen
+uudelleenkirjoitusjärjestelmät.
+
+Kurssin materiaalin läpikäymisen jälkeen on tarkoitus ymmärtää paremmin
+monien nykyaikaisten ohjelmointikielten taustaa ja rakenteellista pohjaa.
+
+% Lukuteoreettiset funktiot
+\section{Lukuteoreettiset funktiot}
+Lukuteoreettiset funktiot käsittelevät funktioita luonnollisilta luvuilta
+luonnollisille luvuille. Ns. Gödel-numeroinnin avulla on mahdollista kuvata
+myös muita funktioita numeroituvilta joukoilta numeroituville joukoille, kuten
+merkkijonojen funktioita tai lukulistoja. Tämä mahdollistaa myös matemaattisen
+logiikan kaavojen analysoinnin, jossa kaavat voidaan itsessään kuvata luvuiksi
+ja niillä voidaan muodostaa kaavoja, jotka tutkivat itseään tai toisia kaavoja.
+Tällöin päädytään myös ns. lukuteorian epäsäännöllisyyslauseeseen, jonka
+mukaan on mahdotonta kehittää algoritmia, joka tutkisi mielivaltaisesta
+lukuteoreettisesta funktiosta, onko sillä nollakohtia vai ei.
+
+% P.r. funktiot
+\subsection{Primitiivirekursiiviset funktiot}
+Tässä osiossa käsitellään ns. primitiivirekursiiviset funktiot, jotka muodostavat
+\emph{melkein} kaikki laskettavissa olevat funktiot. P.r. funktioiden
+ulkopuolelle jäävät laskettavissa olevat eli lukuteoreettiset funktiot ovat
+sellaisia, että niissä on potentiaalisia ikisilmukoita, eli jos funktion
+kirjoittaisi ohjelmaksi, ei voida suoraan asettaa ylärajaa yksittäisten
+silmukoiden suoritusmäärälle. Nämä käsitellään omassa osiossaan.
+
+\subsubsection{Initiaalifunktiot}
+Vakiofunktio $\zeta()=0$, jolla ei ole yhtään parametria on primitiivirekursiivinen.
+Tämä vastaa käytännössä lukua $0$. Seuraajafunktio $\sigma(n)=n+1$ on p.r.
+Tällä voidaan muodostaa kaikki luonnolliset luvut $\sigma(\zeta())=1,
+\sigma(\sigma(\zeta()))=2$, jne. Lisäksi, jos meillä on lista lukuja
+$(x_0,x_1,x_2,...,x_{n-1})$, voidaan tätä listaa merkitä symbolilla $\vec{x}$, ja
+\emph{projisoida} siitä haluttu alkio siten, että $\pi_m^n(\vec{x})=x_m$.
+Projektiot $\pi_m^n$ ovat p.r.
+\begin{tehtava}
+Osoita, että luku $3$ on primitiivirekursiivinen vakiofunktio ilman parametreja.
+\end{tehtava}
+\begin{tehtava}
+Laske $\pi_1^3(5,7,12)$.
+\end{tehtava}
+
+\subsubsection{Yhdistäminen ja primitiivirekursio}
+Edellisessä kappaleessa emme olleet matemaattisen tarkkoja siitä, mitä
+tarkoittaa funktioiden yhdistäminen, käyttäessämme sellaisia ilmaisuja, kuten
+$\sigma(\sigma(\zeta())$. Muodollisesti funktio $f$ on saatu \emph{yhdistämällä}
+funktioista $g$ ja $\vec{h}$, mikäli $f(\vec{x})=g(\vec{h}(\vec{x}))$. Tällöin
+voidaan muodollisesti merkitä $f=(g\vec{h})$.
+Lisäksi on huomattava, että funktio $f$ voidaan määritellä funktioiden $g$ ja $h$
+avulla primitiivirekursiolla:
+
+\begin{equation}
+\left\{
+\begin{array}{lcl}
+f(0,\vec{x}) & = & g(\vec{x}) \\
+f(n+1,\vec{x}) & = & h(n, f(n,\vec{x}), \vec{x})
+\end{array}
+\right.
+\end{equation}
+
+Tällöin voidaan muodollisesti merkitä, että $f=(\rho gh)$. Näitä muodollisia
+merkintöjä tarvitaan lähinnä siinä vaiheessa, kun todistetaan lauseita, joissa
+p.r. tai lukuteoreettisilla funktioilla viitataan toisiin p.r. tai lukuteoreettisiin
+funktioihin.
+
+\subsubsection{Eräitä primitiivirekursiivisia funktioita}
+Olkoon $C_m^n$ $n$-argumenttinen vakiofunktio, jonka arvo on $m$. Vakiofunktiot
+ovat primitiivirekursiivisia:
+
+\begin{equation}
+\left\{
+\begin{array}{lcl}
+C_0^0 & = & \zeta()=0 \\
+C_{m+1}^0 & = & \sigma C_{m}^0 \\
+C_m^{n+1} & = & C_m^n
+\end{array}
+\right.
+\end{equation}
+
+Summa $x+y$ on primitiivirekursiivinen:
+
+\begin{equation}
+\left\{
+\begin{array}{lcl}
+x + 0 & = & x \\
+x + (y+1) & = & \sigma(x + y)
+\end{array}
+\right.
+\end{equation}
+
+\emph{Rajoitettu edeltäjä} $\sigma^{-1}$ on primitiivirekursiivinen:
+
+\begin{equation}
+\left\{
+\begin{array}{lcl}
+\sigma^{-1}(0) & = & 0 \\
+\sigma^{-1}(n+1) & = & n
+\end{array}
+\right.
+\end{equation}
+
+Tätä sanotaan rajoitetuksi edeltäjäksi siksi, että luvulla $0$ ei varsinaisesti
+ole edeltäjää luonnollisten lukujen joukossa ja siksi senkin rajoitettu edeltäjä
+on määritelty $0$:ksi.
+
+\emph{Rajoitettu vähennyslasku} $x \dotdiv y$ on primitiivirekursiivinen:
+
+\begin{equation}
+\left\{
+\begin{array}{lcl}
+x \dotdiv 0 & = & x \\
+x \dotdiv (y+1) & = & \sigma^{-1}(x \dotdiv y)
+\end{array}
+\right.
+\end{equation}
+
+Tätä sanotaan rajoitetuksi vähennyslaskuksi siksi, että $x \dotdiv y=0$, jos $y \ge x$.
+Tämä johtuu siitä, että käsittelemme vain luonnollisia lukuja emmekä negatiivisia
+lukuja.
+
+% Mu-rekursiiviset funktiot
+\subsection{$\mu$-rekursiiviset funktiot}
+
+% Lambda-laskenta
+\section{$\lambda$-laskenta}
+\end{document}
