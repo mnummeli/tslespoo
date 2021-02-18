@@ -1,0 +1,38 @@
+\documentclass[a4paper,12pt,twoside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[finnish]{babel}
+\usepackage{lmodern}
+\usepackage{eurosym}
+\usepackage[pdftex,colorlinks]{hyperref}
+\begin{document}
+\title{Tiedostopohja}
+\author{Essi Esimerkki}
+\maketitle
+\tableofcontents
+\newtheorem{esimerkki}{Esimerkki}
+\section{Lorem ipsum}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac purus sit amet mauris dapibus facilisis sed a eros. Vestibulum vel interdum eros. Aenean vehicula eget nisl sed porttitor. Donec urna mi, aliquet ac malesuada quis, ultricies at purus. Curabitur a ligula nisi. Morbi arcu leo, cursus a orci nec, facilisis egestas urna. Sed tempor, nulla et cursus sagittis, mauris nibh dignissim purus, quis iaculis lectus turpis quis libero. Vivamus ut tortor non erat gravida egestas \cite{Aho}. Cras ut ligula quis felis consectetur bibendum. Nulla aliquet placerat turpis, nec rutrum metus.\footnote{Tämä on laskelmoitua.} Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+\subsection{Kaikki tosiseikat}
+Proin fringilla tristique ipsum a feugiat. Curabitur eros enim, vulputate id mauris vel, tincidunt viverra tortor (\ref{vaihtoehtoja}). Vivamus convallis, felis at lobortis volutpat, leo urna ultrices elit, et volutpat nisi arcu non diam. Vivamus sed eleifend lectus, quis ultricies felis. Nam hendrerit ornare tellus ut vehicula [Esimerkki \ref{meow}]. Praesent ullamcorper tincidunt facilisis. Pellentesque facilisis quis ligula vel rhoncus. Donec posuere tellus ac urna maximus blandit. Lorem ipsum dolor sit amet, consectetur adipiscing elit \cite{Ber}. Integer commodo viverra felis sit amet blandit. Sed ut tincidunt lectus. Vivamus sed scelerisque urna. Sed egestas molestie justo id mattis.
+\begin{equation}
+\label{vaihtoehtoja}
+f(n+1,\vec{x})=
+\left\{
+\begin{array}{cl}
+g(\vec{x}), & n=0 \\
+h\left(n,f(n,\vec{x}),\vec{x}\right) & \textrm{muuten}
+\end{array}
+\right.
+\end{equation}
+\subsection{Lyhyt}
+100 \euro
+\begin{esimerkki}[Meow]
+\label{meow}
+Kissojen Javascript-koodausta.
+\end{esimerkki}
+\begin{thebibliography}{99}
+\bibitem[Aho]{Aho} Aho: Koodausopas
+\bibitem[Ber]{Ber} Berg: Kissakuvasto
+\end{thebibliography}
+\end{document}
