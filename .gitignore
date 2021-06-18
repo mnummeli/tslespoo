@@ -10,4 +10,4 @@
 **/node_modules/
 **/README.html
 wordpress/
-/nbproject/
+**/nbproject/
