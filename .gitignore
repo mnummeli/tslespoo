@@ -11,3 +11,6 @@
 **/README.html
 wordpress/
 /nbproject/
+/misc/express-redis/nbproject/private/
+/misc/simple/nbproject/private/
+/misc/gulptest/nbproject/private/

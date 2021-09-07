@@ -1,0 +1,12 @@
+{
+  "name": "gulptest",
+  "version": "0.0.1",
+  "description": "Simple tests for Gulp builder",
+  "main": "index.js",
+  "repository": "https://github.com/mnummeli/tslespoo.git",
+  "author": "Mikko Nummelin",
+  "license": "MIT",
+  "dependencies": {
+    "gulp": "^4.0.2"
+  }
+}
