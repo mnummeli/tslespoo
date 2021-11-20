@@ -47,20 +47,19 @@ Tarkastellaan samanlaista kolmiota kuin edellisessä kappaleessa ja ajatellaan s
 \subsection{Sinilause kosinilauseen loogisena seurauksena}
 Korotetaan (\ref{kosinilause}) puolittain toiseen potenssiin, jolloin saadaan
 \begin{equation}\label{kosinilause2}
-a^4+b^4+c^4+2a^2 b^2-2a^2 c^2-2b^2 c^2=4a^2 b^2\cos^2\gamma
+4a^2 b^2\cos^2\gamma=a^4+b^4+c^4+2a^2 b^2-2a^2 c^2-2b^2 c^2
 \end{equation}
 Koska $\sin^2\gamma+\cos^2\gamma=1$, saadaan kaavasta (\ref{kosinilause2})
 \begin{equation}\label{sini2}
 \begin{split}
-a^4+b^4+c^4+2a^2 b^2-2a^2 c^2-2b^2 c^2&= 4a^2 b^2(1-\sin^2\gamma)\\
-a^4+b^4+c^4-2a^2 b^2-2a^2 c^2-2b^2 c^2&= -4a^2 b^2\sin^2\gamma \\
+4a^2 b^2(1-\sin^2\gamma) &= a^4+b^4+c^4+2a^2 b^2-2a^2 c^2-2b^2 c^2 \\
 \sin^2\gamma&= \frac{2a^2 b^2+2a^2 c^2+2b^2 c^2-a^4-b^4-c^4}{4a^2 b^2}
 \end{split}
 \end{equation}
-Jaetaan puolittain $c$:llä, jolloin oikealla puolella on lauseke, joka on symmetrinen muuttujien $a$, $b$ ja $c$ suhteen. Näinollen
+Jaetaan puolittain $c^2$:llä, jolloin oikealla puolella on lauseke, joka on symmetrinen muuttujien $a$, $b$ ja $c$ suhteen. Näinollen
 \begin{equation}
 \begin{split}
-\frac{\sin\gamma}{c}&= \frac{2a^2 b^2+2a^2 c^2+2b^2 c^2-a^4-b^4-c^4}{(2abc)^2} \\
+\frac{\sin^2\gamma}{c^2}&= \frac{2a^2 b^2+2a^2 c^2+2b^2 c^2-a^4-b^4-c^4}{(2abc)^2} \\
 \frac{\sin\alpha}{a}=\frac{\sin\beta}{b}=\frac{\sin\gamma}{c}&=
 \frac{\sqrt{2a^2 b^2+2a^2 c^2+2b^2 c^2-a^4-b^4-c^4}}{2abc}
 \end{split}
@@ -111,8 +110,8 @@ h^2 &= b^2-\left(\frac{a^2+b^2-c^2}{2a}\right)^2 \\
 \end{equation}
 jonka jälkeen voidaan päätyä samaan kaavaan kuin kulmien avulla tehdyssä päättelyssä. On huomattava, kuinka kulmien tarkastelu helpotti ratkaisuun päätymistä. Niidenhän avulla voidaan heti nähdä, että $a_1=b\cos\gamma$, $a_2=c\cos\beta$ ja $h=b\sin\gamma=c\sin\beta$.
 \begin{thebibliography}{99}
-\bibitem{sinilause}[Sin] https://fi.wikipedia.org/wiki/Sinilause
-\bibitem{kosinilause}[Cos] https://fi.wikipedia.org/wiki/Kosinilause
-\bibitem{heron}[Her] https://fi.wikipedia.org/wiki/Heronin\_kaava
+\bibitem{sinilause}[Sin] Wikipedia: \href{https://fi.wikipedia.org/wiki/Sinilause}{\emph{Sinilause}} https://fi.wikipedia.org/wiki/Sinilause
+\bibitem{kosinilause}[Cos] Wikipedia: \href{https://fi.wikipedia.org/wiki/Kosinilause}{\emph{Kosinilause}} https://fi.wikipedia.org/wiki/Kosinilause
+\bibitem{heron}[Her] Wikipedia: \href{https://fi.wikipedia.org/wiki/Heronin_kaava}{\emph{Heronin kaava}} https://fi.wikipedia.org/wiki/Heronin\_kaava
 \end{thebibliography}
 \end{document}
