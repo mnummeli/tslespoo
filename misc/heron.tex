@@ -1,0 +1,118 @@
+\documentclass[a4paper,12pt]{amsart}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[finnish]{babel}
+\usepackage[pdftex,colorlinks]{hyperref}
+\usepackage{amsmath}
+\begin{document}
+\title{Sinilause kosinilauseesta ja Heronin kaava}
+\author{Mikko Nummelin}
+\maketitle
+\tableofcontents
+\setlength{\unitlength}{1cm}
+\begin{figure}
+\begin{picture}(10,5)
+\thicklines
+\put(1,1){\line(1,0){7}}
+\put(8,1){\line(-3,4){3}}
+\put(5,5){\line(-1,-1){4}}
+\put(4.5,0.6){$a$}
+\put(2.8,3.2){$b$}
+\put(6.6,3.1){$c$}
+\put(1.4,1.1){$\gamma$}
+\put(7.4,1.1){$\beta$}
+\put(5.2,5){$\alpha$}
+\thinlines
+\put(5,1){\line(0,1){4}}
+\put(4.7,2.7){$h$}
+\end{picture}
+\caption{Kolmion sivut, kulmat ja korkeusjana}
+\label{kolmio}
+\end{figure}
+\section{Yleistä}
+Lukiossa käsitellään usein analyyttisen geometrian kursseilla sini- ja kosinilauseet \cite{sinilause}\cite{kosinilause}, joilla voidaan ratkaista puuttuvat kolmion sivujen ja kulmien suuruudet, mikäli riittävä osa näistä tunnetaan. Esimerkiksi, jos tunnetaan kolmiosta kaksi kulmaa $\alpha$ ja $\beta$, kolmas voidaan ratkaista vähennyslaskulla $\gamma=\pi-(\alpha+\beta)$. Vastaavasti sinilauseella voidaan ratkaista kolmio, jos tunnetaan kahden sivun pituudet ja niistä toisen vastapäinen kulma ja kosinilauseella kolmio, josta tunnetaan joko vain sivujen pituudet (ilman kulmia) tai kaksi sivua ja niiden välinen kulma (ilman kulman vastakkaista sivua). Jos tunnetaan pelkät kulmat, kolmiota voi skaalata mielivaltaisen kokoiseksi, jolloin sivujen pituuksia ei voida määrittää absoluuttisesti vaan ainoastaan niiden suhteet. Sen sijaan tapauksissa, joissa kosinilausetta voidaan käyttää, voidaan aina määrittää sekä kulmat että sivujen pituudet.
+
+Tässä artikkelissa osoitetaan mm., että sinilause on kosinilauseen looginen seuraus. Sinilauseen puuttuva osa liittyy kolmion pinta-alaan, josta on olemassa Heronin kaavana\cite{heron} tunnettu lauseke, joka perustuu sivujen pituuksiin. Artikkelissa osoitetaan myös, että kyseinen kaava on kosinilauseen looginen seuraus ja ilmenee edellisen todistuksen välivaiheista selvästi.
+\section{Sinilause}
+Tarkastellaan kolmiota, jonka sivujen pituudet ovat $a$, $b$ ja $c$ (Ks. kuvaa \ref{kolmio}). Näiden sivujen vastakkaiset kulmat olkoon samassa järjestyksessä $\alpha$, $\beta$ ja $\gamma$. Näinollen esimerkiksi sivujen $a$ ja $b$ välinen kulma on $\gamma$. Koko kolmion pinta-ala on siis $\frac{ab\sin\gamma}{2}$. Kun hyödyntää sivujen välistä symmetriaa, saadaan yhtälöryhmä $ab\sin\gamma=ac\sin\beta=bc\sin\alpha$, joka muuntuu helposti jakamalla tulolla $abc$, muotoon
+\begin{equation}
+\frac{\sin\alpha}{a}=\frac{\sin\beta}{b}=\frac{\sin\gamma}{c}
+\end{equation}
+Tämä tarkoittaa, että sivujen pituuksien suhde vastakkaisten kulmien sinien suuruuteen on vakio.
+\section{Kosinilause}
+Tarkastellaan samanlaista kolmiota kuin edellisessä kappaleessa ja ajatellaan sivuja $a$, $b$ ja $c$ vektoreina $\vec{a}$, $\vec{b}$ ja $\vec{c}$. Nyt $\vec{c}=\vec{b}-\vec{a}$, joten on todistettavissa, että
+\begin{equation}\label{kosinilause}
+2ab\cos\gamma=a^2+b^2-c^2
+\end{equation}
+\subsection{Sinilause kosinilauseen loogisena seurauksena}
+Korotetaan (\ref{kosinilause}) puolittain toiseen potenssiin, jolloin saadaan
+\begin{equation}\label{kosinilause2}
+a^4+b^4+c^4+2a^2 b^2-2a^2 c^2-2b^2 c^2=4a^2 b^2\cos^2\gamma
+\end{equation}
+Koska $\sin^2\gamma+\cos^2\gamma=1$, saadaan kaavasta (\ref{kosinilause2})
+\begin{equation}\label{sini2}
+\begin{split}
+a^4+b^4+c^4+2a^2 b^2-2a^2 c^2-2b^2 c^2&= 4a^2 b^2(1-\sin^2\gamma)\\
+a^4+b^4+c^4-2a^2 b^2-2a^2 c^2-2b^2 c^2&= -4a^2 b^2\sin^2\gamma \\
+\sin^2\gamma&= \frac{2a^2 b^2+2a^2 c^2+2b^2 c^2-a^4-b^4-c^4}{4a^2 b^2}
+\end{split}
+\end{equation}
+Jaetaan puolittain $c$:llä, jolloin oikealla puolella on lauseke, joka on symmetrinen muuttujien $a$, $b$ ja $c$ suhteen. Näinollen
+\begin{equation}
+\begin{split}
+\frac{\sin\gamma}{c}&= \frac{2a^2 b^2+2a^2 c^2+2b^2 c^2-a^4-b^4-c^4}{(2abc)^2} \\
+\frac{\sin\alpha}{a}=\frac{\sin\beta}{b}=\frac{\sin\gamma}{c}&=
+\frac{\sqrt{2a^2 b^2+2a^2 c^2+2b^2 c^2-a^4-b^4-c^4}}{2abc}
+\end{split}
+\end{equation}
+joka on sinilause lisättynä oikeanpuolisella ilmaisutavalla, joka ei sisällä kulmamuuttujia.
+\section{Heronin kaava}
+Palautetaan mieleen kolmion pinta-alan kaava $A=ab\sin\gamma/2$ ja sijoitetaan sen neliöön kaava (\ref{sini2}):
+\begin{equation}
+\begin{split}
+A^2&= \frac{a^2 b^2\sin^2\gamma}{4} \\
+&= \frac{a^2 b^2\left(\frac{2a^2 b^2+2a^2 c^2+2b^2 c^2-a^4-b^4-c^4}{4a^2 b^2}\right)}{4} \\
+&= \frac{2a^2 b^2+2a^2 c^2+2b^2 c^2-a^4-b^4-c^4}{16}
+\end{split}
+\end{equation}
+Näinollen kolmion pinta-ala sivujen pituuksien suhteena on
+\begin{equation}\label{heron}
+\begin{split}
+A&= \frac{\sqrt{2a^2 b^2+2a^2 c^2+2b^2 c^2-a^4-b^4-c^4}}{4} \\
+&= \frac{\sqrt{(a^2+b^2+c^2)^2-2(a^4+b^4+c^4)}}{4}.
+\end{split}
+\end{equation}
+Kaavaa (\ref{heron}) sanotaan Heronin kaavaksi \cite{heron}.
+\subsection{Vaihtoehtoinen tapa}
+Ylläolevassa päättelyssä hyödynnetään kulmien sinien ja kosinien lausekkeita. Heronin kaava on kuitenkin mahdollista johtaa myös ilman niitä kolmion korkeusjanasta ja Pythagoraan lauseesta. Olkoon $h$ sen korkeusjanan pituus, joka on kohtisuorassa sivuun $a$ nähden. Nyt kolmion pinta-ala on
+\begin{equation}
+A=\frac{ah}{2}
+\end{equation}
+Jaetaan jana $a$ kahtia siten, että $a_1$ on korkeusjanan vasemmalle puolelle jäävän osan pituus ja $a_2$ korkeusjanan oikealle puolelle jäävän osan pituus. Voidaan päätellä
+\begin{equation}
+\begin{split}
+a &= a_1+a_2 \\
+a_1^2+h^2 &= b^2 \\
+a_2^2+h^2 &= c^2 \\
+a^2-2aa_1+a_1^2+h^2 &= c^2 \\
+a^2-2aa_1 &= c^2-b^2 \\
+a_1 &= \frac{a^2+b^2-c^2}{2a} \\
+a_2 &= \frac{a^2-b^2+c^2}{2a}
+\end{split}
+\end{equation}
+Jälkimmäinen yhtälö perustuu symmetriaan, eli nyt on ratkaistu, missä suhteessa jana $a$ on jaettava, jotta korkeusjana olisi siihen nähden kohtisuorassa. Vielä tulee ratkaista $h$:
+\begin{equation}
+\begin{split}
+a_1^2+h^2 &= b^2 \\
+a_1 &= \frac{a^2+b^2-c^2}{2a} \\
+h^2 &= b^2-\left(\frac{a^2+b^2-c^2}{2a}\right)^2 \\
+&= \frac{2a^2 b^2+2a^2 c^2+2b^2 c^2-a^4-b^4-c^4}{4a^2}
+\end{split}
+\end{equation}
+jonka jälkeen voidaan päätyä samaan kaavaan kuin kulmien avulla tehdyssä päättelyssä. On huomattava, kuinka kulmien tarkastelu helpotti ratkaisuun päätymistä. Niidenhän avulla voidaan heti nähdä, että $a_1=b\cos\gamma$, $a_2=c\cos\beta$ ja $h=b\sin\gamma=c\sin\beta$.
+\begin{thebibliography}{99}
+\bibitem{sinilause}[Sin] https://fi.wikipedia.org/wiki/Sinilause
+\bibitem{kosinilause}[Cos] https://fi.wikipedia.org/wiki/Kosinilause
+\bibitem{heron}[Her] https://fi.wikipedia.org/wiki/Heronin\_kaava
+\end{thebibliography}
+\end{document}
