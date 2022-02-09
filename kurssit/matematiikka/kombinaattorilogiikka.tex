@@ -1,0 +1,75 @@
+\documentclass[a4paper,12pt]{amsart}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[finnish]{babel}
+\usepackage[pdftex,colorlinks]{hyperref}
+\usepackage{amsmath}
+\begin{document}
+\title{Kombinaattorilogiikkaa}
+\author{Mikko Nummelin}
+\maketitle
+\tableofcontents
+\newtheorem{esimerkki}{Esimerkki}
+\newtheorem{lause}{Lause}
+\section{Yleistä}
+1930-luvulla matemaatikko Alonzo Church tutki laskettavuuden teoriaa ja keskittyi pohtimaan, millaisia objekteja matemaattiset funktiot oikeastaan ovat ja mitä tyyppiä ne ovat. Jos esimerkiksi $f(n)=n^2,\ n\in\mathbb{N}$, niin $f$ on funktio luonnollisilta luvuilta luonnollisille luvuille $f:\mathbb{N}\to\mathbb{N}$ ja itse $f$ voidaan ymmärtää "objektina" $f=\lambda n.n^2$, jossa $f$ on \emph{tyyppiä} $\mathbb{N}\to\mathbb{N}$. Samoihin aikoihin matemaatikko Haskell Curry (1900-1982) tutki samantapaisia asioita ja keksi esimerkiksi funktioiden argumenttien "ketjuttamisen" sekä Curry-Howard-vastaavuuden eräiden lambda-lauseiden ja todistuvien propositiologiikan aksioomien välillä. Vastaavuus ei ole täydellinen, koska jos lambda-lauseet ovat itseensä viittaavia, niillä ei välttämättä ole vastaavaa propositiologiikan aksioomaa ja jos propositiologiikan aksiooma sisältää negaatioita, sillä ei ole välttämättä vastaavaa lambda-lausetta.
+
+Churchin ja Curryn tutkimukset muodostavat pohjan monille nykyaikaisille ohjelmointikielille ja niiden tavoille käsitellä funktioiden argumentteja ja funktioita arvoina. Eräitä esimerkkejä tällaisista ohjelmointikielistä ovat Javascript, Lisp, Python ja osittain Javan versiot 8:sta eteenpäin. Kurssin tarkoituksena on syventää tietoa funktionaalisen ohjelmoinnin alkuperäisistä matemaattis-loogisista perusteista.
+\section{Lambda-laskenta}
+Lambda-, eli $\lambda$-laskennan ideana on kuvata funktio objektina, joka on valmis ottamaan vastaan argumentteja ja laskemaan niille arvon. Perinteisessä $\lambda$-laskennassa argumentteja otetaan vastaan vain yksi kerrallaan ja sen seurauksena palautetaan uusi $\lambda$-lause, joka on valmis ottamaan vastaan seuraavan argumentin, kunnes lopullinen arvo ollaan valmis palauttamaan.
+\begin{esimerkki}
+Tarkastellaan yhteenlaskua $\mathrm{plus}(x,y)=x+y$. Nyt voitaisiin määrittää "ketjuttamalla", että $\mathrm{plus}=\lambda x.\lambda y.x+y,\ x,y\in\mathbb{R}$. Mitä olisi nyt $\mathrm{plus}(x)$? Se olisi $\lambda y.x+y$, eli funktio, joka on vielä valmis ottamaan vastaan uuden argumentin $y$ ja lisäämään sen jo aiemmin annettuun $x$:ään.
+\end{esimerkki}
+\subsection{Tyypittämätön $\lambda$-laskenta}
+Olkoon $v$ mikä tahansa muuttujasymboli ja $E$ lauseke. Tällöin $v$ ja $(\lambda v.E)$ ovat $\lambda$-lausekkeita. Jos $v$ esiintyy lausekkeessa $E$, sanotaan, että tämä $v$:n esiintymä on \emph{sidottu}. Kaikki muuttujien esiintymät, jotka eivät ole sidottuja, ovat \emph{vapaita}. Olkoon $E_1$ ja $E_2$ mitä tahansa lausekkeita. Tällöin $(E_1 E_2)$ on $\lambda$-lauseke, jossa $E_1$ \emph{evaluoi} $E_2$:n. Mitkään muut lausekkeet eivät ole tyypittämättömiä $\lambda$-lausekkeita. \cite{lambdalaskenta}
+\subsubsection{$\alpha$-konversio}
+Lambda-lauseketta saa muuttaa vaihtamalla muuttujasymbolia toiseksi ja päivittämällä sen sidotut esiintymät samannimisiksi. Esimerkiksi $\lambda x.x=\lambda y.y$. Yleisesti $(\lambda.x M[x])\to(\lambda.y M[y])$. Tätä käytetään selventämään tilanteita, joissa muuttujan sidottu esiintymä uhkaa olla päällekkäinen nimeltään toisen muuttujan vapaan esiintymän kanssa.
+\subsubsection{$\beta$-reduktio}
+Lambda-lauseke evaluoidaan sijoittamalla evaluoitava lauseke evaluoivaan lausekkeeseen argumentin paikalle, eli $((\lambda x.M)E)\to(M[x:=E])$. Esimerkiksi $(\lambda x.\lambda y.x)(\lambda z.z)\to\lambda y.\lambda z.z\to\lambda x.\lambda y.y$. Jälkimmäisessä tehtiin myös $\alpha$-konversio.
+\subsubsection{$\eta$-reduktio}
+Jos $E$ ei sisällä $v$:n vapaata esiintymää, niin $(\lambda v.E)v\to E$.
+\section{SKI-laskenta}
+$\lambda$-laskennan säännöt voivat näyttää vähyydestään huolimatta monimutkaisilta ja etenkin pitkissä lausekkeissa oikeanlaisten $\alpha$-konversioiden tekeminen voi olla työlästä. Asian helpottamiseksi on keksitty vaihtoehtoisia merkintätapoja, joista yksi hyvä apuväline on matemaatikko David Turnerin esittelemä SKI-laskenta \cite{skilaskenta}. Kuten huomaamme, on helppoa todistaa, että SKI-laskennalla voidaan ilmaista samat kaavat kuin $\lambda$-laskennallakin ja toisin päin. SKI-laskennan kolme perinteistä kombinaattoria määritellään seuraavasti:
+\begin{equation}\label{ski}
+\begin{split}
+\mathbf{I}x &\to x \\
+\mathbf{K}xy &\to x \\
+\mathbf{S}xyz &\to xz(yz)
+\end{split}
+\end{equation}
+Jopa näistäkin kolmesta $\mathbf{I}$ on tarkkaan ottaen tarpeeton, koska $\mathbf{SKK}x\to\mathbf{Kx}(\mathbf{Kx})\to x$, eli $\mathbf{SKK}\stackrel{\beta}{=}\mathbf{I}$.
+\begin{lause}[Turnerin lause]\label{turner}
+Jokaista $\lambda$-lausetta vastaa SKI-lause ja päinvastoin.
+
+{\bf Todistus}: Kaikki $\lambda$-lauseet, jotka ottavat argumentin ovat jotakin seuraavista kolmesta muodosta: (1) $\lambda v.v$, (2) $\lambda v.E$, missä $v$ ei esiinny vapaana $E$:ssä tai (3) $\lambda v.E_1 E_2$, missä $v$ esiintyy vapaana ainakin jommassakummassa $E_1$ tai $E_2$. Nyt $\lambda v.v\stackrel{\beta}{=}\mathbf{I}$, $\lambda v.E\stackrel{\beta}{=}\mathbf{K}E$ ja $\lambda v.E_1 E_2\stackrel{\beta}{=}\mathbf{S}(\lambda v.E_1)(\lambda v.E_2)$. Rekursiivisesti toistamalla päädytään aina SKI-lausekkeisiin ilman sidottuja muuttujia.
+
+Vastaavasti $\mathbf{I}\stackrel{\beta}{=}\lambda v.v$, $\mathbf{K}\stackrel{\beta}{=}\lambda x.\lambda y.x$ ja $\mathbf{S}\stackrel{\beta}{=}\lambda x.\lambda y.\lambda z.xz(yz)$.
+\end{lause}
+Edellä näimme, että pelkät kombinaattorit $\mathbf{K}$ ja $\mathbf{S}$ muodostavat täydellisen kannan kombinattorilogiikalle. On olemassa jopa kombinaattori $\iota:=\lambda x.\mathbf{SK}$, joka muodostaa täydellisen kannan jopa yksin! \cite{iota} Tämä johtuu siitä, että voidaan todistaa, että $\iota\iota\stackrel{\beta}{=}\mathbf{I}$, $\iota(\iota\iota)\stackrel{\beta}{=}\mathbf{SK}$, $\iota(\iota(\iota\iota))\stackrel{\beta}{=}\mathbf{K}$ ja lopulta $\iota(\iota(\iota(\iota\iota)))\stackrel{\beta}{=}\mathbf{S}$, mutta näin saadut kaavat olisivat hyvin erikoisen näköisiä, pitkiä ja vaikeita käsitellä, joten lähdemme toiseen suuntaan ja ennemmin lisäämme ylimääräisiä johdettuja kombinaattoreita laskennan helpottamiseksi.
+\section{SKI-laskennan laajennukset}
+Uusien kombinaattorien lisääminen ei varsinaisesti lisää SKI-laskennan laskentakykyä, mutta helpottaa sitä ja mahdollistaa sen havainnollistamisen, kuinka Turnerin lausetta (\ref{turner}) voidaan käytännössä soveltaa johdettaessa uusien kombinaattorien esitys aiemmin mainittujen $\mathbf{S}$, $\mathbf{K}$ ja $\mathbf{I}$ avulla. Otetaan esimerkkinä kombinaattori $\mathbf{F}:=\lambda x.\lambda y.y$:
+\begin{equation}
+\begin{split}
+\lambda x.\lambda y.y &= \\
+\lambda x.\mathbf{I} &= \\
+\mathbf{KI}.
+\end{split}
+\end{equation}
+On hyvä huomata, että pätee myös $\mathbf{SK}\stackrel{\beta}{=}\mathbf{KI}$, mikä on helposti todistettavissa evaluoimalla kummallakin lauseke $xy$. Otetaan seuraavana esimerkkinä kombinaattori $\mathbf{B}:=\lambda x.\lambda y.\lambda z.x(yz)$, jota sanotaan myös funktionaaliseksi kompositioksi:
+\begin{equation}
+\begin{split}
+\lambda x.\lambda y\lambda z.x(yz) &= \\
+\lambda x.\lambda y.\mathbf{S}(\lambda z.x)(\lambda z.yz) &= \\
+\lambda x.\lambda y.\mathbf{S}(\mathbf{K}x)y &= \\
+\lambda x.\mathbf{S}(\mathbf{K}x) &= \\
+\mathbf{S}(\lambda x.\mathbf{S})(\lambda x.\mathbf{K}x) &= \\
+\mathbf{S(KS)K}.
+\end{split}
+\end{equation}
+\begin{thebibliography}{99}
+\bibitem{iota}[Iota] Wikipedia: \href{https://en.wikipedia.org/wiki/Iota\_and\_Jot}{\emph{Iota-laskenta}}
+https://en.wikipedia.org/wiki/Iota\_and\_Jot
+\bibitem{lambdalaskenta}[Lambda] Wikipedia: \href{https://en.wikipedia.org/wiki/Lambda\_calculus}{\emph{Lambda-laskenta}} https://en.wikipedia.org/wiki/Lambda\_calculus
+\bibitem{skilaskenta}[Ski] Wikipedia: \href{https://en.wikipedia.org/wiki/SKI\_combinator\_calculus}{\emph{SKI-laskenta}} https://en.wikipedia.org/wiki/SKI\_combinator\_calculus
+\end{thebibliography}
+\end{document}
