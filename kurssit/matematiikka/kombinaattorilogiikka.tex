@@ -21,7 +21,7 @@ Lambda-, eli $\lambda$-laskennan ideana on kuvata funktio objektina, joka on val
 Tarkastellaan yhteenlaskua $\mathrm{plus}(x,y)=x+y$. Nyt voitaisiin määrittää "ketjuttamalla", että $\mathrm{plus}=\lambda x.\lambda y.x+y,\ x,y\in\mathbb{R}$. Mitä olisi nyt $\mathrm{plus}(x)$? Se olisi $\lambda y.x+y$, eli funktio, joka on vielä valmis ottamaan vastaan uuden argumentin $y$ ja lisäämään sen jo aiemmin annettuun $x$:ään.
 \end{esimerkki}
 \subsection{Tyypittämätön $\lambda$-laskenta}
-Olkoon $v$ mikä tahansa muuttujasymboli ja $E$ lauseke. Tällöin $v$ ja $(\lambda v.E)$ ovat $\lambda$-lausekkeita. Jos $v$ esiintyy lausekkeessa $E$, sanotaan, että tämä $v$:n esiintymä on \emph{sidottu}. Kaikki muuttujien esiintymät, jotka eivät ole sidottuja, ovat \emph{vapaita}. Olkoon $E_1$ ja $E_2$ mitä tahansa lausekkeita. Tällöin $(E_1 E_2)$ on $\lambda$-lauseke, jossa $E_1$ \emph{evaluoi} $E_2$:n. Mitkään muut lausekkeet eivät ole tyypittämättömiä $\lambda$-lausekkeita. \cite{lambdalaskenta}
+Olkoon $v$ mikä tahansa muuttujasymboli ja $E$ lauseke. Tällöin $v$ ja $(\lambda v.E)$ ovat $\lambda$-lausekkeita. Jos $v$ esiintyy lausekkeessa $E$, sanotaan, että tämä $v$:n esiintymä on \emph{sidottu}. Kaikki muuttujien esiintymät, jotka eivät ole sidottuja, ovat \emph{vapaita}. Olkoon $E_1$ ja $E_2$ mitä tahansa lausekkeita. Tällöin $(E_1 E_2)$ on $\lambda$-lauseke, jossa $E_1$ \emph{evaluoi} $E_2$:n. Mitkään muut lausekkeet eivät ole tyypittämättömiä $\lambda$-lausekkeita. \cite{lambdalaskenta} Jos sekaannusta ei tule, $\lambda$-lausekkeissa voidaan jättää ulommat ja vasemmanpuolimmaiset sulkuparit merkitsemättä.
 \subsubsection{$\alpha$-konversio}
 Lambda-lauseketta saa muuttaa vaihtamalla muuttujasymbolia toiseksi ja päivittämällä sen sidotut esiintymät samannimisiksi. Esimerkiksi $\lambda x.x=\lambda y.y$. Yleisesti $(\lambda.x M[x])\to(\lambda.y M[y])$. Tätä käytetään selventämään tilanteita, joissa muuttujan sidottu esiintymä uhkaa olla päällekkäinen nimeltään toisen muuttujan vapaan esiintymän kanssa.
 \subsubsection{$\beta$-reduktio}
@@ -37,7 +37,7 @@ $\lambda$-laskennan säännöt voivat näyttää vähyydestään huolimatta moni
 \mathbf{S}xyz &\to xz(yz)
 \end{split}
 \end{equation}
-Jopa näistäkin kolmesta $\mathbf{I}$ on tarkkaan ottaen tarpeeton, koska $\mathbf{SKK}x\to\mathbf{Kx}(\mathbf{Kx})\to x$, eli $\mathbf{SKK}\stackrel{\beta}{=}\mathbf{I}$.
+Jopa näistäkin kolmesta $\mathbf{I}$ on tarkkaan ottaen tarpeeton, koska $\mathbf{SKK}x\to\mathbf{Kx}(\mathbf{Kx})\to x$, eli $\mathbf{SKK}\stackrel{\beta}{=}\mathbf{I}$. Kuten $\lambda$-laskennassa, jos sekaannusta ei tule, SKI-lausekkeissa voidaan jättää ulommat ja vasemmanpuolimmaiset sulkuparit merkitsemättä.
 \begin{lause}[Turnerin lause]\label{turner}
 Jokaista $\lambda$-lausetta vastaa SKI-lause ja päinvastoin.
 
@@ -66,6 +66,184 @@ On hyvä huomata, että pätee myös $\mathbf{SK}\stackrel{\beta}{=}\mathbf{KI}$
 \mathbf{S(KS)K}.
 \end{split}
 \end{equation}
+Ennen seuraavien kombinaattorien johtamista on hyvä tehdä huomio, että edellisistä on pääteltävissä, että $\mathbf{B}fg=\lambda v.f(gv)$, mikä merkitsee, että Turnerin lausetta voidaan laajentaa niin, että lausekkeet $\lambda v.E_1 E_2$ voidaan muuntaa muotoon $\mathbf{B}E_1(\lambda v.E_2)$, mikäli $v$ ei esiinny vapaana $E_1$:ssä, mutta esiintyy vapaana $E_2$:ssa. Tämä yksinkertaistaa näiden lausekkeiden käsittelyä, kun $E_1$:tä varten ei jouduta laajentamaan uutta $\lambda$-lauseketta, jos käytettäisiin aiempaa $\mathbf{S}$-kombinaattorin sääntöä lauseessa (\ref{turner}). Otetaan seuraavana esimerkkinä kombinaattori $\mathbf{C}:=\lambda x.\lambda y.\lambda z.xzy$, joka vaihtaa seuraavia argumentteja:
+\begin{equation}
+\begin{split}
+\lambda x.\lambda y\lambda z.xzy &= \\
+\lambda x.\lambda y.\mathbf{S}(\lambda z.xz)(\lambda z.y) &= \\
+\lambda x.\lambda y.\mathbf{S}x(\mathbf{K}y) &= \\
+\lambda x.\mathbf{B}(\mathbf{S}x)\mathbf{K} &= \\
+\mathbf{S}(\lambda x.\mathbf{B}(\mathbf{S}x))(\lambda x.\mathbf{K}) &= \\
+\mathbf{S(BBS)(KK)}.
+\end{split}
+\end{equation}
+Tämän perusteella voidaan päätellä, että $\mathbf{C}fg=\lambda v.fvg$, eli Turnerin lausetta voidaan edelleen laajentaa niin, että lausekkeet $\lambda v.E_1 E_2$ voidaan muuntaa muotoon $\mathbf{C}(\lambda v.E_1)E_2$, mikäli $v$ esiintyy vapaana $E_1$:ssä, mutta ei esiinny vapaana $E_2$:ssa. Seuraavaksi otetaan kombinaattori $\mathbf{W}:=\lambda x.\lambda y.xyy$, joka kahdentaa jälkimmäisen argumentin:
+\begin{equation}
+\begin{split}
+\lambda x.\lambda y.xyy &= \\
+\lambda x.\mathbf{B}x\mathbf{I} &= \\
+\mathbf{CSI}.
+\end{split}
+\end{equation}
+Tässä kohden on ylitetty tärkeä raja, jossa uudet kombinaattorilogiikan kannat ovat tulleet mahdollisiksi. $\mathbf{K}$ ja $\mathbf{S}$-kombinaattorit ovat korvattavissa ja myös $\mathbf{B,C,K,W}$ ja $\mathbf{B,C,F,W}$ ovat nyt kantoja, koska on todistettavissa, että $\mathbf{K}\stackrel{\beta}{=}\mathbf{CF}$ ja $\mathbf{S}\stackrel{\beta}{=}\mathbf{B(BW)(BBC)}$. Seuraavassa taulukossa esitetään joustavat säännöt, miten $\lambda$-lausekkeita kannattaa muuttaa nyt esitellyiksi kombinaattoreiksi, jotta esitystapa olisi mahdollisimman ytimekäs:
+\begin{table}
+\caption{SKI-operaattorien korvaussäännöt}
+\begin{tabular}{|c|c|c|}
+\hline
+Kombinaattorin toiminta & $\lambda\Rightarrow\mathrm{SKI}$ & Milloin käytetään \\
+\hline
+\hline
+$\mathbf{B}xyz\stackrel{\beta}{=} x(yz)$ & $\lambda v.E_1 E_2\stackrel{\beta}{=} \mathbf{B}E_1(\lambda v.E_2)$ & $v\not\in FV(E_1), v\in FV(E_2)$ \\
+\hline
+$\mathbf{C}xyz\stackrel{\beta}{=} xzy$ & $\lambda v.E_1 E_2\stackrel{\beta}{=} \mathbf{C}(\lambda v.E_1)E_2$ & $v\in FV(E_1), v\not\in FV(E_2)$ \\
+\hline
+$\mathbf{I}x\stackrel{\beta}{=} x$ & $\lambda v.v\stackrel{\beta}{=} \mathbf{I}$ & identiteettikuvaus \\
+\hline
+$\mathbf{K}xy\stackrel{\beta}{=} x$ & $\lambda v.E\stackrel{\beta}{=} \mathbf{K}E$ & $v\not\in FV(E)$ \\
+\hline
+$\mathbf{S}xyz\stackrel{\beta}{=} xz(yz)$ & $\lambda v.E_1 E_2\stackrel{\beta}{=} \mathbf{S}(\lambda v.E_1)(\lambda v.E_2)$ & $v\in FV(E_1), v\in FV(E_2)$ \\
+\hline
+$\mathbf{W}xy\stackrel{\beta}{=} xyy$ & $\lambda v.E v\stackrel{\beta}{=} \mathbf{W}(\lambda v.E)$ & $v\in FV(E)$ \\
+\hline
+$\eta$-reduktio & $\lambda v.E v\stackrel{\beta}{=} E$ & $v\not\in FV(E)$ \\
+\hline
+\end{tabular}
+\label{lambdaski}
+\end{table}
+
+Kertauksen vuoksi, taulukossa (\ref{lambdaski}) on esitetty laajennetussa muodossa Turnerin lauseen säännöt ja suositeltavin tapa soveltaa niitä, jotta kaavat olisivat lyhyempiä. $\mathbf{B}$:n, $\mathbf{C}$:n ja $\mathbf{W}$:n kaavoissa olisi mahdollista aina käyttää $\mathbf{S}$:n kaavaa, mutta tällöin tarvitaan ylimääräisiä $\mathbf{K}$-operaatioita karsimaan sitä puolta, jossa $v$ ei esiintynyt vapaana ($v\not\in FV(E)$).
+
+Aiemmin mainittiin, että $\mathbf{B,C,K,W}$ on kanta, koska $\mathbf{S}\stackrel{\beta}{=}\mathbf{B(BW)(BBC)}$. Miten tämä kuuluu johtaa? Ideana on, että $\mathbf{B}$ yhdistää kaksi SKI-lausetta, joten jos lauseet $S_1=\lambda x.\lambda y.\lambda z=xyzz$ ja $S_2=\lambda x.\lambda y.\lambda z.\lambda u=xu(yz)$ yhdistää lauseeksi $\mathbf{B}S_1 S_2$, tämä toimii samoin kuin $\mathbf{S}$. Soveltamalla taulukon (\ref{lambdaski}) mukaisia kaavoja, osoittautuu, että $S_1=\mathbf{BW}$ ja $S_2=\mathbf{BBC}$.
+
+\section{Propositiologiikkaa}
+Propositiologiikka käsittelee yhden tai useamman totuusarvon välisiä operaatioita. Esimerkiksi seuraavaksi esitetyt operaatiot negaatio $\lnot$ (\ref{negaatio}), konjunktio $\land$ (\ref{konjunktio}), disjunktio $\lor$ (\ref{disjunktio}) ja implikaatio $\to$ (\ref{implikaatio}) on määritelty totuustaulukoiden avulla. Näitä yhdistämällä voidaan määrittää kaikki propositiologiikan lauseet. Taulukossa käytetään symbolia $\bot$ ilmaisemaan epätosia ja symbolia $\top$ tosia lauseita.
+
+% Negaatio
+\begin{table}
+\caption{Negaatio}
+\begin{tabular}{c|c}
+$P$ & $\lnot P$ \\
+\hline
+\hline
+$\bot$ & $\top$ \\
+\hline
+$\top$ & $\bot$
+\end{tabular}
+\label{negaatio}
+\end{table}
+
+% Konjunktio
+\begin{table}
+\caption{Konjunktio}
+\begin{tabular}{c|c|c}
+$P$ & $Q$ & $P \land Q$ \\
+\hline
+\hline
+$\bot$ & $\bot$ & $\bot$ \\
+\hline
+$\top$ & $\bot$ & $\bot$ \\
+\hline
+$\bot$ & $\top$ & $\bot$ \\
+\hline
+$\top$ & $\top$ & $\top$ \\
+\end{tabular}
+\label{konjunktio}
+\end{table}
+
+% Disjunktio
+\begin{table}
+\caption{Disjunktio}
+\begin{tabular}{c|c|c}
+$P$ & $Q$ & $P \lor Q$ \\
+\hline
+\hline
+$\bot$ & $\bot$ & $\bot$ \\
+\hline
+$\top$ & $\bot$ & $\top$ \\
+\hline
+$\bot$ & $\top$ & $\top$ \\
+\hline
+$\top$ & $\top$ & $\top$ \\
+\end{tabular}
+\label{disjunktio}
+\end{table}
+
+% Implikaatio
+\begin{table}
+\caption{Implikaatio}
+\begin{tabular}{c|c|c}
+$P$ & $Q$ & $P \to Q$ \\
+\hline
+\hline
+$\bot$ & $\bot$ & $\top$ \\
+\hline
+$\top$ & $\bot$ & $\bot$ \\
+\hline
+$\bot$ & $\top$ & $\top$ \\
+\hline
+$\top$ & $\top$ & $\top$ \\
+\end{tabular}
+\label{implikaatio}
+\end{table}
+
+On todistettavissa, että pelkästään negaatio ja yksi muista kolmesta esitellystä kahden muuttujan operaattoreista muodostaa täydellisen kannan niin, että kaikki propositiologiikan lauseet on muodostettavissa niistä. Esimerkiksi $P\lor Q=\lnot P\to Q$ ja $P\land Q=\lnot(P\to \lnot Q)$.
+\footnote{Kaksi operaattoria, antikonjunktio $\overline\land: \lnot(P\land Q)$ ja antidisjunktio $\overline\lor: \lnot(P\lor Q)$ virittävät yksinäänkin kaikki propositiologiikan lauseet, mutta kaavoista voi tulla pitkiä ja toisteisia.}
+Jatkossa konjunktiota ja disjunktiota ei pääasiassa käsitellä.
+\subsection{Aksioomat $\mathbf{AK}$, $\mathbf{AS}$ ja $\mathbf{AN}$ sekä Modus Ponens}
+Propositiologiikan lauseet, jotka ovat tosia kaikilla muuttujien arvoilla, ovat \emph{todistuvia} ja lauseet, jotka ovat epätosia kaikilla muuttujien arvoilla, \emph{ristiriitaisia}. $\top$ on yksinkertaisin mahdollinen todistuva lause ja $\bot$ yksinkertaisin mahdollinen ristiriitainen lause. Lauseet, joissa on mahdollista asettaa muuttujat tietyllä tavalla niin, että se olisi tosi, on \emph{tyydytettävä} ja tällainen todeksi tekevä muuttujien sijoitustapa \emph{malli}. Aksiomaattisessa päättelyssä valitaan muutama todistuva lause ja niistä voidaan todistaa muita lauseita päättelysääntöjen avulla.
+\begin{lause}[Aksiooma $\mathbf{AK}$]\label{ak}
+Propositiolause
+$$
+P\to(Q\to P)
+$$
+on todistuva.
+
+{\bf Todistus}: Todistetaan totuustaulukon avulla:
+
+\begin{tabular}{c|c|c|c}
+$P$ & $Q$ & $Q\to P$ & $P\to (Q\to P)$ \\
+\hline
+\hline
+$\bot$ & $\bot$ & $\top$ & $\top$ \\
+\hline
+$\top$ & $\bot$ & $\top$ & $\top$ \\
+\hline
+$\bot$ & $\top$ & $\bot$ & $\top$ \\
+\hline
+$\top$ & $\top$ & $\top$ & $\top$ \\
+\end{tabular}
+\end{lause}
+\begin{lause}[Aksiooma $\mathbf{AS}$]\label{as}
+Propositiolause
+$$
+(P\to(Q\to R))\to((P\to Q)\to(P \to R))
+$$
+on todistuva.
+
+{\bf Todistus}: Todistetaan totuustaulukon avulla:
+
+\begin{tabular}{c|c|c|c|c|c}
+$P$ & $Q$ & $R$ & $Q\to R$ & $P\to(Q\to R)$ & $P\to Q$ \\
+\hline
+\hline
+$\bot$ & $\bot$ & $\bot$ & $\top$ & $\top$ & $\top$ \\
+\hline
+$\top$ & $\bot$ & $\bot$ & $\top$ & $\top$ & $\bot$ \\
+\hline
+$\bot$ & $\top$ & $\bot$ & $\bot$ & $\top$ & $\top$ \\
+\hline
+$\top$ & $\top$ & $\bot$ & $\bot$ & $\bot$ & $\top$ \\
+\hline
+$\bot$ & $\bot$ & $\top$ & $\top$ & $\top$ & $\top$ \\
+\hline
+$\top$ & $\bot$ & $\top$ & $\top$ & $\top$ & $\bot$ \\
+\hline
+$\bot$ & $\top$ & $\top$ & $\top$ & $\top$ & $\top$ \\
+\hline
+$\top$ & $\top$ & $\top$ & $\top$ & $\top$ & $\top$ \\
+\hline
+\end{tabular}
+\end{lause}
 \begin{thebibliography}{99}
 \bibitem{iota}[Iota] Wikipedia: \href{https://en.wikipedia.org/wiki/Iota\_and\_Jot}{\emph{Iota-laskenta}}
 https://en.wikipedia.org/wiki/Iota\_and\_Jot
