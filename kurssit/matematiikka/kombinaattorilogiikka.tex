@@ -4,6 +4,7 @@
 \usepackage[finnish]{babel}
 \usepackage[pdftex,colorlinks]{hyperref}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \begin{document}
 \title{Kombinaattorilogiikkaa}
 \author{Mikko Nummelin}
@@ -189,9 +190,9 @@ $\top$ & $\top$ & $\top$ \\
 On todistettavissa, että pelkästään negaatio ja yksi muista kolmesta esitellystä kahden muuttujan operaattoreista muodostaa täydellisen kannan niin, että kaikki propositiologiikan lauseet on muodostettavissa niistä. Esimerkiksi $P\lor Q=\lnot P\to Q$ ja $P\land Q=\lnot(P\to \lnot Q)$.
 \footnote{Kaksi operaattoria, antikonjunktio $\overline\land: \lnot(P\land Q)$ ja antidisjunktio $\overline\lor: \lnot(P\lor Q)$ virittävät yksinäänkin kaikki propositiologiikan lauseet, mutta kaavoista voi tulla pitkiä ja toisteisia.}
 Jatkossa konjunktiota ja disjunktiota ei pääasiassa käsitellä.
-\subsection{Aksioomat $\mathbf{AK}$, $\mathbf{AS}$ ja $\mathbf{AN}$ sekä Modus Ponens}
+\subsection{Aksioomat $\mathbf{AK}$, $\mathbf{AS}$, $\mathbf{MT}$ ja $\mathbf{MP}$}
 Propositiologiikan lauseet, jotka ovat tosia kaikilla muuttujien arvoilla, ovat \emph{todistuvia} ja lauseet, jotka ovat epätosia kaikilla muuttujien arvoilla, \emph{ristiriitaisia}. $\top$ on yksinkertaisin mahdollinen todistuva lause ja $\bot$ yksinkertaisin mahdollinen ristiriitainen lause. Lauseet, joissa on mahdollista asettaa muuttujat tietyllä tavalla niin, että se olisi tosi, on \emph{tyydytettävä} ja tällainen todeksi tekevä muuttujien sijoitustapa \emph{malli}. Aksiomaattisessa päättelyssä valitaan muutama todistuva lause ja niistä voidaan todistaa muita lauseita päättelysääntöjen avulla.
-\begin{lause}[Aksiooma $\mathbf{AK}$]\label{ak}
+\begin{lause}[Aksiooma $\mathbf{AK}$ (Implikaation luonti)]\label{ak}
 Propositiolause
 $$
 P\to(Q\to P)
@@ -213,7 +214,7 @@ $\bot$ & $\top$ & $\bot$ & $\top$ \\
 $\top$ & $\top$ & $\top$ & $\top$ \\
 \end{tabular}
 \end{lause}
-\begin{lause}[Aksiooma $\mathbf{AS}$]\label{as}
+\begin{lause}[Aksiooma $\mathbf{AS}$ (Implikaation jakaminen)]\label{as}
 Propositiolause
 $$
 (P\to(Q\to R))\to((P\to Q)\to(P \to R))
@@ -222,28 +223,139 @@ on todistuva.
 
 {\bf Todistus}: Todistetaan totuustaulukon avulla:
 
-\begin{tabular}{c|c|c|c|c|c}
-$P$ & $Q$ & $R$ & $Q\to R$ & $P\to(Q\to R)$ & $P\to Q$ \\
+\begin{tabular}{c|c|c|c|c|c|c|c}
+$P$ & $Q$ & $R$ & $Q\to R$ & $P\to(Q\to R)^*$ & $P\to Q$ & $P\to R$ & $(P\to Q)\to(P \to R)^*$ \\
 \hline
 \hline
-$\bot$ & $\bot$ & $\bot$ & $\top$ & $\top$ & $\top$ \\
+$\bot$ & $\bot$ & $\bot$ & $\top$ & $\top$ & $\top$ & $\top$ & $\top$ \\
 \hline
-$\top$ & $\bot$ & $\bot$ & $\top$ & $\top$ & $\bot$ \\
+$\top$ & $\bot$ & $\bot$ & $\top$ & $\top$ & $\bot$ & $\bot$ & $\top$ \\
 \hline
-$\bot$ & $\top$ & $\bot$ & $\bot$ & $\top$ & $\top$ \\
+$\bot$ & $\top$ & $\bot$ & $\bot$ & $\top$ & $\top$ & $\top$ & $\top$ \\
 \hline
-$\top$ & $\top$ & $\bot$ & $\bot$ & $\bot$ & $\top$ \\
+$\top$ & $\top$ & $\bot$ & $\bot$ & $\bot$ & $\top$ & $\bot$ & $\bot$ \\
 \hline
-$\bot$ & $\bot$ & $\top$ & $\top$ & $\top$ & $\top$ \\
+$\bot$ & $\bot$ & $\top$ & $\top$ & $\top$ & $\top$ & $\top$ & $\top$ \\
 \hline
-$\top$ & $\bot$ & $\top$ & $\top$ & $\top$ & $\bot$ \\
+$\top$ & $\bot$ & $\top$ & $\top$ & $\top$ & $\bot$ & $\top$ & $\top$ \\
 \hline
-$\bot$ & $\top$ & $\top$ & $\top$ & $\top$ & $\top$ \\
+$\bot$ & $\top$ & $\top$ & $\top$ & $\top$ & $\top$ & $\top$ & $\top$ \\
 \hline
-$\top$ & $\top$ & $\top$ & $\top$ & $\top$ & $\top$ \\
+$\top$ & $\top$ & $\top$ & $\top$ & $\top$ & $\top$ & $\top$ & $\top$ \\
 \hline
 \end{tabular}
 \end{lause}
+\begin{lause}[Aksiooma $\mathbf{MT}$ (Modus tollens)]\label{mt}
+Propositiolause
+$$
+(P\to Q)\to(\lnot Q\to\lnot P)
+$$
+on todistuva.
+
+{\bf Todistus}: Todistetaan totuustaulukon avulla:
+
+\begin{tabular}{c|c|c|c|c}
+$P$ & $Q$ & $P\to Q$ & $\lnot Q\to\lnot P$ & $(P\to Q)\to(\lnot Q\to\lnot P)$ \\
+\hline
+\hline
+$\bot$ & $\bot$ & $\top$ & $\top$ & $\top$ \\
+\hline
+$\top$ & $\bot$ & $\bot$ & $\bot$ & $\top$ \\
+\hline
+$\bot$ & $\top$ & $\top$ & $\top$ & $\top$ \\
+\hline
+$\top$ & $\top$ & $\top$ & $\top$ & $\top$ \\
+\hline
+\end{tabular}
+\end{lause}
+Tässä yhteydessä on hyvä huomata, että taulukon (\ref{negaatio}) perusteella kaksi negaatiota kumoavat toisensa $\lnot\lnot P=P$ (Negaation eliminaatio).
+\begin{lause}[Aksiooma $\mathbf{MP}$ (Modus ponens)]\label{mp}
+Propositiolause
+$$
+(P\land (P\to Q))\to Q
+$$
+on todistuva.
+
+{\bf Todistus}: Todistetaan totuustaulukon avulla:
+
+\begin{tabular}{c|c|c|c|c}
+$P$ & $Q$ & $P\to Q$ & $P\land (P\to Q)$ & $(P\land (P\to Q))\to Q$ \\
+\hline
+\hline
+$\bot$ & $\bot$ & $\top$ & $\bot$ & $\top$ \\
+\hline
+$\top$ & $\bot$ & $\bot$ & $\bot$ & $\top$ \\
+\hline
+$\bot$ & $\top$ & $\top$ & $\bot$ & $\top$ \\
+\hline
+$\top$ & $\top$ & $\top$ & $\top$ & $\top$ \\
+\hline
+\end{tabular}
+
+Tämä aksiooma toimii myös päättelysääntönä, jolla kolmea muuta aksioomaa voidaan yhdistää tarvittaessa. Sitä merkitään vaihtoehtoisesti myös
+$$
+P,P\to Q\vdash Q
+$$
+tai
+$$
+\frac{P,P\to Q}{\therefore Q}
+$$.
+\end{lause}
+
+\section{Curry-Howard-vastaavuus}
+Edellä on esitetty sekä kombinaattorilogiikan että propositiologiikan perusteita. Näillä on aikanaan havaittu olevan mielenkiintoinen yhteys, jossa kombinaattorilogiikan operaatiot kuvaavat ohjelman ajoa ja propositiologiikan lauseet niihin liittyviä todistuksia. Jos esimerkiksi $n$ on kokonaisluku, sen \emph{tyyppi} on $\mathbb{Z}$, eli $n\in\mathbb{Z}$. Jos taas kyseessä on tilanne, jossa funktio $f$ evaluoi muuttujan $v$ (eli $fv$), $v\in\alpha$ ja $fv\in\beta$, niin $f$:n tyyppi on $\alpha\to\beta$. $f$ on siis tässä tapauksessa kuvaus joukolta $\alpha$ joukolle $\beta$. Merkitään jatkossa yksinkertaisuuden vuoksi $[f]$, jos $f\in[f]$ ja luodaan päättelysääntö, eli jos $\lambda$-lauseessa esiintyy evaluointi $fg$, niin:
+$$
+[f]=[g]\to[fg].
+$$
+Sovitaan tässä vaiheessa, että uloimmat ja oikeanpuolimmaiset sulut voidaan jättää merkitsemättä propositiologiikan lauseissa, eli esimerkiksi $(P\to (Q\to R))=P\to Q\to R$. Tarkastellaan seuraavaksi, mikä on kombinaattorin $\mathbf{K}$ tyyppi:
+\begin{equation}\label{akjohto}
+\begin{split}
+\mathbf{K}xy &= \lambda x.\lambda y.x \\
+[\lambda x.\lambda y.x] &= [x]\to[y]\to[x] \\
+[x] &:= \alpha \\
+[y] &:= \beta \\
+[\mathbf{K}] &= \alpha\to\beta\to\alpha.
+\end{split}
+\end{equation}
+Havaitaan, että tämä tuottaa samanlaisen lausekkeen kuin aksiooma $\mathbf{AK}$ (\ref{ak}). Entä kombinaattorin $\mathbf{S}$ tyyppi?
+\begin{equation}\label{asjohto}
+\begin{split}
+\mathbf{S}xyz &= \lambda x.\lambda y.\lambda z.xz(yz) \\
+[y] &= [z]\to[yz] \\
+[xz] &= [yz]\to[xz(yz)] \\
+[x] &= [z]\to[xz] = [z]\to[yz]\to[xz(yz)] \\
+[z] &:= \alpha \\
+[yz] &:= \beta \\
+[xz(yz)] &:= \gamma \\
+[\mathbf{S}] &= (\alpha\to\beta\to\gamma)\to(\alpha\to\beta)\to\alpha\to\gamma.
+\end{split}
+\end{equation}
+Havaitaan, että tämä on sama kuin aksiooma $\mathbf{AS}$ (\ref{as}). Kombinaattorin $\mathbf{I}$ tyyppi on triviaalisti $\alpha\to\alpha$, mutta koska $\mathbf{I}\stackrel{\beta}{=}\mathbf{SKK}$, niin $\mathbf{I}$:n tyyppi on myös pääteltävissä aksiomaattisesti seuraavasti:
+\begin{align}
+\mathbf{AK} &:= \alpha\to\beta\to\alpha \label{ai1} \\
+\mathbf{AS} &:= (\alpha\to\beta\to\gamma)\to(\alpha\to\beta)\to\alpha\to\gamma \label{ai2} \\
+& (\alpha\to\beta)\to\alpha\to\alpha && \text{MP (\ref{ai1},\ref{ai2})} \label{ai3} \\
+\mathbf{AI} &= \alpha\to\alpha\qed. && \text{MP (\ref{ai1},\ref{ai3})}
+\end{align}
+Johdetaan samantapaisesti kombinaattorin $\mathbf{B}$ tyyppi:
+\begin{align}
+\mathbf{AK} &:= \alpha\to\beta\to\alpha \label{ab1} \\
+\mathbf{AS} &:= (\alpha\to\beta\to\gamma)\to(\alpha\to\beta)\to\alpha\to\gamma \label{ab2} \\
+& \delta\to(\alpha\to\beta\to\gamma)\to(\alpha\to\beta)\to\alpha\to\gamma && \text{MP (\ref{ab2},\ref{ab1})} \label{ab3} \\
+& (\delta\to\alpha\to\beta\to\gamma)\to\delta\to(\alpha\to\beta)\to\alpha\to\gamma && \text{MP (\ref{ab3},\ref{ab2})} \label{ab4} \\
+\delta &:= \beta\to\gamma \\
+\mathbf{AB} &= (\beta\to\gamma)\to(\alpha\to\beta)\to\alpha\to\gamma\qed. && \text{MP (\ref{ab1},\ref{ab4})}
+\end{align}
+Samoin kombinaattorin $\mathbf{C}$ tyyppi:
+\begin{align}
+\mathbf{AK} &:= \alpha\to\beta\to\alpha \label{ac1} \\
+\mathbf{AS} &:= (\alpha\to\beta\to\gamma)\to(\alpha\to\beta)\to\alpha\to\gamma \label{ac2} \\
+\mathbf{AB} &:= (\beta\to\gamma)\to(\alpha\to\beta)\to\alpha\to\gamma \label{ac3} \\
+\beta &:= \beta\to\gamma \\
+\gamma &:= (\alpha\to\beta)\to\alpha\to\gamma \\
+& (\alpha\to\beta\to\gamma)\to\alpha\to(\delta\to\beta)\to\delta\to\gamma && \text{MP (\ref{ac3},\ref{ac3})} \label{ac4} \\
+\end{align}
+
 \begin{thebibliography}{99}
 \bibitem{iota}[Iota] Wikipedia: \href{https://en.wikipedia.org/wiki/Iota\_and\_Jot}{\emph{Iota-laskenta}}
 https://en.wikipedia.org/wiki/Iota\_and\_Jot
