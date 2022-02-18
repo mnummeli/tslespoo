@@ -354,7 +354,49 @@ Samoin kombinaattorin $\mathbf{C}$ tyyppi:
 \beta &:= \beta\to\gamma \\
 \gamma &:= (\delta\to\beta)\to\delta\to\gamma \\
 & (\alpha\to\beta\to\gamma)\to\alpha\to(\delta\to\beta)\to\delta\to\gamma && \text{MP (\ref{ac3},\ref{ac3})} \label{ac4} \\
+\alpha &:= \alpha\to\beta\to\gamma \\
+\beta &:= \alpha\to\beta \\
+\gamma &:= \beta\to\gamma \\
+& (\alpha\to\beta\to\gamma)\to(\delta\to\alpha\to\beta)\to\delta\to\alpha\to\gamma && \text{MP (\ref{ac2},\ref{ac4})} \label{ac5} \\
+& ((\alpha\to\beta\to\gamma)\to\delta\to\alpha\to\beta)\\
+& \cdots\to(\alpha\to\beta\to\gamma)\to\delta\to\alpha\to\gamma && \text{MP (\ref{ac5},\ref{ac2})} \label{ac6} \\
+& \alpha\to\beta\to\gamma\to\beta && \text{MP (\ref{ac1},\ref{ac1})} \label{ac7} \\
+\mathbf{AC} &= (\alpha\to\beta\to\gamma)\to\beta\to\alpha\to\gamma\qed. && \text{MP (\ref{ac7},\ref{ac6})}
 \end{align}
+Lopuksi vielä kombinaattorin $\mathbf{W}$ tyyppi:
+\begin{align}
+\mathbf{AI} &:= \alpha\to\alpha \label{aw1} \\
+\mathbf{AC} &:= (\alpha\to\beta\to\gamma)\to\beta\to\alpha\to\gamma \label{aw2} \\
+\mathbf{AS} &:= (\alpha\to\beta\to\gamma)\to(\alpha\to\beta)\to\alpha\to\gamma \label{aw3} \\
+& (\alpha\to\beta)\to(\alpha\to\beta\to\gamma)\to\alpha\to\gamma && \text{MP (\ref{aw3},\ref{aw2})} \label{aw4} \\
+\mathbf{AW} &= (\alpha\to\alpha\to\beta)\to\alpha\to\beta\qed. && \text{MP (\ref{aw1},\ref{aw4})}
+\end{align}
+Edellisten todistusten tärkeimmät tulokset on koottu taulukkoon \ref{curryhoward}.
+\begin{table}
+\caption{Curry-Howard vastaavuus}
+\begin{tabular}{|c|c|c|}
+\hline
+Kombinaattorin toiminta & Vastaava propositiologiikan aksiooma (tyyppi) \\
+\hline
+\hline
+$\mathbf{B}xyz\stackrel{\beta}{=} x(yz)$ & $(\beta\to\gamma)\to(\alpha\to\beta)\to\alpha\to\gamma$ \\
+\hline
+$\mathbf{C}xyz\stackrel{\beta}{=} xzy$ & $(\alpha\to\beta\to\gamma)\to\beta\to\alpha\to\gamma$ \\
+\hline
+$\mathbf{F}xy\stackrel{\beta}{=} y$ & $\alpha\to\beta\to\beta$ \\
+\hline
+$\mathbf{I}x\stackrel{\beta}{=} x$ & $\alpha\to\alpha$ \\
+\hline
+$\mathbf{K}xy\stackrel{\beta}{=} x$ & $\alpha\to\beta\to\alpha$ \\
+\hline
+$\mathbf{S}xyz\stackrel{\beta}{=} xz(yz)$ & $(\alpha\to\beta\to\gamma)\to(\alpha\to\beta)\to\alpha\to\gamma$ \\
+\hline
+$\mathbf{W}xy\stackrel{\beta}{=} xyy$ & $(\alpha\to\alpha\to\beta)\to\alpha\to\beta$ \\
+\hline
+\end{tabular}
+\label{curryhoward}
+\end{table}
+Koska on helppo osoittaa, että $(\alpha\to\beta\to\gamma)\equiv((\alpha\land\beta)\to\gamma)$, voitaisiin myös Modus ponensille johtaa tyyppi $\alpha\to(\alpha\to\beta)\to\beta$, jota vastaava kombinaattori $\mathbf{CI}=\lambda x.\lambda y.yx$. On kuitenkin huomattava, että Modus ponens on kaavojen johdossa käytettävä päättelysääntö, eikä sitä siksi kannata kehäpäätellä muista kaavoista. Modus tollensilla ei ole vastaavaa kombinaattoria, koska se sisältää negaatioita.
 
 \begin{thebibliography}{99}
 \bibitem{iota}[Iota] Wikipedia: \href{https://en.wikipedia.org/wiki/Iota\_and\_Jot}{\emph{Iota-laskenta}}
