@@ -1,0 +1,14 @@
+{
+	"name": "swarm_kubernetes",
+	"version": "1.0.0",
+	"main": "index.js",
+	"license": "MIT",
+	"scripts": {
+		"start": "node ./index.js"
+	},
+	"type": "module",
+	"dependencies": {
+		"date-format": "^4.0.14",
+		"express": "^4.18.2"
+	}
+}
