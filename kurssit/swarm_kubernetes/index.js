@@ -33,6 +33,7 @@ function appExit() {
 }
 
 process.on('SIGINT', appExit);
+process.on('SIGHUP', appExit);
 process.on('SIGTERM', appExit);
 
 app.use(handleRequest);
