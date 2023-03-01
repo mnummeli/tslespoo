@@ -13,10 +13,13 @@ ENTRYPOINT ["node", "./index.js"]
 # docker build -t tslhostname .
 # docker run -p "3000:3000" tslhostname
 #
-# docker swarm init --advertise-addr <IP ADDRESS>
 # docker service create --name tslhostname --replicas 5 -p "3000:3000" tslhostname
-#
 # http://<HOSTNAME>:3000
-#
 # docker service scale tslhostname=20
-# docker swarm leave
+# docker service rm tslhostname
+#
+# docker swarm init
+# docker stack deploy -c docker-stack.yml tslhostname
+# docker service ls
+# docker service logs tslhostname_tslhostname
+# docker swarm leave -f

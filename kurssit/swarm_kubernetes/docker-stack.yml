@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+    tslhostname:
+        image: mnummeli/tslhostname:0.0.1
+#       tslhostname:0.0.1
+        deploy:
+            replicas: 5
+        ports:
+            - "3000:3000"
+
+# docker swarm init --advertise-addr <IP ADDRESS>
+# docker stack deploy -c docker-stack.yml tslhostname
+# docker swarm leave
+#
+# docker image tag tslhostname tslhostname:0.0.1
+# docker image tag tslhostname:0.0.1 <USERNAME>/tslhostname:0.0.1
+# docker image push <USERNAME>/tslhostname:0.0.1
