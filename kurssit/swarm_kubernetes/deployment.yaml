@@ -1,0 +1,6 @@
+
+
+# kubectl create deployment tslhostname --image=mnummeli/tslhostname:0.0.1
+# kubectl expose deployment tslhostname --type=LoadBalancer --port=3000
+# minikube service tslhostname
+# kubectl delete deployment tslhostname
