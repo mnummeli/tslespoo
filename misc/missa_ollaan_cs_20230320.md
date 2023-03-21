@@ -5,6 +5,7 @@
 * Jomala
 * Geta
 * Jurmo
+* Teili
 
 ## Etelä-Karjala
 
@@ -17,6 +18,11 @@
 * Parikkala
 * Uukuniemi
 * Lauritsala
+* Koitsanlahti
+* Räikkölä
+* Konnunsuo
+* Mälkiä
+* Soskua
 
 ## Etelä-Pohjanmaa
 
@@ -30,6 +36,8 @@
 * Lapua
 * Ylistaro
 * Vimpeli
+* Ähtäri
+* Hyyppä
 
 ## Etelä-Savo
 
@@ -40,6 +48,8 @@
 * Mikkeli
 * Enonkoski
 * Punkaharju
+* Kuortti
+* Kuomiokoski
 
 ## Kainuu
 
@@ -55,12 +65,18 @@
 * Hossa
 * Juntusranta
 * Näljänkä
+* Mainua
+* Raate
 
 ## Kanta-Häme
 
 * Hauho
 * Tuulos
 * Loppi
+* Läyliäinen
+* Teuro
+* Topeno
+* Kautio
 * Turenki
 * Alvettula
 * Iittala
@@ -77,6 +93,10 @@
 * Ryttylä
 * Sajaniemi
 * Topeno
+* Uhkoila
+* Monni
+* Puujaa
+* Tyrväntö
 
 ## Keski-Pohjanmaa
 
@@ -88,11 +108,13 @@
 * Halsua
 * Kannus
 * Toholampi
+* Räyrinki
+* Trullevi
 
 ## Keski-Suomi
 
 * Luhanka
-* Jämsä
+* Jämsä +
 * Joutsa
 * Toivakka
 * Muurame
@@ -105,6 +127,9 @@
 * Karstula
 * Kinnula
 * Sumiainen
+* Kaipola
+* Halli
+* Palokka
 
 ## Kymenlaakso
 
@@ -118,6 +143,8 @@
 * Elimäki
 * Inkeroinen
 * Kaipiainen
+* Utti
+* Uski
 * Valkeala
 * Voikkaa
 * Jaala
@@ -155,6 +182,12 @@
 * Nellim
 * Pulju
 * Meltaus
+* Vuotso
+* Näkkälä
+* Kaaresuvanto
+* Kaakamo
+* Äkäslompolo
+* Ylläs
 
 ## Pirkanmaa
 
@@ -182,6 +215,10 @@
 * Kihniö
 * Mänttä
 * Vilppula
+* Aure
+* Suinula
+* Sappee
+* Krääkkiö
 
 ## Pohjanmaa
 
@@ -199,6 +236,7 @@
 * Purmo
 * Kolppi
 * Alaveteli
+* Pielahti
 
 ## Pohjois-Karjala
 
@@ -213,6 +251,8 @@
 * Juuka
 * Suhmura
 * Möhkö
+* Öllölä
+* Niirala
 
 ## Pohjois-Pohjanmaa
 
@@ -230,13 +270,17 @@
 * Liminka
 * Kempele
 * Muhos
-* Kiiminki
-* Ii
+* (Yli-)Kiiminki
+* (Yli-)Ii
 * Vaala
 * Utajärvi
 * Kuusamo
 * Ruka
 * Olhava
+* Uljua
+* Saloinen
+* Tyrnävä
+* Temmes
 
 ## Pohjois-Savo
 
@@ -252,6 +296,8 @@
 * Toivala
 * Rissala
 * Tuusniemi
+* Maaninka
+* Nilsiä
 
 ## Päijät-Häme
 
@@ -268,6 +314,7 @@
 * Vääksy
 * Auttoinen
 * Arrakoski
+* Artjärvi
 
 ## Satakunta
 
@@ -275,6 +322,9 @@
 * Pori
 * Karvia
 * Eura
+* Kauttua
+* Lavia
+* Luvia
 * Rauma
 * Huittinen
 * Vampula
@@ -286,6 +336,7 @@
 * Noormarkku
 * Jämijärvi
 * Yyteri
+* Kullaa
 
 ## Uusimaa
 
@@ -301,6 +352,8 @@
 * Lohja
 * Sammatti
 * Vihti
+* Ahmoo
+* Haimoo
 * Masala
 * Porkkala
 * Röykkä
@@ -319,6 +372,17 @@
 * Porvoo
 * Pernaja
 * Tesjoki
+* Pornainen
+* Juornaankylä
+* Ohkola
+* Hinthaara
+* Kerkkoo
+* Epoo
+* Pellinki
+* Nukari
+* Riipilä
+* Talma
+* Lepsämä
 
 ## Varsinais-Suomi
 
@@ -346,3 +410,13 @@
 * Laitila
 * Mynämäki
 * Satava
+* Rymättylä
+* Velkua
+* Askainen
+* Somero
+* Viuvala
+* Voivala
+* Raisio
+* Pöytyä
+* Karinainen
+* Littoinen
