@@ -1,0 +1,6 @@
+digraph I {
+	l1 [shape="record",label="<i>|<o1>|<o2>"];
+	out [shape="none",label=""];
+	l1:o1 -> l1:i;
+	l1:o2 -> out;
+}

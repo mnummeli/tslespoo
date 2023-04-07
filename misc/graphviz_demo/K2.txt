@@ -1,0 +1,10 @@
+digraph K {
+	l1 [shape="record",label="<i>|<o1>|<o2>",color=green];
+	l2 [shape="record",label="<i>|<o1>|<o2>",color=green];
+	e [shape="record",label="<i>",color=red]
+	out [shape="none",label=""];
+	l1:o1 -> out;
+	l1:o2 -> l2:i;
+	l2:o1 -> l1:i;
+	l2:o2 -> e;
+}

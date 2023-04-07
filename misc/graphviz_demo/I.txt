@@ -1,0 +1,6 @@
+digraph I {
+	l1 [shape="circle",label="L",style=filled,color=green];
+	out [shape="none",label=""];
+	l1:e -> l1:w;
+	l1:s -> out:n;
+}

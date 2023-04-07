@@ -1,0 +1,16 @@
+digraph W {
+	l1 [shape="record",label="<i>|<o1>|<o2>",color=green];
+	l2 [shape="record",label="<i>|<o1>|<o2>",color=green];
+	a1 [shape="record",label="<i1>|<i2>|<o>",color=yellow];
+	a2 [shape="record",label="<i1>|<i2>|<o>",color=yellow];
+	v [shape="record",label="<o1>|<i>|<o2>",color=blue];
+	out [shape="none",label=""];
+	l1:o1 -> a2:i1;
+	l1:o2 -> out;
+	l2:o1 -> v:i;
+	l2:o2 -> l1:i;
+	a1:o -> l2:i;
+	a2:o -> a1:i1;
+	v:o1 -> a2:i2;
+	v:o2 -> a1:i2;
+}

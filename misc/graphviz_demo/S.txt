@@ -1,0 +1,23 @@
+digraph S {
+	l1 [shape="circle",label="L",style=filled,color=green];
+	l2 [shape="circle",label="L",style=filled,color=green];
+	l3 [shape="circle",label="L",style=filled,color=green];
+	a1 [shape="circle",label="A",style=filled,color=yellow];
+	a2 [shape="circle",label="A",style=filled,color=yellow];
+	a3 [shape="circle",label="A",style=filled,color=yellow];
+	v [shape="circle",label="V",style=filled,color=blue,fontcolor=white];
+	out [shape="none",label=""];
+	v-> a3:w;
+	v-> a2:w;
+	a3:e -> a1:w;
+	a1:e -> l1:w;
+	l1:e -> l2:w;
+	l2:e -> l3:w;
+	l3:n -> a2:n;
+	a2:s -> a1:n;
+	l1:n -> v;
+	l2:n -> a3:n;
+	l3:s -> out:n;
+	{rank=same;a1;a2;a3};
+	{rank=same;l1;l2;l3};
+}
