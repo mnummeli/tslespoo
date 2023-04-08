@@ -1,0 +1,10 @@
+graph G {
+    subgraph S {
+        node[style=filled];
+        label=First;
+        color=blue;
+        a -- b;
+    }
+    a -- c;
+    b -- c;
+}

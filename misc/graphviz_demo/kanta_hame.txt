@@ -1,0 +1,41 @@
+graph kanta_hame {
+	f[label=Forssa,shape=rectangle];
+	hat[label=Hattula];
+	hau[label=Hausjärvi];
+	hu[label=Humppila];
+	ham[label=Hämeenlinna,shape=rectangle];
+	ja[label=Janakkala];
+	jo[label=Jokioinen];
+	l[label=Loppi];
+	r[label=Riihimäki,shape=rectangle];
+	t[label=Tammela];
+	y[label=Ypäjä];
+	subgraph clusterforssa {
+		label="Forssan seutukunta";
+		f -- hu;
+		f -- jo;
+		f -- t;
+		hu -- y;
+		hu -- jo;
+		jo -- y;
+		jo -- t;
+	}
+	subgraph clusterhameenlinna {
+		label="Hämeenlinnan seutukunta";
+		hat -- ham;
+		ham -- ja;
+	}
+	subgraph clusterriihimaki {
+		label="Riihimäen seutukunta";
+		hau -- r;
+		l -- r;
+	}
+	// Muut
+	hau -- ham;
+	ham -- l;
+	ham -- t;
+	ja -- hau;
+	ja -- l;
+	ja -- r;
+	l -- t;
+}

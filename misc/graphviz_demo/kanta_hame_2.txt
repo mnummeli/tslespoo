@@ -1,0 +1,32 @@
+graph kanta_hame {
+	f[label=Forssa,shape=rectangle];
+	hat[label=Hattula];
+	hau[label=Hausjärvi];
+	hu[label=Humppila];
+	ham[label=Hämeenlinna,shape=rectangle];
+	ja[label=Janakkala];
+	jo[label=Jokioinen];
+	l[label=Loppi];
+	r[label=Riihimäki,shape=rectangle];
+	t[label=Tammela];
+	y[label=Ypäjä];
+	f -- hu;
+	f -- jo;
+	f -- t;
+	hu -- y[color=red];
+	hu -- jo;
+	jo -- y;
+	jo -- t;
+	hat -- ham;
+	hat -- t[style=dotted];
+	ham -- ja;
+	hau -- r;
+	l -- r;
+	hau -- ham;
+	ham -- l;
+	ham -- t;
+	ja -- hau;
+	ja -- l;
+	ja -- r;
+	l -- t;
+}
