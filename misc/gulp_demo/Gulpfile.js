@@ -1,7 +1,7 @@
 'use strict';
 
 import { rm } from 'node:fs';
-import { Readable, Writable, Transform } from 'node:stream';
+import { Readable, Writable, Transform, Duplex } from 'node:stream';
 import gulp from 'gulp';
 import Vinyl from 'vinyl';
 
@@ -31,7 +31,8 @@ function createFile() {
         },
         objectMode: true
     });
-    return readableStream.pipe(gulp.dest('dist/'));
+    return readableStream
+            .pipe(gulp.dest('dist/'));
 }
 
 function consumeFiles() {
@@ -46,10 +47,11 @@ function consumeFiles() {
         },
         objectMode: true
     });
-    return gulp.src('src/*').pipe(writableStream);
+    return gulp.src('src/*')
+            .pipe(writableStream);
 }
 
-function reverseFile() {
+function reverseFiles() {
     const transformStream = new Transform({
         transform: function (data, encoding, cb) {
             const reversedString = data.contents
@@ -62,11 +64,28 @@ function reverseFile() {
         },
         objectMode: true
     });
-    return gulp.src('src/teksti3.txt')
+    return gulp.src('src/teksti{3,4}.txt')
             .pipe(transformStream)
+            .pipe(gulp.dest('dist/'));
+}
+
+function concatFiles() {
+    let concatenatedContent = '';
+    const duplexStream = new Duplex({
+        read: function () {
+            // luo Vinyl-tiedoston, syötetään katenoitu tiedosto ja suljetaan seuraavalla lukukerralla
+        },
+        write: function (chunk, encoding, cb) {
+            // hakee tiedostot sisään yksi kerrallaan, katenoidaan concatenatedContent:iin
+        },
+        objectMode: true
+    });
+    return gulp.src('src/teksti*.txt')
+            .pipe(duplexStream)
             .pipe(gulp.dest('dist/'));
 }
 
 export { clean };
 
-export default gulp.series(clean, gulp.parallel(copyFiles, createFile, consumeFiles, reverseFile));
+export default gulp.series(clean, gulp.parallel(copyFiles, createFile,
+        consumeFiles, reverseFiles, concatFiles));
