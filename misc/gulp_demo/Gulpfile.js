@@ -88,4 +88,4 @@ function concatFiles() {
 export { clean };
 
 export default gulp.series(clean, gulp.parallel(copyFiles, createFile,
-        consumeFiles, reverseFiles, concatFiles));
+        consumeFiles, reverseFiles));
