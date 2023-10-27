@@ -1,7 +1,7 @@
 'use strict';
 
 import { rm } from 'node:fs';
-import { Readable, Writable, Transform, Duplex } from 'node:stream';
+import { Readable, Writable, Transform } from 'node:stream';
 import gulp from 'gulp';
 import Vinyl from 'vinyl';
 
@@ -70,22 +70,30 @@ function reverseFiles() {
 }
 
 function concatFiles() {
-    let concatenatedContent = '';
-    const duplexStream = new Duplex({
-        read: function () {
-            // luo Vinyl-tiedoston, syötetään katenoitu tiedosto ja suljetaan seuraavalla lukukerralla
+    const transformStream = new Transform({
+        construct: function(cb) {
+            this.contents = Buffer.alloc(0);
+            cb();
         },
-        write: function (chunk, encoding, cb) {
-            // hakee tiedostot sisään yksi kerrallaan, katenoidaan concatenatedContent:iin
+        transform: function (data, encoding, cb) {
+            this.contents = Buffer.concat([this.contents, data.contents]);
+            cb();
+        },
+        flush: function (cb) {
+            const vinyl = new Vinyl({
+                path: 'bundle.txt',
+                contents: this.contents
+            });
+            cb(null, vinyl);
         },
         objectMode: true
     });
-    return gulp.src('src/teksti*.txt')
-            .pipe(duplexStream)
+    return gulp.src('src/*.txt')
+            .pipe(transformStream)
             .pipe(gulp.dest('dist/'));
 }
 
 export { clean };
 
 export default gulp.series(clean, gulp.parallel(copyFiles, createFile,
-        consumeFiles, reverseFiles));
+        consumeFiles, reverseFiles, concatFiles));
