@@ -11,7 +11,7 @@ function clean(cb) {
 
 function copyFiles() {
     return gulp.src('src/teksti1.txt')
-            .pipe(gulp.dest('dist/'));
+        .pipe(gulp.dest('dist/'));
 }
 
 function createFile() {
@@ -32,7 +32,7 @@ function createFile() {
         objectMode: true
     });
     return readableStream
-            .pipe(gulp.dest('dist/'));
+        .pipe(gulp.dest('dist/'));
 }
 
 function consumeFiles() {
@@ -48,14 +48,14 @@ function consumeFiles() {
         objectMode: true
     });
     return gulp.src('src/*')
-            .pipe(writableStream);
+        .pipe(writableStream);
 }
 
 function reverseFiles() {
     const transformStream = new Transform({
         transform: function (data, encoding, cb) {
             const reversedString = data.contents
-                    .toString().split('').reverse().join('');
+                  .toString().split('').reverse().join('');
             const reversedData = new Vinyl({
                 path: data.relative,
                 contents: Buffer.from(reversedString)
@@ -65,8 +65,8 @@ function reverseFiles() {
         objectMode: true
     });
     return gulp.src('src/teksti{3,4}.txt')
-            .pipe(transformStream)
-            .pipe(gulp.dest('dist/'));
+        .pipe(transformStream)
+        .pipe(gulp.dest('dist/'));
 }
 
 function concatFiles() {
@@ -89,11 +89,10 @@ function concatFiles() {
         objectMode: true
     });
     return gulp.src('src/*.txt')
-            .pipe(transformStream)
-            .pipe(gulp.dest('dist/'));
+        .pipe(transformStream)
+        .pipe(gulp.dest('dist/'));
 }
 
 export { clean };
 
-export default gulp.series(clean, gulp.parallel(copyFiles, createFile,
-        consumeFiles, reverseFiles, concatFiles));
+export default gulp.series(clean, gulp.parallel(copyFiles, createFile, consumeFiles, reverseFiles, concatFiles));
