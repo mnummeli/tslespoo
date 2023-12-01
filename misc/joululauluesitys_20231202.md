@@ -164,9 +164,13 @@ Tiliseb, tiliseb aisakell, kiirgab mets ja hiilgab maa.
 
 ### Joulupukki, joulupukki
 
+| D          | G          | A7        | D        |
 1. Joulupukki, joulupukki, valkoparta, vanha ukki.
+| D         | Fdim       | Em          A7  | D    |
 Eikö taakka paina selkää? Käypä tänne, emme pelkää!
+| D          | Em         | A7         | D       |
 Oothan meille vanha tuttu, puuhkalakki, karvanuttu.
+| Bm             | G            | A7               | D   |
 Tääll´ on myöskin kiltit lapset, kirkassilmät, silkohapset.
 
 2. Joulupukki, joulupukki, valkoparta, vanha ukki,
