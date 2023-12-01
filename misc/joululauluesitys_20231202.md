@@ -13,33 +13,63 @@
 
 ### Hoosianna
 
+| G                | D    | G             | D |
 Hoosianna, Daavidin poika, kiitetty olkoon hän.
+| G              | D7        | G  C  D    | D  G |
 Kiitetty Daavidin poika, joka tulee Herran nimeen.
+| G           | Am  D | G     A  | D       | 
 Hoosianna! Hoosianna! Hoosianna! Hoosianna!
+| G                  | D     | G C D     | D   G |
 Kiitetty Daavidin poika, joka tulee Herran nimeen.
 
 ### Avaruus
 
+| Dm | Dm | Dm | Dm |
+
+| Dm           | Dm         | Dm   |  C  | C |
 On allain avaruus ja tähtipolku kauas vie.
+| Gm                | Bb | Dm | Dm |
 On toinen maailma, on hämäräinen tie.
+| Dm              | Dm         | Dm   | C | C |
 On tähtiaika uus ja taivaansini määränpää,
+| Gm                | Bb | Dm | Dm |
 Kun pilven portaisiin vain kevyt jälki jää.
+
+| F | Dm | Bb | Gm | Dm | Dm |
+
+| Dm           | Dm         | Dm   |  C  | C |
 Niin kovin kaukainen on pieni kylä päällä maan,
+| Gm                      | Bb  | Dm | Dm |
 Sen tiet ja talot, puut, on lumipuvussaan.
+| A     | Dm     |      G     | C  |
 Joku jää katsomaan kuka lentää noin.
+| Cm   | F       |    A     | Dm (2) |
 Itsekin hämmästyn kun lentää voin.
+| Dm           | Dm         | Dm   |  C  | C |
 On jäätä avaruus ja selkääni mä siivet sain.
+| Gm                   | Bb | Dm  | Dm |
 On kuu niin sininen mun lentomatkallain.
+
+| F | Dm | F | Dm | Bb | G | Dm | Dm |
+
+| A     | Dm     |      G     | C  |
 Kuutamoon liukenee portaat pilvien.
+| Cm   | F       |    Bb    | A | A (2) |
 Liukenen itsekin ja leijailen.
+| Dm     | Dm     | Dm         | C   | C |
 On aikaa avaruus ja tuhat vuotta hetkinen.
-On tähdet kotimaa ja nähdä saan mä sen.
+| Gm                | Bb |   Dm  | Bb | Gm | Dm | Dm |
+On tähdet kotimaa ja nähdä mä saan sen.
 
 ### Varpunen jouluaamuna
 
+| Cm        | Fm    G   | Cm        | Gm  |
 1. Lumi on jo peittänyt, kukat laaksosessa,
+| Cm        | Fm       | Bb      | Eb |
 järven aalto jäätynyt, talvipakkasessa,
+| Cm    | Gm       | Eb    | D7      |
 Varpunen pienoinen, syönyt kesäeinehen,
+| Cm        | G7      | Fm  G7  | Cm  |
 järven aalto jäätynyt, talvipakkasessa.
 
 2. Pienen pirtin portailla oli tyttökulta,
@@ -59,13 +89,21 @@ pieni sai sun veljesi enkeleitten maasta.
 
 ### Sylvian joululaulu
 
+| Em           | Em      | B7     | Em |
 1. Ja nyt joulu joutui jo taas Pohjolaan,
+| G            | Am      | B | B |
 joulu joutui jo syömmeihinkin,
+| B7        | Em       | D7     | G  |
 ja kuuset ne kirkkaasti luo loistoaan,
+|    Am        | D7 | G | G |
 taas pirtteihin pienoisihin.
+|   B       | Em     | A     | D |
 Mut ylhäällä orressa vielä on vain,
+| G         | C        | C     | B7 |
 se häkki, mi sulkee mun sirkuttajain.
+| Em       | Em      | B7    | Em |
 Ja vaiennut vaikerrus on vankilan,
+| Am  | Am          | Em     | Em    |
 ken murheita muistaa nyt vois laulajan.
 
 2. Miss' sypressit tuoksuu nyt talvellakin,
@@ -88,10 +126,14 @@ ja soi aina lauluista sointuisimman.
 
 ### Kilisee kilisee kulkunen / Tiliseb, tiliseb aisakell
 
+| C             | C       | G       | C     |
 Kilisee, kilisee kulkunen, helkkyen, välkkyen.
+| C             | C       | G         | C      |
 Kilisee, kilisee kulkunen, loistehessa nietoksen.
 
+| D    | G         | D7       | G        |
 Käy yli harjanteen, kulku reen hiljalleen,
+| D           | G        | Am       | G |
 poikki suon ja laidunten, halki niittyjen.
 
 Kilisee, kilisee kulkunen helkkyen, välkkyen.
