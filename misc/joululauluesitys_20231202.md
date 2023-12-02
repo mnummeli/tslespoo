@@ -43,7 +43,7 @@ Niin kovin kaukainen on pieni kylä päällä maan,
 Sen tiet ja talot, puut, on lumipuvussaan.
 | A     | Dm     |      G     | C  |
 Joku jää katsomaan kuka lentää noin.
-| Cm   | F       |    A     | Dm (2) |
+| Cm   | F       |    Bb   | A     | Dm (2) |
 Itsekin hämmästyn kun lentää voin.
 | Dm           | Dm         | Dm   |  C  | C |
 On jäätä avaruus ja selkääni mä siivet sain.
@@ -128,8 +128,8 @@ ja soi aina lauluista sointuisimman.
 
 | C             | C       | G       | C     |
 Kilisee, kilisee kulkunen, helkkyen, välkkyen.
-| C             | C       | G         | C      |
-Kilisee, kilisee kulkunen, loistehessa nietoksen.
+| C             | C       | F    G     | G   C   |
+Kilisee, kilisee kulkunen, loistehessa nietosten.
 
 | D    | G         | D7       | G        |
 Käy yli harjanteen, kulku reen hiljalleen,
@@ -166,7 +166,7 @@ Tiliseb, tiliseb aisakell, kiirgab mets ja hiilgab maa.
 
 | D          | G          | A7        | D        |
 1. Joulupukki, joulupukki, valkoparta, vanha ukki.
-| D         | Fdim       | Em          A7  | D    |
+| D         | G         | Em          A7  | D    |
 Eikö taakka paina selkää? Käypä tänne, emme pelkää!
 | D          | Em         | A7         | D       |
 Oothan meille vanha tuttu, puuhkalakki, karvanuttu.
