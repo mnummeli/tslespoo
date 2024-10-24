@@ -22,6 +22,6 @@ const PORT = process.env.PORT || 3000;
     app.use('/', express.static('static'));
     
     app.listen(PORT, () => {
-	console.log(`Application listening on port ${PORT}`);
+	console.log(`Application listening on port ${PORT}.`);
     });
 })();
