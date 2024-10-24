@@ -1,0 +1,17 @@
+{
+    "name": "express-example",
+    "version": "1.0.0",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+	"start": "node main.js",
+	"test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "Mikko Nummelin",
+    "license": "ISC",
+    "description": "Express-example for testing Eclipse IDE Node.js plugins",
+    "dependencies": {
+	"express": "^4.21.1"
+    }
+}
