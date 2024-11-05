@@ -7,12 +7,15 @@
         "start": "node ./server.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "keywords": ["TSL", "express"],
+    "keywords": [
+        "TSL",
+        "express"
+    ],
     "author": "TSL:n Espoon ja Kauniaisten opintojärjestö",
     "repository": "http://github.com/mnummeli/tslespoo.git",
     "license": "ISC",
     "dependencies": {
-        "date-format": "^3.0.0",
-        "express": "^4.17.1"
+        "date-format": "^4.0.14",
+        "express": "^4.21.1"
     }
 }
