@@ -9,6 +9,6 @@
     },
     "dependencies": {
         "bunyan": "^1.8.14",
-        "express": "^4.17.3"
+        "express": "^4.20.0"
     }
 }
