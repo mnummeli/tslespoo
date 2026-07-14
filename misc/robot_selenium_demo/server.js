@@ -8,15 +8,15 @@ const PORT = 3000;
 
 function app(req, res) {
   if(req.method === 'GET') {
-    if(req.url === '/favicon.ico') {
+    if(req.url.endsWith('/favicon.ico')) {
       res.writeHead(200, { 'Content-Type': 'image/x-icon' });
       const favicon = fs.readFileSync('favicon.ico');
       res.end(favicon);
-    } else if(req.url === '/app.css') {
+    } else if(req.url.endsWith('/app.css')) {
       res.writeHead(200, { 'Content-Type': 'text/css' });
       const css = fs.readFileSync('app.css', 'utf8');
       res.end(css);
-    } else if(req.url === '/app.js') {
+    } else if(req.url.endsWith('/app.js')) {
       res.writeHead(200, { 'Content-Type': 'text/javascript' });
       const js = fs.readFileSync('app.js', 'utf8');
       res.end(js);
